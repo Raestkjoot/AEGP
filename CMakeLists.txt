@@ -8,5 +8,6 @@ project(Hello)
 add_subdirectory(Engine)
 
 # Build executable
-add_executable(Hello "Game/Source/main.cpp")
+file(GLOB_RECURSE GameSource "Game/Source/*.cpp" "Game/Source/*.h")
+add_executable(Hello "Game/Source/Main.cpp" ${GameSource})
 target_link_libraries(Hello Engine)

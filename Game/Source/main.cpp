@@ -1,5 +1,7 @@
-#include "Logger.h"
+#include "TestbedApplication.h"
+
 
 int main() {
-	Logger::Print("Hello, world!");
+	TestbedApplication testbed;
+	testbed.Run();
 }
