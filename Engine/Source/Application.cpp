@@ -1,5 +1,7 @@
 #include "Application.h"
 
+#include <glad\glad.h>
+
 Application::Application(int width, int height, const char* title) {
 	//TODO: Initialize window
 }
