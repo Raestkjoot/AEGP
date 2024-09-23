@@ -1,5 +1,7 @@
 #pragma once
 
+class GLFWwindow;
+
 class Application {
 public:
 	Application(int width, int height, const char* title);
@@ -15,5 +17,5 @@ protected:
 	virtual void Cleanup() = 0;
 
 private:
-	bool _isRunning = true;
+	GLFWwindow* _window;
 };
