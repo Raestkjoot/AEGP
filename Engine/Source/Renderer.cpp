@@ -1,4 +1,5 @@
 #include "Renderer.h"
+#include "Renderer.h"
 
 #include "Window.h"
 #include "Logger.h"
@@ -12,4 +13,9 @@ Renderer::Renderer() {
 		Logger::PrintError("Failed to initialize GLAD");
 		return;
 	}
+}
+
+void Renderer::Render() {
+	glClearColor(0.2f, 0.3f, 0.3f, 1.0f);
+	glClear(GL_COLOR_BUFFER_BIT);
 }

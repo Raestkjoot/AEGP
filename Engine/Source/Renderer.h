@@ -8,6 +8,8 @@ class Renderer {
 public:
 	Renderer::Renderer();
 
+	void Render();
+
 private:
 	Window* _window = nullptr;
 };

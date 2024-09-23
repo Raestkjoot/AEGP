@@ -11,11 +11,11 @@ void TestbedApplication::Initialize() {
 }
 
 void TestbedApplication::Update() {
-
+	
 }
 
 void TestbedApplication::Render() {
-
+	Application::Render();
 }
 
 void TestbedApplication::Cleanup() {

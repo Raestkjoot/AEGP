@@ -23,6 +23,10 @@ void Application::Run() {
 	Cleanup();
 }
 
+void Application::Render() {
+	_renderer.Render();
+}
+
 bool Application::IsRunning() const {
 	return !_window.ShouldClose();
 }
