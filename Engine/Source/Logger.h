@@ -6,7 +6,7 @@
 
 class Logger {
 public:
-	enum Level {
+	enum class Level {
 		Trace = SPDLOG_LEVEL_TRACE,
 		Debug = SPDLOG_LEVEL_DEBUG,
 		Warning = SPDLOG_LEVEL_WARN,
