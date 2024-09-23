@@ -44,6 +44,8 @@ namespace Logger {
 	}
 
 	inline void SetLevel(Level level) {
+		// Default log level is Info
+		// Anything below the log level will be ignored, so you can control how much detail you want to log
 		spdlog::set_level(static_cast<spdlog::level::level_enum>(level));
 	}
 }
