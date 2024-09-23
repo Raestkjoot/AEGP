@@ -1,6 +1,7 @@
 #pragma once
 
-class GLFWwindow;
+#include "Window.h"
+#include "Renderer.h"
 
 class Application {
 public:
@@ -17,5 +18,6 @@ protected:
 	virtual void Cleanup() = 0;
 
 private:
-	GLFWwindow* _window;
+	Window _window;
+	Renderer _renderer;
 };
