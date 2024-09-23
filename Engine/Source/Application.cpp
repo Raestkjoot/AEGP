@@ -2,12 +2,12 @@
 
 #include "Window.h"
 #include "Renderer.h"
-
-#include <iostream>
+#include "Logger.h"
 
 Application::Application(int width, int height, const char* title)
 	: _window(width, height, title) {
 	_renderer = Renderer();
+	Logger::SetLogLevel(Logger::Debug);
 }
 
 void Application::Run() {

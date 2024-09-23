@@ -1,8 +1,8 @@
 #include "Window.h"
 
-#include <GLFW/glfw3.h>
+#include "Logger.h"
 
-#include <iostream>
+#include <GLFW/glfw3.h>
 
 Window::Window(int width, int height, const char* title) {
 	glfwInit();
@@ -15,7 +15,7 @@ Window::Window(int width, int height, const char* title) {
 
 	_window = glfwCreateWindow(width, height, title, NULL, NULL);
 	if (_window == NULL) {
-		std::cout << "Failed to create GLFW window" << std::endl;
+		Logger::PrintError("Failed to create GLFW window");
 		return;
 	}
 
