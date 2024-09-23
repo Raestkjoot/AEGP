@@ -4,11 +4,11 @@
 
 #include <string>
 
-class Logger {
-public:
+namespace Logger {
 	enum class Level {
 		Trace = SPDLOG_LEVEL_TRACE,
 		Debug = SPDLOG_LEVEL_DEBUG,
+		Info = SPDLOG_LEVEL_INFO,
 		Warning = SPDLOG_LEVEL_WARN,
 		Error = SPDLOG_LEVEL_ERROR
 	};
@@ -20,7 +20,7 @@ public:
 
 	template <typename... Args>
 	inline static void Print(std::string message, Args... args) {
-		Print(Level::Debug, message, std::forward<Args>(args)...);
+		Print(Level::Info, message, std::forward<Args>(args)...);
 	}
 
 	template <typename... Args>
@@ -43,7 +43,7 @@ public:
 		Print(Level::Error, message, std::forward<Args>(args)...);
 	}
 
-	inline static void SetLogLevel(Level level) {
+	inline static void SetLevel(Level level) {
 		spdlog::set_level(static_cast<spdlog::level::level_enum>(level));
 	}
-};
+}
