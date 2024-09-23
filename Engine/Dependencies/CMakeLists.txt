@@ -1,18 +1,15 @@
 project(EngineDependencies)
 
-add_subdirectory(spdlog)
+add_subdirectory(glad)
+add_subdirectory(glfw)
 add_subdirectory(glm)
-add_subdirectory(SDL)
+add_subdirectory(spdlog)
 
 add_library(${PROJECT_NAME} INTERFACE)
 
-include_directories(${PROJECT_NAME} INTERFACE "SDL/include")
-target_link_directories(${PROJECT_NAME} INTERFACE "$SDL/lib/x64")
-target_link_libraries(${PROJECT_NAME} INTERFACE SDL2 SDL2main)
-
 target_link_libraries(${PROJECT_NAME} INTERFACE
-	spdlog
+	glad
+	glfw
 	glm
-	SDL2
-	SDL2main
+	spdlog
 )
