@@ -1,30 +1,10 @@
-#include "Renderer.h"
-#include "Renderer.h"
+#include "SpriteRenderPass.h"
 
-#include "Window.h"
+#include "Renderer.h"
 #include "Logger.h"
 
-#include <glad/glad.h>
-#include <GLFW/glfw3.h>
-
-Renderer::Renderer() {
-	// Initialize glad
-	if (!gladLoadGLLoader((GLADloadproc)glfwGetProcAddress)) {
-		Logger::PrintError("Failed to initialize GLAD");
-		return;
-	}
-}
-
-void Renderer::Render() {
-	glClearColor(0.2f, 0.3f, 0.3f, 1.0f);
-	glClear(GL_COLOR_BUFFER_BIT);
-
-	// Setup vertices in vbo
-	GLuint vbo;
-	glGenBuffers(1, &vbo);
-	glBindBuffer(GL_ARRAY_BUFFER, vbo);
-	glBufferData(GL_ARRAY_BUFFER, sizeof(_vertices), _vertices, GL_STATIC_DRAW);
-
+void SpriteRenderPass::Init() {
+	#pragma region Shaders
 	// vertex shader
 	const char* vertexShaderSource = "#version 330 core\n"
 		"layout (location = 0) in vec3 aPos;\n"
@@ -66,36 +46,63 @@ void Renderer::Render() {
 	}
 
 	// Compile and use shader program
-	unsigned int shaderProgram;
-	shaderProgram = glCreateProgram();
-	glAttachShader(shaderProgram, vertexShader);
-	glAttachShader(shaderProgram, fragmentShader);
-	glLinkProgram(shaderProgram);
-	glGetProgramiv(shaderProgram, GL_LINK_STATUS, &success);
+	_shaderProgram = glCreateProgram();
+	glAttachShader(_shaderProgram, vertexShader);
+	glAttachShader(_shaderProgram, fragmentShader);
+	glLinkProgram(_shaderProgram);
+	glGetProgramiv(_shaderProgram, GL_LINK_STATUS, &success);
 	if (!success) {
-		glGetProgramInfoLog(shaderProgram, 512, NULL, infoLog);
+		glGetProgramInfoLog(_shaderProgram, 512, NULL, infoLog);
 		Logger::PrintError("ERROR::SHADER_PROGRAM::LINKING_FAILED\n{}", infoLog);
 	}
-	glUseProgram(shaderProgram);
 	glDeleteShader(vertexShader);
 	glDeleteShader(fragmentShader);
+	#pragma endregion Shaders
+}
+
+void SpriteRenderPass::Render() {
+	glUseProgram(_shaderProgram);
+
+	// VBO
+	GLuint vbo;
+	glGenBuffers(1, &vbo);
+	glBindBuffer(GL_ARRAY_BUFFER, vbo);
+	glBufferData(GL_ARRAY_BUFFER, _vertices.size() * sizeof(_vertices), &_vertices[0], GL_STATIC_DRAW);
 
 	// VAO
-	unsigned int VAO;
-	glGenVertexArrays(1, &VAO);
-	glBindVertexArray(VAO);
-	// Setup VBO and VAO data
-	glBufferData(GL_ARRAY_BUFFER, sizeof(_vertices), _vertices, GL_STATIC_DRAW);
+	unsigned int vao;
+	glGenVertexArrays(1, &vao);
+	glBindVertexArray(vao);
+	glBufferData(GL_ARRAY_BUFFER, _vertices.size() * sizeof(_vertices), &_vertices[0], GL_STATIC_DRAW);
 	glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 3 * sizeof(float), (void*)0);
 	glEnableVertexAttribArray(0);
 
 	// EBO
-	unsigned int EBO;
-	glGenBuffers(1, &EBO);
-	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, EBO);
-	// Bind to GL_ELEMENT_ARRAY_BUFFER instead of GL_ARRAY_BUFFER
-	glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(_indices), _indices, GL_STATIC_DRAW);
-	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, EBO);
+	unsigned int ebo;
+	glGenBuffers(1, &ebo);
+	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, ebo);
+	glBufferData(GL_ELEMENT_ARRAY_BUFFER, _indices.size() * sizeof(_indices), &_indices[0], GL_STATIC_DRAW);
+	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, ebo);
 
+	// Drawcall
 	glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, 0);
+}
+
+int16_t SpriteRenderPass::AddSprite()
+{
+	_vertices.push_back({ 0.125f, 0.125f, 0.0f }); // top right
+	_vertices.push_back({ 0.125f, -0.125f, 0.0f }); // bottom right
+	_vertices.push_back({ -0.125f, -0.125f, 0.0f }); // bottom left
+	_vertices.push_back({ -0.125f,  0.125f, 0.0f }); // top left 
+
+	// Triangle 1
+	_indices.push_back(_curTopIndex + 1);
+	_indices.push_back(_curTopIndex + 2);
+	_indices.push_back(_curTopIndex + 4);
+	// Triangle 2
+	_indices.push_back(_curTopIndex + 2);
+	_indices.push_back(_curTopIndex + 3);
+	_indices.push_back(_curTopIndex += 4);
+
+	return 0;
 }

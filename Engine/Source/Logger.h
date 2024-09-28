@@ -5,7 +5,7 @@
 #include <string>
 
 namespace Logger {
-	enum class Level {
+	enum class Level : int {
 		Trace = SPDLOG_LEVEL_TRACE,
 		Debug = SPDLOG_LEVEL_DEBUG,
 		Info = SPDLOG_LEVEL_INFO,

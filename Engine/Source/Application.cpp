@@ -1,12 +1,11 @@
 #include "Application.h"
 
 #include "Window.h"
-#include "Renderer.h"
+#include "Renderer/Renderer.h"
 #include "Logger.h"
 
 Application::Application(int width, int height, const char* title)
-	: _window(width, height, title) {
-	_renderer = Renderer();
+	: _window(width, height, title), _renderer() {
 }
 
 void Application::Run() {
