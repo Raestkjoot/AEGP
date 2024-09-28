@@ -11,7 +11,7 @@ class Window;
 
 class Renderer {
 public:
-	Renderer::Renderer();
+	Renderer();
 
 	void Render();
     void AddRenderPass(std::unique_ptr<RenderPass> pass);

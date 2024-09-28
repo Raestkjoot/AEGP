@@ -8,6 +8,8 @@
 
 class SpriteRenderPass : public RenderPass {
 public:
+	SpriteRenderPass();
+
 	void Init() override;
 	void Render() override;
 
@@ -18,4 +20,5 @@ private:
 	std::vector<int> _indices;
 	int _curTopIndex = -1;
 	unsigned int _shaderProgram;
+	unsigned int _vbo, _vao, _ebo;
 };
