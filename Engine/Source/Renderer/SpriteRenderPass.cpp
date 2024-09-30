@@ -3,6 +3,9 @@
 #include "Renderer.h"
 #include "Logger.h"
 
+#define STB_IMAGE_IMPLEMENTATION
+#include <stb_image.h>
+
 #include <vector>
 
 #define NUM_OF_VERTS 6
@@ -62,12 +65,30 @@ void SpriteRenderPass::Init() {
 
 	#pragma region QuadInfoBuffer
 	
-	// TODO
+	glGenTextures(1, &_texture);
+	glBindTexture(GL_TEXTURE_2D, _texture); // all upcoming GL_TEXTURE_2D operations now have effect on this texture object
+	// set the texture wrapping parameters
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);	// set texture wrapping to GL_REPEAT (default wrapping method)
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
+	// set texture filtering parameters
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR_MIPMAP_LINEAR);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+	// load image, create texture and generate mipmaps
+	int width, height, nrChannels;
+	unsigned char* data = stbi_load("Engine/Shaders/DefaultTexture.png", &width, &height, &nrChannels, 0);
+	if (data) {
+		glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, width, height, 0, GL_RGB, GL_UNSIGNED_BYTE, data);
+		glGenerateMipmap(GL_TEXTURE_2D);
+	} else {
+		Logger::PrintError("Failed to load texture");
+	}
+	stbi_image_free(data);
 
 	#pragma endregion QuadIDBuffer
 }
 
 void SpriteRenderPass::Render() {
+	glBindTexture(GL_TEXTURE_2D, _texture);
 	_shader.Use();
 	glBindVertexArray(_vao);
 

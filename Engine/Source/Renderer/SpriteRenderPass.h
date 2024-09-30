@@ -30,5 +30,6 @@ private:
 
 	unsigned int _vao = 0;
 	unsigned int _quadInfoBuffer = 0;
+	unsigned int _texture;
 	Shader _shader;
 };
