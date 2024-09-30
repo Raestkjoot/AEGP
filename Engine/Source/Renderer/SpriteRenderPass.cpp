@@ -1,11 +1,9 @@
 #include "SpriteRenderPass.h"
-#include "SpriteRenderPass.h"
-
-#define GLM_ENABLE_EXPERIMENTAL
-#include <glm/gtx/string_cast.hpp>
 
 #include "Renderer.h"
 #include "Logger.h"
+
+#include <vector>
 
 #define NUM_OF_VERTS 6
 
@@ -83,12 +81,14 @@ void SpriteRenderPass::Init() {
 	};
 
 	std::vector<Vertex> vertices;
-	vertices.resize(_maxNumSprites * NUM_OF_VERTS);
+	vertices.reserve(_maxNumSprites * NUM_OF_VERTS);
 
 	for (unsigned int quadIter = 0; quadIter < _maxNumSprites; ++quadIter) {
 		for (unsigned int vertIter = 0; vertIter < NUM_OF_VERTS; ++vertIter) {
-			vertices[quadIter * NUM_OF_VERTS + vertIter].position = quadVertexPositions[vertIter];
-			vertices[quadIter * NUM_OF_VERTS + vertIter].quadID = quadIter;
+			vertices.emplace_back(
+				quadVertexPositions[vertIter],
+				quadIter
+			);
 		}
 	}
 

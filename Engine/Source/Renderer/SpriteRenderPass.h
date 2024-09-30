@@ -4,8 +4,6 @@
 
 #include <glm/glm.hpp>
 
-#include <vector>
-
 class SpriteRenderPass : public RenderPass {
 public:
 	SpriteRenderPass(unsigned int maxNumSprites = 1000);
@@ -20,6 +18,10 @@ private:
 	{
 		glm::vec2 position;
 		unsigned int quadID;
+
+		Vertex(const glm::vec2& position, unsigned int quadID) : 
+			position(position), 
+			quadID(quadID) { }
 	};
 
 	unsigned int _maxNumSprites;
