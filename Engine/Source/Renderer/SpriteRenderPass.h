@@ -8,17 +8,24 @@
 
 class SpriteRenderPass : public RenderPass {
 public:
-	SpriteRenderPass();
+	SpriteRenderPass(unsigned int maxNumSprites = 1000);
 
 	void Init() override;
 	void Render() override;
 
-	int16_t AddSprite();
+	unsigned int AddSprite();
 
 private:
-	std::vector<glm::vec3> _vertices;
-	std::vector<int> _indices;
-	int _curTopIndex = -1;
-	unsigned int _shaderProgram;
-	unsigned int _vbo, _vao, _ebo;
+	struct Vertex
+	{
+		glm::vec2 position;
+		unsigned int quadID;
+	};
+
+	unsigned int _maxNumSprites;
+	unsigned int _curNumSprites = 0;
+
+	unsigned int _vao = 0;
+	unsigned int _shaderProgram = 0;
+	unsigned int _quadInfoBuffer = 0;
 };
