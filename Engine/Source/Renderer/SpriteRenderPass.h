@@ -1,6 +1,7 @@
 #pragma once
 
 #include "RenderPass.h"
+#include "Shader.h"
 
 #include <glm/glm.hpp>
 
@@ -28,6 +29,6 @@ private:
 	unsigned int _curNumSprites = 0;
 
 	unsigned int _vao = 0;
-	unsigned int _shaderProgram = 0;
 	unsigned int _quadInfoBuffer = 0;
+	Shader _shader;
 };

@@ -11,63 +11,7 @@ SpriteRenderPass::SpriteRenderPass(unsigned int maxNumSprites)
 	: _maxNumSprites(maxNumSprites) { }
 
 void SpriteRenderPass::Init() {
-	#pragma region Shaders
-	// vertex shader
-	const char* vertexShaderSource = 
-		"#version 330 core\n"
-		"layout (location = 0) in vec2 Pos;\n"
-		"layout (location = 1) in uint QuadID;\n"
-		"void main()\n"
-		"{\n"
-		"   gl_Position = vec4(Pos, 0.5, 1.0);\n"
-		"}\0";
-	unsigned int vertexShader;
-	vertexShader = glCreateShader(GL_VERTEX_SHADER);
-	glShaderSource(vertexShader, 1, &vertexShaderSource, NULL);
-	glCompileShader(vertexShader);
-	// check frag shader compile errors
-	int  success;
-	char infoLog[512];
-	glGetShaderiv(vertexShader, GL_COMPILE_STATUS, &success);
-	if (!success)
-	{
-		glGetShaderInfoLog(vertexShader, 512, NULL, infoLog);
-		Logger::PrintError("ERROR::SHADER::VERTEX::COMPILATION_FAILED\n{}", infoLog);
-	}
-
-	// Fragment shader
-	const char* fragmentShaderSource = 
-		"#version 330 core\n"
-		"out vec4 FragColor;\n"
-		"void main()\n"
-		"{\n"
-		"   FragColor = vec4(1.0f, 0.5f, 0.2f, 1.0f);\n"
-		"}\n\0";
-	unsigned int fragmentShader;
-	fragmentShader = glCreateShader(GL_FRAGMENT_SHADER);
-	glShaderSource(fragmentShader, 1, &fragmentShaderSource, NULL);
-	glCompileShader(fragmentShader);
-	// check for shader compile errors
-	glGetShaderiv(fragmentShader, GL_COMPILE_STATUS, &success);
-	if (!success)
-	{
-		glGetShaderInfoLog(fragmentShader, 512, NULL, infoLog);
-		Logger::PrintError("ERROR::SHADER::FRAGMENT::COMPILATION_FAILED\n{}", infoLog);
-	}
-
-	// Compile and use shader program
-	_shaderProgram = glCreateProgram();
-	glAttachShader(_shaderProgram, vertexShader);
-	glAttachShader(_shaderProgram, fragmentShader);
-	glLinkProgram(_shaderProgram);
-	glGetProgramiv(_shaderProgram, GL_LINK_STATUS, &success);
-	if (!success) {
-		glGetProgramInfoLog(_shaderProgram, 512, NULL, infoLog);
-		Logger::PrintError("ERROR::SHADER_PROGRAM::LINKING_FAILED\n{}", infoLog);
-	}
-	glDeleteShader(vertexShader);
-	glDeleteShader(fragmentShader);
-	#pragma endregion Shaders
+	_shader.Load("Engine/Shaders/Sprite.vert", "Engine/Shaders/Sprite.frag");
 
 	#pragma region VertexArray
 	// Generate vertices for the max number of quads
@@ -124,7 +68,7 @@ void SpriteRenderPass::Init() {
 }
 
 void SpriteRenderPass::Render() {
-	glUseProgram(_shaderProgram);
+	_shader.Use();
 	glBindVertexArray(_vao);
 
 	// Drawcall
