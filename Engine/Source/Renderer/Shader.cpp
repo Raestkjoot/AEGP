@@ -1,4 +1,5 @@
 #include "Shader.h"
+#include "Shader.h"
 
 #include "Logger.h"
 #include "Renderer/Renderer.h"
@@ -71,4 +72,8 @@ void Shader::Load(const char* vertexPath, const char* fragmentPath) {
 
 void Shader::Use() {
 	glUseProgram(_id);
+}
+
+unsigned int Shader::GetID() {
+	return _id;
 }

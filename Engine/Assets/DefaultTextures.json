@@ -1,0 +1,28 @@
+{"frames": [
+
+{
+	"filename": "DefaultSquare.png",
+	"frame": {"x":0,"y":0,"w":256,"h":256}
+},
+{
+	"filename": "DefaultCircle.png",
+	"frame": {"x":256,"y":0,"w":256,"h":256}
+},
+{
+	"filename": "DefaultOutlineSquare.png",
+	"frame": {"x":0,"y":256,"w":256,"h":256}
+},
+{
+	"filename": "DefaultOutlineCircle.png",
+	"frame": {"x":256,"y":256,"w":256,"h":256}
+}],
+"meta": {
+	"app": "https://www.codeandweb.com/texturepacker",
+	"version": "1.0",
+	"image": "DefaultTextures.png",
+	"format": "RGBA8888",
+	"size": {"w":512,"h":512},
+	"scale": "1",
+	"smartupdate": "$TexturePacker:SmartUpdate:885b4cbb5a177cb4cc341ac52fa5aadb:5e8ea7f77d29ceffd763f99d9e61d5ae:75bb0f2205f5e0a6ca7aee747b259b13$"
+}
+}

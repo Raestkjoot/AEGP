@@ -15,8 +15,7 @@ public:
 	unsigned int AddSprite();
 
 private:
-	struct Vertex
-	{
+	struct Vertex {
 		glm::vec2 position;
 		unsigned int quadID;
 
@@ -29,7 +28,16 @@ private:
 	unsigned int _curNumSprites = 0;
 
 	unsigned int _vao = 0;
-	unsigned int _quadInfoBuffer = 0;
 	unsigned int _texture;
 	Shader _shader;
+
+	unsigned char* _quadInfoBuffer = nullptr;
+	unsigned int _uniformBuffer = 0;
+	unsigned int _blockSize = 0;
+
+	struct {
+		int transform;
+		int texCoords;
+		int texWidthHeight;
+	} _quadInfoOffsets;
 };
