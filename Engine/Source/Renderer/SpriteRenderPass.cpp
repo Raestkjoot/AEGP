@@ -11,7 +11,7 @@
 #define NUM_OF_VERTS 6
 #define NUM_OF_INFO_VARS 3
 
-SpriteRenderPass::SpriteRenderPass(unsigned int maxNumSprites) 
+SpriteRenderPass::SpriteRenderPass(unsigned int maxNumSprites)
 	: _maxNumSprites(maxNumSprites) { }
 
 void SpriteRenderPass::Init() {
@@ -76,9 +76,10 @@ void SpriteRenderPass::Init() {
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
 	// load image, create texture and generate mipmaps
 	int width, height, nrChannels;
+	stbi_set_flip_vertically_on_load(true);
 	unsigned char* data = stbi_load("Engine/Assets/DefaultTextures.png", &width, &height, &nrChannels, 0);
 	if (data) {
-		glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, width, height, 0, GL_RGB, GL_UNSIGNED_BYTE, data);
+		glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, width, height, 0, GL_RGBA, GL_UNSIGNED_BYTE, data);
 		glGenerateMipmap(GL_TEXTURE_2D);
 	} else {
 		Logger::PrintError("Failed to load texture");
@@ -89,28 +90,9 @@ void SpriteRenderPass::Init() {
 
 	#pragma region QuadInfoBuffer
 	
-	GLuint blockIndex = glGetUniformBlockIndex(_shader.GetID(), "QuadInfo");
-	glUniformBlockBinding(_shader.GetID(), 0, blockIndex);
-	glGetActiveUniformBlockiv(_shader.GetID(), blockIndex, GL_UNIFORM_BLOCK_DATA_SIZE, &static_cast<GLint>(_blockSize));
-
-	_quadInfoBuffer = (GLubyte*)malloc(_blockSize);
-
-	const GLchar* names[] = {
-		"Transform",
-		"TexCoords",
-		"TexWidthHeight"
-	};
-	GLuint indices[NUM_OF_INFO_VARS] = { 0 };
-	glGetUniformIndices(_shader.GetID(), NUM_OF_INFO_VARS, names, indices);
-
-	GLint offsets[NUM_OF_INFO_VARS];
-	glGetActiveUniformsiv(_shader.GetID(), NUM_OF_INFO_VARS, indices, GL_UNIFORM_OFFSET, offsets);
-
-	_quadInfoOffsets.transform = offsets[0];
-	_quadInfoOffsets.texCoords = offsets[1];
-	_quadInfoOffsets.texWidthHeight = offsets[2];
-
-	glGenBuffers(1, &_uniformBuffer);
+	glGenBuffers(1, &_ubo);
+	glBindBufferBase(GL_UNIFORM_BUFFER, 0, _ubo);
+	glBufferData(GL_UNIFORM_BUFFER, sizeof(Sprite) * _maxNumSprites, NULL, GL_DYNAMIC_DRAW);
 
 	#pragma endregion QuadIDBuffer
 }
@@ -120,14 +102,19 @@ void SpriteRenderPass::Render() {
 	_shader.Use();
 	glBindVertexArray(_vao);
 
-	glBindBuffer(GL_UNIFORM_BUFFER, _uniformBuffer);
-	glBufferData(GL_UNIFORM_BUFFER, _blockSize, _quadInfoBuffer, GL_DYNAMIC_DRAW);
-	glBindBufferBase(GL_UNIFORM_BUFFER, 0, _uniformBuffer);
+	glBindBufferBase(GL_UNIFORM_BUFFER, 0, _ubo);
+	glBufferSubData(GL_UNIFORM_BUFFER, 0, _curNumSprites * sizeof(Sprite), &_sprites[0]);
 
 	// Drawcall
 	glDrawArrays(GL_TRIANGLES, 0, _curNumSprites * NUM_OF_VERTS);
 }
 
 unsigned int SpriteRenderPass::AddSprite() {
+	_sprites.emplace_back(
+		//glm::vec2(0.0f, 0.0f),
+		glm::vec2(256.0f, 256.0f)//,
+		//glm::vec2(0.5f, 0.5f)
+	);
+
 	return _curNumSprites++;
 }

@@ -23,6 +23,18 @@ private:
 			position(position), 
 			quadID(quadID) { }
 	};
+	struct Sprite {
+		//glm::vec2 texBaseCoords;
+		glm::vec2 texWidthHeight;
+		//glm::vec2 offset;
+
+		Sprite(/*const glm::vec2& texBaseCoords,*/ const glm::vec2& texWidthHeight/*, const glm::vec2& offset*/) :
+			//texBaseCoords(texBaseCoords),
+			texWidthHeight(texWidthHeight)//,
+			/*offset(offset)*/ { }
+	};
+
+	std::vector<Sprite> _sprites;
 
 	unsigned int _maxNumSprites;
 	unsigned int _curNumSprites = 0;
@@ -31,13 +43,15 @@ private:
 	unsigned int _texture;
 	Shader _shader;
 
-	unsigned char* _quadInfoBuffer = nullptr;
-	unsigned int _uniformBuffer = 0;
-	unsigned int _blockSize = 0;
+	unsigned int _ubo = 0;
 
-	struct {
-		int transform;
-		int texCoords;
-		int texWidthHeight;
-	} _quadInfoOffsets;
+	//unsigned char* _quadInfoBuffer = nullptr;
+	//unsigned int _uniformBuffer = 0;
+	//unsigned int _blockSize = 0;
+
+	//struct {
+	//	int texBaseCoords;
+	//	int texWidthHeight;
+	//	int Offset;
+	//} _quadInfoOffsets;
 };

@@ -4,17 +4,23 @@ layout (location = 0) in vec2 Pos;
 layout (location = 1) in uint QuadID;
 
 #define MAX_QUADS 100
-uniform QuadInfo {
-	mat3x3 Transform[MAX_QUADS];
-	vec2 TexCoords[MAX_QUADS];
+layout (std140) uniform QuadInfo {
+	//vec2 TexBaseCoords[MAX_QUADS];
 	vec2 TexWidthHeight[MAX_QUADS];
-	// TODO: Might add a vec2 anchor - or a 6 option anchor using a byte maybe.
+	//vec2 Offset[MAX_QUADS];
+	//mat3x3 Transform[MAX_QUADS]; // Padding might be bad here https://registry.khronos.org/OpenGL/extensions/ARB/ARB_uniform_buffer_object.txt
 };
 
-out vec2 TexCoord;
+//uniform ivec2 WindowSize;
+//#define WindowSize vec2(512, 512)
+
+out vec2 TexCoords;
 
 void main() {
-	vec2 ScaledPosition = Pos * TexWidthHeight[QuadID];
-   gl_Position = vec4(ScaledPosition, 0.5, 1.0);
-   TexCoord = TexCoords[QuadID] + ScaledPosition;
+   TexCoords = (Pos * TexWidthHeight[QuadID] + vec2(0, 256)) / 512; // TexBaseCoords[QuadID] + 
+   gl_Position = vec4(Pos, 0.5f, 1.0f);
+//   vec2 basePos = Pos + Offset[QuadID] * TexWidthHeight[QuadID];
+//   // TODO: Transformed position
+//   vec2 ndcPos = 2 * basePos / WindowSize - 1;
+//   gl_Position = vec4(ndcPos, 0.5, 1.0);
 }
