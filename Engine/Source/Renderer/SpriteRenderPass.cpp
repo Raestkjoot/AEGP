@@ -5,11 +5,13 @@
 
 #define STB_IMAGE_IMPLEMENTATION
 #include <stb_image.h>
+#define GLM_ENABLE_EXPERIMENTAL
+#include <glm/gtx/matrix_transform_2d.hpp>
 
 #include <vector>
 
 #define NUM_OF_VERTS 6
-#define NUM_OF_INFO_VARS 3
+#define UBO_INDEX 0
 
 SpriteRenderPass::SpriteRenderPass(unsigned int maxNumSprites)
 	: _maxNumSprites(maxNumSprites) { }
@@ -90,11 +92,13 @@ void SpriteRenderPass::Init() {
 
 	#pragma region QuadInfoBuffer
 	
-	glGenBuffers(1, &_ubo);
-	glBindBufferBase(GL_UNIFORM_BUFFER, 0, _ubo);
-	glBufferData(GL_UNIFORM_BUFFER, sizeof(Sprite) * _maxNumSprites, NULL, GL_DYNAMIC_DRAW);
+	glGenBuffers(1, &_quadInfoUbo);
+	glBindBufferBase(GL_UNIFORM_BUFFER, UBO_INDEX, _quadInfoUbo);
+	glBufferData(GL_UNIFORM_BUFFER, sizeof(SpriteData) * _maxNumSprites, NULL, GL_DYNAMIC_DRAW);
 
-	#pragma endregion QuadIDBuffer
+	_sprites.reserve(_maxNumSprites);
+
+	#pragma endregion QuadInfoBuffer
 }
 
 void SpriteRenderPass::Render() {
@@ -102,18 +106,19 @@ void SpriteRenderPass::Render() {
 	_shader.Use();
 	glBindVertexArray(_vao);
 
-	glBindBufferBase(GL_UNIFORM_BUFFER, 0, _ubo);
-	glBufferSubData(GL_UNIFORM_BUFFER, 0, _curNumSprites * sizeof(Sprite), &_sprites[0]);
+	glBindBufferBase(GL_UNIFORM_BUFFER, UBO_INDEX, _quadInfoUbo);
+	glBufferSubData(GL_UNIFORM_BUFFER, UBO_INDEX, _sprites.size() * sizeof(SpriteData), &_sprites[0]);
 
 	// Drawcall
 	glDrawArrays(GL_TRIANGLES, 0, _curNumSprites * NUM_OF_VERTS);
 }
 
 unsigned int SpriteRenderPass::AddSprite() {
+	glm::mat3x3 trans = glm::translate(glm::mat3x3(1.0f), glm::vec2(-0.5f, -0.5f));
 	_sprites.emplace_back(
-		//glm::vec2(0.0f, 0.0f),
-		glm::vec2(256.0f, 256.0f)//,
-		//glm::vec2(0.5f, 0.5f)
+		glm::vec2(256.0f, 256.0f),
+		glm::vec2(0.0f, 256.0f),
+		trans
 	);
 
 	return _curNumSprites++;
