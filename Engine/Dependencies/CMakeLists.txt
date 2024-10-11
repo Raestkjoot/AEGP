@@ -1,5 +1,6 @@
 project(EngineDependencies)
 
+add_subdirectory(EnTT)
 add_subdirectory(glad)
 add_subdirectory(glfw)
 add_subdirectory(glm)
@@ -14,4 +15,5 @@ target_link_libraries(${PROJECT_NAME} INTERFACE
 	glm
 	spdlog
 	stb
+	EnTT::EnTT
 )

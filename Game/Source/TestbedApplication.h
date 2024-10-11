@@ -1,6 +1,7 @@
 #pragma once
 
 #include "Application.h"
+#include "ECS/Scene.h"
 
 class TestbedApplication : public Application {
 public:
@@ -11,4 +12,7 @@ protected:
 	void Update() override;
 	void Render() override;
 	void Cleanup() override;
+
+private:
+	Scene _mainScene;
 };
