@@ -11,7 +11,7 @@ public:
 	virtual void End() = 0;
 
 protected:
-	void Init(entt::registry* registry);
+	virtual void Init(entt::registry* registry);
 
 	entt::registry* _registry = nullptr;
 };

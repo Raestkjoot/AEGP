@@ -10,6 +10,8 @@ class SpriteRenderPass : public RenderPass {
 public:
 	SpriteRenderPass(unsigned int maxNumSprites = 1000);
 
+	static SpriteRenderPass& GetInstance();
+
 	void Init() override;
 	void Render() override;
 

@@ -15,4 +15,6 @@ protected:
 
 private:
 	Scene _mainScene;
+	bool _testButtonPressed = false;
+	bool _testButtonReleased = false;
 };

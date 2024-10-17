@@ -1,4 +1,5 @@
 #include "SpriteRenderPass.h"
+#include "SpriteRenderPass.h"
 
 #include "Renderer.h"
 #include "Logger.h"
@@ -13,10 +14,20 @@
 #define NUM_OF_VERTS 6
 #define UBO_INDEX 0
 
+static SpriteRenderPass* _instance = nullptr;
+
 SpriteRenderPass::SpriteRenderPass(unsigned int maxNumSprites)
 	: _maxNumSprites(maxNumSprites) { }
 
+SpriteRenderPass& SpriteRenderPass::GetInstance() {
+	assert(_instance);
+	return *_instance;
+}
+
 void SpriteRenderPass::Init() {
+	assert(!_instance);
+	_instance = this;
+
 	_shader.Load("Engine/Assets/Shaders/Sprite.vert", "Engine/Assets/Shaders/Sprite.frag");
 
 	#pragma region VertexArray
