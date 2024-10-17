@@ -1,8 +1,9 @@
-#include "SpriteRenderPass.h"
-#include "SpriteRenderPass.h"
+#include "SpriteRenderer.h"
 
-#include "Renderer.h"
+#include "ECS/Components/Transform.h"
+#include "ECS/Components/Sprite.h"
 #include "Logger.h"
+#include "Renderer/Renderer.h"
 
 #define STB_IMAGE_IMPLEMENTATION
 #include <stb_image.h>
@@ -14,19 +15,53 @@
 #define NUM_OF_VERTS 6
 #define UBO_INDEX 0
 
-static SpriteRenderPass* _instance = nullptr;
-
-SpriteRenderPass::SpriteRenderPass(unsigned int maxNumSprites)
-	: _maxNumSprites(maxNumSprites) { }
-
-SpriteRenderPass& SpriteRenderPass::GetInstance() {
-	assert(_instance);
-	return *_instance;
+SpriteRenderer::SpriteRenderer(unsigned int maxNumSprites) {
+	_maxNumSprites = maxNumSprites;
 }
 
-void SpriteRenderPass::Init() {
-	assert(!_instance);
-	_instance = this;
+void SpriteRenderer::Start() {
+
+}
+
+void SpriteRenderer::Update() {
+	auto view = _registry->view<Transform, Sprite>();
+
+	unsigned int curNumSprites = 0;
+
+	for (auto [entity, transform, sprite] : view.each()) {
+		Logger::Print("Rendering sprite at position {}, {}", transform.position.x, transform.position.y);
+
+		glm::mat3x3 trans = glm::translate(glm::mat3x3(1.0f), glm::vec2(-0.5f, -0.5f));
+		_sprites.emplace_back(
+			sprite.texWidthHeight,
+			sprite.texBaseCoords,
+			trans //GetTransform(transform)
+		);
+
+		curNumSprites++;
+	}
+
+	if (curNumSprites == 0) {
+		return;
+	}
+
+	glBindTexture(GL_TEXTURE_2D, _texture);
+	_shader.Use();
+	glBindVertexArray(_vao);
+
+	glBindBufferBase(GL_UNIFORM_BUFFER, UBO_INDEX, _quadInfoUbo);
+	glBufferSubData(GL_UNIFORM_BUFFER, UBO_INDEX, _sprites.size() * sizeof(SpriteData), &_sprites[0]);
+
+	// Drawcall
+	glDrawArrays(GL_TRIANGLES, 0, curNumSprites * NUM_OF_VERTS);
+}
+
+void SpriteRenderer::End() {
+
+}
+
+void SpriteRenderer::Init(entt::registry* registry) {
+	System::Init(registry);
 
 	_shader.Load("Engine/Assets/Shaders/Sprite.vert", "Engine/Assets/Shaders/Sprite.frag");
 
@@ -94,7 +129,8 @@ void SpriteRenderPass::Init() {
 	if (data) {
 		glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, width, height, 0, GL_RGBA, GL_UNSIGNED_BYTE, data);
 		glGenerateMipmap(GL_TEXTURE_2D);
-	} else {
+	}
+	else {
 		Logger::PrintError("Failed to load texture");
 	}
 	stbi_image_free(data);
@@ -102,7 +138,7 @@ void SpriteRenderPass::Init() {
 	#pragma endregion Texture
 
 	#pragma region QuadInfoBuffer
-	
+
 	glGenBuffers(1, &_quadInfoUbo);
 	glBindBufferBase(GL_UNIFORM_BUFFER, UBO_INDEX, _quadInfoUbo);
 	glBufferData(GL_UNIFORM_BUFFER, sizeof(SpriteData) * _maxNumSprites, NULL, GL_DYNAMIC_DRAW);
@@ -112,25 +148,8 @@ void SpriteRenderPass::Init() {
 	#pragma endregion QuadInfoBuffer
 }
 
-void SpriteRenderPass::Render() {
-	glBindTexture(GL_TEXTURE_2D, _texture);
-	_shader.Use();
-	glBindVertexArray(_vao);
-
-	glBindBufferBase(GL_UNIFORM_BUFFER, UBO_INDEX, _quadInfoUbo);
-	glBufferSubData(GL_UNIFORM_BUFFER, UBO_INDEX, _sprites.size() * sizeof(SpriteData), &_sprites[0]);
-
-	// Drawcall
-	glDrawArrays(GL_TRIANGLES, 0, _curNumSprites * NUM_OF_VERTS);
-}
-
-unsigned int SpriteRenderPass::AddSprite() {
-	glm::mat3x3 trans = glm::translate(glm::mat3x3(1.0f), glm::vec2(-0.5f, -0.5f));
-	_sprites.emplace_back(
-		glm::vec2(256.0f, 256.0f),
-		glm::vec2(0.0f, 256.0f),
-		trans
-	);
-
-	return _curNumSprites++;
+glm::mat3x4 SpriteRenderer::GetTransform(Transform transform) {
+	return glm::translate(glm::mat3x3(1.0f), transform.position)
+			* glm::rotate(glm::mat3x3(1.0f), glm::radians(transform.rotation))
+			* glm::scale(glm::mat3x3(1.0f), transform.scale);
 }

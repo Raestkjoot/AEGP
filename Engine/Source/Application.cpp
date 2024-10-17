@@ -16,14 +16,9 @@ void Application::Run() {
 
 		// TODO
 		Update();
-		Render();
 	}
 
 	Cleanup();
-}
-
-void Application::Render() {
-	_renderer.Render();
 }
 
 bool Application::IsRunning() const {

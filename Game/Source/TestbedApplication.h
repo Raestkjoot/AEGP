@@ -10,7 +10,6 @@ public:
 protected:
 	void Initialize() override;
 	void Update() override;
-	void Render() override;
 	void Cleanup() override;
 
 private:
