@@ -29,23 +29,7 @@ void TestbedApplication::Initialize() {
 }
 
 void TestbedApplication::Update() {
-	if (glfwGetKey(_window.GetInternalWindow(), GLFW_KEY_F) == GLFW_PRESS) {
-		if (_testButtonReleased) {
-			_testButtonReleased = false;
-			_testButtonPressed = true;
-		}
-	}
-	if (glfwGetKey(_window.GetInternalWindow(), GLFW_KEY_F) == GLFW_RELEASE) {
-		if (!_testButtonReleased) {
-			_testButtonReleased = true;
-			_testButtonPressed = false;
-		}
-	}
-
-	if (_testButtonPressed) {
-		_mainScene.Update();
-		_testButtonPressed = false;
-	}
+	_mainScene.Update();
 }
 
 void TestbedApplication::Cleanup() {

@@ -2,6 +2,9 @@
 
 #include "Window.h"
 #include "Renderer/Renderer.h"
+#include "InputManager.h"
+
+struct GLFWwindow;
 
 class Application {
 public:
@@ -19,4 +22,5 @@ protected:
 protected:
 	Window _window;
 	Renderer _renderer;
+	//InputManager _inputManager;
 };

@@ -2,6 +2,7 @@
 
 #include "Application.h"
 #include "ECS/Scene.h"
+#include "InputManager.h"
 
 class TestbedApplication : public Application {
 public:
@@ -14,6 +15,7 @@ protected:
 
 private:
 	Scene _mainScene;
+
 	bool _testButtonPressed = false;
 	bool _testButtonReleased = false;
 };

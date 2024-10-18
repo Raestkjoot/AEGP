@@ -29,7 +29,8 @@ void SpriteRenderer::Update() {
 	unsigned int curNumSprites = 0;
 
 	for (auto [entity, transform, sprite] : view.each()) {
-		Logger::Print("Rendering sprite at position {}, {}", transform.position.x, transform.position.y);
+		// TODO: Use GetTransform(transform);
+		//Logger::Print("Rendering sprite at position {}, {}", transform.position.x, transform.position.y);
 
 		glm::mat3x3 trans = glm::translate(glm::mat3x3(1.0f), glm::vec2(-0.5f, -0.5f));
 		_sprites.emplace_back(
