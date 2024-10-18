@@ -4,18 +4,6 @@
 
 #include <GLFW/glfw3.h>
 
-static InputManager* _instance = nullptr;
-
-InputManager::InputManager() {
-	assert(!_instance);
-	_instance = this;
-}
-
-InputManager& InputManager::GetInstance() {
-	assert(_instance);
-	return *_instance;
-}
-
 void InputManager::ListenToKey(unsigned int key) {
 	_keys.emplace_back(key);
 }

@@ -2,8 +2,8 @@
 
 #include "Window.h"
 #include "Renderer/Renderer.h"
-#include "InputManager.h"
 
+class InputManager;
 struct GLFWwindow;
 
 class Application {
@@ -22,5 +22,5 @@ protected:
 protected:
 	Window _window;
 	Renderer _renderer;
-	//InputManager _inputManager;
+	InputManager* _inputManager = nullptr;
 };

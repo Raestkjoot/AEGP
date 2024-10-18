@@ -2,6 +2,7 @@
 
 #include "Logger.h"
 #include "ECS/Components/Transform.h"
+#include "ServiceLocator.h"
 #include "InputManager.h"
 
 #include <GLFW/glfw3.h>
@@ -15,11 +16,11 @@ void HelloSystem::Start() {
 	//for (auto [entity, transform] : _registry->view<Transform>().each()) {
 
 	Logger::Print("Hello, Start()!");
-	InputManager::GetInstance().ListenToKey(GLFW_KEY_F);
+	ServiceLocator::GetInputManager()->ListenToKey(GLFW_KEY_F);
 }
 
 void HelloSystem::Update() {
-	if (InputManager::GetInstance().IsKeyDown(GLFW_KEY_F)) {
+	if (ServiceLocator::GetInputManager()->IsKeyDown(GLFW_KEY_F)) {
 		Logger::Print("Hello, Update()!");
 	}
 }

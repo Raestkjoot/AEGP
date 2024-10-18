@@ -6,9 +6,6 @@
 
 class InputManager {
 public:
-	InputManager();
-	static InputManager& GetInstance();
-
 	void ListenToKey(unsigned int key);
 	bool IsKeyDown(unsigned int key);
 	bool IsKeyPressed(unsigned int key);
