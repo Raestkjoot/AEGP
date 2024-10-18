@@ -1,10 +1,8 @@
 #pragma once
 
-#include "Window.h"
-#include "Renderer/Renderer.h"
-
+class Window;
+class Renderer;
 class InputManager;
-struct GLFWwindow;
 
 class Application {
 public:
@@ -17,10 +15,10 @@ protected:
 
 	virtual void Initialize() = 0;
 	virtual void Update() = 0;
-	virtual void Cleanup() = 0;
+	virtual void Cleanup();
 
 protected:
-	Window _window;
-	Renderer _renderer;
+	Window* _window = nullptr;
+	Renderer* _renderer = nullptr;
 	InputManager* _inputManager = nullptr;
 };

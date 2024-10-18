@@ -1,7 +1,5 @@
 #pragma once
 
-#include "Application.h"
-
 #include <vector>
 
 class InputManager {

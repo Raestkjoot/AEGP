@@ -1,5 +1,4 @@
 #include "Shader.h"
-#include "Shader.h"
 
 #include "Logger.h"
 #include "Renderer/Renderer.h"

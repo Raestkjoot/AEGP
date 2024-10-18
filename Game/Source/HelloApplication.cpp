@@ -1,4 +1,4 @@
-#include "TestbedApplication.h"
+#include "HelloApplication.h"
 
 #include "Logger.h"
 #include "ECS/Scene.h"
@@ -10,11 +10,9 @@
 
 #include <GLFW/glfw3.h>
 
-TestbedApplication::TestbedApplication() : Application(512, 512, "Hello") {
+HelloApplication::HelloApplication() : Application(512, 512, "Hello") { }
 
-}
-
-void TestbedApplication::Initialize() {
+void HelloApplication::Initialize() {
 	Logger::Print("App: Hello, world!");
 
 	_mainScene.AddSystem(std::make_unique<HelloSystem>());
@@ -28,10 +26,6 @@ void TestbedApplication::Initialize() {
 	_mainScene.Start();
 }
 
-void TestbedApplication::Update() {
+void HelloApplication::Update() {
 	_mainScene.Update();
-}
-
-void TestbedApplication::Cleanup() {
-
 }

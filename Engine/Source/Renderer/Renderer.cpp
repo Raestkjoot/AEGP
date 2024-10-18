@@ -1,6 +1,5 @@
 #include "Renderer.h"
 
-#include "Window.h"
 #include "Logger.h"
 
 #include <glad/glad.h>

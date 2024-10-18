@@ -1,6 +1,6 @@
-#include "TestbedApplication.h"
+#include "HelloApplication.h"
 
 int main() {
-	TestbedApplication testbed;
-	testbed.Run();
+	HelloApplication hello;
+	hello.Run();
 }

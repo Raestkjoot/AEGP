@@ -23,8 +23,7 @@ Window::Window(int width, int height, const char* title) {
 	glfwSetFramebufferSizeCallback(_window, FramebufferResizeCallback);
 }
 
-bool Window::ShouldClose() const
-{
+bool Window::ShouldClose() const {
 	return glfwWindowShouldClose(_window);
 }
 

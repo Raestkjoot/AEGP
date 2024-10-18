@@ -2,16 +2,14 @@
 
 #include "Application.h"
 #include "ECS/Scene.h"
-#include "InputManager.h"
 
-class TestbedApplication : public Application {
+class HelloApplication : public Application {
 public:
-	TestbedApplication();
+	HelloApplication();
 
 protected:
 	void Initialize() override;
 	void Update() override;
-	void Cleanup() override;
 
 private:
 	Scene _mainScene;

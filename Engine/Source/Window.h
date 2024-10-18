@@ -1,6 +1,5 @@
 #pragma once
 
-// TODO: glad probably shouldn't be included in this header
 #include <glad/glad.h>
 
 struct GLFWwindow;

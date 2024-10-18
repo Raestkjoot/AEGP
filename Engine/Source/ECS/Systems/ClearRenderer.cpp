@@ -1,5 +1,4 @@
 #include "ClearRenderer.h"
-#include "ClearRenderer.h"
 
 #include "Renderer/Renderer.h"
 
