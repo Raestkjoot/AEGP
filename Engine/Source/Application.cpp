@@ -27,13 +27,13 @@ Application::Application(int width, int height, const char* title) :
 void Application::Run() {
 	Initialize();
 
-	Timer deltaTimer;
+	Timer updateTimer;
 
 	while (IsRunning()) {
 		ServiceLocator::GetInputManager()->Update();
 		_window->Update();
 
-		Update(deltaTimer.GetDeltaTime());
+		Update(updateTimer.GetDeltaTime());
 	}
 
 	Cleanup();
