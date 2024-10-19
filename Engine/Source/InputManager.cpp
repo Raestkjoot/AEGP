@@ -22,7 +22,8 @@ bool InputManager::GetKeyDown(unsigned int keyCode) {
 		}
 	}
 
-	Logger::PrintWarning("Key not found");
+	Logger::PrintWarning("Key {} not found. Adding to listen list.", keyCode);
+	ListenToKey(keyCode);
 	return false;
 }
 
@@ -33,7 +34,8 @@ bool InputManager::GetKey(unsigned int keyCode) {
 		}
 	}
 
-	Logger::PrintWarning("Key not found");
+	Logger::PrintWarning("Key {} not found. Adding to listen list.", keyCode);
+	ListenToKey(keyCode);
 	return false;
 }
 
@@ -44,7 +46,8 @@ bool InputManager::GetKeyUp(unsigned int keyCode) {
 		}
 	}
 
-	Logger::PrintWarning("Key not found");
+	Logger::PrintWarning("Key {} not found. Adding to listen list.", keyCode);
+	ListenToKey(keyCode);
 	return false;
 }
 

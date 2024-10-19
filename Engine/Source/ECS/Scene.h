@@ -2,7 +2,7 @@
 
 #include "System.h"
 
-#include "entt/entt.hpp"
+#include <entt/entt.hpp>
 
 #include <memory>
 #include <vector>
@@ -10,6 +10,8 @@
 
 class Scene {
 public:
+	virtual void Initialize() = 0;
+
 	void Start();
 	void Update();
 	void End();

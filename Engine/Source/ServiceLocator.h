@@ -3,6 +3,7 @@
 #include "cassert"
 
 class InputManager;
+class Application;
 
 class ServiceLocator {
 public:
@@ -12,6 +13,13 @@ public:
 	}
 	static void SetInputManager(InputManager* inputManager);
 
+	static Application* GetApplication() {
+		assert(_application != nullptr);
+		return _application;
+	}
+	static void SetApplication(Application* application);
+
 private:
 	static InputManager* _inputManager;
+	static Application* _application;
 };

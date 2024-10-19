@@ -4,6 +4,7 @@
 #include "Renderer/Renderer.h"
 #include "ServiceLocator.h"
 #include "InputManager.h"
+#include "ECS/Scene.h"
 
 #include <GLFW/glfw3.h>
 
@@ -17,6 +18,8 @@ Application::Application(int width, int height, const char* title) :
 	_inputManager(new InputManager()) {
 
 	ServiceLocator::SetInputManager(_inputManager);
+	ServiceLocator::SetApplication(this);
+
 	glfwSetKeyCallback(_window->GetInternalWindow(), KeyCallback);
 }
 
@@ -37,8 +40,24 @@ bool Application::IsRunning() const {
 	return !_window->ShouldClose();
 }
 
+void Application::Initialize() {
+	_curScene->Initialize();
+	_curScene->Start();
+}
+
+void Application::Update() {
+	_curScene->Update();
+}
+
 void Application::Cleanup() {
+	_curScene->End();
+
+	delete _curScene;
 	delete _inputManager;
 	delete _renderer;
 	delete _window;
+}
+
+void Application::Quit() {
+	_window->Close();
 }

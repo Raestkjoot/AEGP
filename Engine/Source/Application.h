@@ -1,5 +1,6 @@
 #pragma once
 
+class Scene;
 class Window;
 class Renderer;
 class InputManager;
@@ -9,15 +10,17 @@ public:
 	Application(int width, int height, const char* title);
 
 	void Run();
+	void Quit();
 
 protected:
 	bool IsRunning() const;
 
-	virtual void Initialize() = 0;
-	virtual void Update() = 0;
-	virtual void Cleanup();
+	virtual void Initialize();
+	void Update();
+	void Cleanup();
 
 protected:
+	Scene* _curScene = nullptr;
 	Window* _window = nullptr;
 	Renderer* _renderer = nullptr;
 	InputManager* _inputManager = nullptr;

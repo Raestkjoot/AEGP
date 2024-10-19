@@ -28,14 +28,12 @@ bool Window::ShouldClose() const {
 }
 
 void Window::Update() {
-	ProcessInput();
 	glfwSwapBuffers(_window);
 	glfwPollEvents();
 }
 
-void Window::ProcessInput() {
-	if (glfwGetKey(_window, GLFW_KEY_ESCAPE) == GLFW_PRESS)
-		glfwSetWindowShouldClose(_window, true);
+void Window::Close() {
+	glfwSetWindowShouldClose(_window, true);
 }
 
 void Window::FramebufferResizeCallback(GLFWwindow* window, GLsizei width, GLsizei height) {
