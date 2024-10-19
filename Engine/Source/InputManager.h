@@ -5,9 +5,12 @@
 class InputManager {
 public:
 	void ListenToKey(unsigned int key);
-	bool IsKeyDown(unsigned int key);
-	bool IsKeyPressed(unsigned int key);
-	bool IsKeyUp(unsigned int key);
+	// Returns true during the frame the user starts pressing down the key
+	bool GetKeyDown(unsigned int key);
+	// Returns true while the user holds down the key
+	bool GetKey(unsigned int key);
+	// Returns true during the frame the user releases the key
+	bool GetKeyUp(unsigned int key);
 
 	void KeyCallback(int key, int action, int mods);
 	void Update();

@@ -12,7 +12,7 @@ void HelloSystem::Start() {
 }
 
 void HelloSystem::Update() {
-	if (ServiceLocator::GetInputManager()->IsKeyDown(GLFW_KEY_F)) {
+	if (ServiceLocator::GetInputManager()->GetKeyDown(GLFW_KEY_F)) {
 		Logger::Print("Hello, Update()!");
 	}
 }

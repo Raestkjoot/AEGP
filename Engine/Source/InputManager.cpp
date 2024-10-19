@@ -4,11 +4,18 @@
 
 #include <GLFW/glfw3.h>
 
-void InputManager::ListenToKey(unsigned int key) {
-	_keys.emplace_back(key);
+void InputManager::ListenToKey(unsigned int keyCode) {
+	for (auto key : _keys) {
+		if (key.keyCode == keyCode) {
+			Logger::PrintWarning("InputManager: Key {} is already listened to!", keyCode);
+			return;
+		}
+	}
+
+	_keys.emplace_back(keyCode);
 }
 
-bool InputManager::IsKeyDown(unsigned int keyCode) {
+bool InputManager::GetKeyDown(unsigned int keyCode) {
 	for (auto& key : _keys) {
 		if (key.keyCode == keyCode) {
 			return key.isDown;
@@ -19,7 +26,7 @@ bool InputManager::IsKeyDown(unsigned int keyCode) {
 	return false;
 }
 
-bool InputManager::IsKeyPressed(unsigned int keyCode) {
+bool InputManager::GetKey(unsigned int keyCode) {
 	for (auto& key : _keys) {
 		if (key.keyCode == keyCode) {
 			return key.isPressed;
@@ -30,7 +37,7 @@ bool InputManager::IsKeyPressed(unsigned int keyCode) {
 	return false;
 }
 
-bool InputManager::IsKeyUp(unsigned int keyCode) {
+bool InputManager::GetKeyUp(unsigned int keyCode) {
 	for (auto& key : _keys) {
 		if (key.keyCode == keyCode) {
 			return key.isUp;
