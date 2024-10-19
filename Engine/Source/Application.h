@@ -16,7 +16,7 @@ protected:
 	bool IsRunning() const;
 
 	virtual void Initialize();
-	void Update();
+	void Update(float delta);
 	void Cleanup();
 
 protected:

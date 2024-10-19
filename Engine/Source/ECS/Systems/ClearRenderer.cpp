@@ -7,7 +7,7 @@ void ClearRenderer::Start() {
 	glClear(GL_COLOR_BUFFER_BIT);
 }
 
-void ClearRenderer::Update() {
+void ClearRenderer::Update(float delta) {
 	glClearColor(_clearColor.r, _clearColor.g, _clearColor.b, _clearColor.a);
 	glClear(GL_COLOR_BUFFER_BIT);
 }

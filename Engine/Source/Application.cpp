@@ -5,6 +5,7 @@
 #include "ServiceLocator.h"
 #include "InputManager.h"
 #include "ECS/Scene.h"
+#include "Timer.h"
 
 #include <GLFW/glfw3.h>
 
@@ -26,11 +27,13 @@ Application::Application(int width, int height, const char* title) :
 void Application::Run() {
 	Initialize();
 
+	Timer deltaTimer;
+
 	while (IsRunning()) {
 		ServiceLocator::GetInputManager()->Update();
 		_window->Update();
 
-		Update();
+		Update(deltaTimer.GetDeltaTime());
 	}
 
 	Cleanup();
@@ -45,8 +48,8 @@ void Application::Initialize() {
 	_curScene->Start();
 }
 
-void Application::Update() {
-	_curScene->Update();
+void Application::Update(float delta) {
+	_curScene->Update(delta);
 }
 
 void Application::Cleanup() {

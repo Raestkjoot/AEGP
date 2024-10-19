@@ -6,9 +6,9 @@ void Scene::Start() {
 	}
 }
 
-void Scene::Update() {
+void Scene::Update(float delta) {
 	for (auto& system : _systems) {
-		system->Update();
+		system->Update(delta);
 	}
 }
 

@@ -13,9 +13,9 @@ void HelloSystem::Start() {
 	ServiceLocator::GetInputManager()->ListenToKey(GLFW_KEY_ESCAPE);
 }
 
-void HelloSystem::Update() {
+void HelloSystem::Update(float delta) {
 	if (ServiceLocator::GetInputManager()->GetKeyDown(GLFW_KEY_F)) {
-		Logger::Print("Hello, Update()!");
+		Logger::Print("Hello, Update(delta = {})", delta);
 	}
 
 	if (ServiceLocator::GetInputManager()->GetKeyDown(GLFW_KEY_ESCAPE)) {

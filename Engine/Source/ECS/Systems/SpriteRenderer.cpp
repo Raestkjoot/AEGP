@@ -23,7 +23,7 @@ void SpriteRenderer::Start() {
 
 }
 
-void SpriteRenderer::Update() {
+void SpriteRenderer::Update(float delta) {
 	auto view = _registry->view<Transform, Sprite>();
 
 	unsigned int curNumSprites = 0;

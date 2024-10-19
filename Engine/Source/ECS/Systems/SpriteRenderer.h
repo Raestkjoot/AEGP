@@ -11,7 +11,7 @@ public:
 	SpriteRenderer(unsigned int maxNumSprites = 1000);
 
 	void Start() override;
-	void Update() override;
+	void Update(float delta) override;
 	void End() override;
 
 private:

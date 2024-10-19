@@ -13,7 +13,7 @@ public:
 	virtual void Initialize() = 0;
 
 	void Start();
-	void Update();
+	void Update(float delta);
 	void End();
 
 	entt::entity CreateEntity();
