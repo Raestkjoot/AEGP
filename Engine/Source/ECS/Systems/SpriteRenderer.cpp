@@ -19,24 +19,17 @@ SpriteRenderer::SpriteRenderer(unsigned int maxNumSprites) {
 	_maxNumSprites = maxNumSprites;
 }
 
-void SpriteRenderer::Start() {
-
-}
-
 void SpriteRenderer::Update(float delta) {
 	auto view = _registry->view<Transform, Sprite>();
 
+	_sprites.clear();
 	unsigned int curNumSprites = 0;
 
 	for (auto [entity, transform, sprite] : view.each()) {
-		// TODO: Use GetTransform(transform);
-		//Logger::Print("Rendering sprite at position {}, {}", transform.position.x, transform.position.y);
-
-		glm::mat3x3 trans = glm::translate(glm::mat3x3(1.0f), glm::vec2(-0.5f, -0.5f));
 		_sprites.emplace_back(
 			sprite.texWidthHeight,
 			sprite.texBaseCoords,
-			trans //GetTransform(transform)
+			GetTransform(transform)
 		);
 
 		curNumSprites++;
@@ -55,10 +48,6 @@ void SpriteRenderer::Update(float delta) {
 
 	// Drawcall
 	glDrawArrays(GL_TRIANGLES, 0, curNumSprites * NUM_OF_VERTS);
-}
-
-void SpriteRenderer::End() {
-
 }
 
 void SpriteRenderer::Init(entt::registry* registry) {
@@ -149,8 +138,9 @@ void SpriteRenderer::Init(entt::registry* registry) {
 	#pragma endregion QuadInfoBuffer
 }
 
-glm::mat3x4 SpriteRenderer::GetTransform(Transform transform) {
-	return glm::translate(glm::mat3x3(1.0f), transform.position)
-			* glm::rotate(glm::mat3x3(1.0f), glm::radians(transform.rotation))
-			* glm::scale(glm::mat3x3(1.0f), transform.scale);
+glm::mat3x3 SpriteRenderer::GetTransform(Transform transform) {
+	return glm::translate(glm::rotate(glm::scale(glm::mat3x3(1.0f), 
+		transform.scale), 
+		glm::radians(transform.rotation)), 
+		transform.position);
 }

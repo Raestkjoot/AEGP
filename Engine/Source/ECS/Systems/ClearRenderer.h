@@ -8,7 +8,6 @@ class ClearRenderer : public System {
 public:
 	void Start() override;
 	void Update(float delta) override;
-	void End() override;
 
 private:
 	void Init(entt::registry* registry) override;

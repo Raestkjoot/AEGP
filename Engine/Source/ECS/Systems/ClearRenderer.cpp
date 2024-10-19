@@ -12,9 +12,6 @@ void ClearRenderer::Update(float delta) {
 	glClear(GL_COLOR_BUFFER_BIT);
 }
 
-void ClearRenderer::End() {
-}
-
 void ClearRenderer::Init(entt::registry* registry) {
 	System::Init(registry);
 	glClearColor(_clearColor.r, _clearColor.g, _clearColor.b, _clearColor.a);

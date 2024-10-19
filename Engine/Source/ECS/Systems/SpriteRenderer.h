@@ -10,9 +10,7 @@ class SpriteRenderer : public System {
 public:
 	SpriteRenderer(unsigned int maxNumSprites = 1000);
 
-	void Start() override;
 	void Update(float delta) override;
-	void End() override;
 
 private:
 	void Init(entt::registry* registry) override;
@@ -37,7 +35,7 @@ private:
 			transform(transform) { }
 	};
 
-	glm::mat3x4 GetTransform(Transform transform);
+	glm::mat3x3 GetTransform(Transform transform);
 
 	std::vector<SpriteData> _sprites;
 

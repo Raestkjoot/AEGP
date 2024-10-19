@@ -6,9 +6,9 @@ class System {
 	friend class Scene;
 
 public:
-	virtual void Start() = 0;
-	virtual void Update(float delta) = 0;
-	virtual void End() = 0;
+	virtual void Start();
+	virtual void Update(float delta);
+	virtual void End();
 
 protected:
 	virtual void Init(entt::registry* registry);
