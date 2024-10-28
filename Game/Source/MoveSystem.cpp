@@ -2,6 +2,7 @@
 
 #include "ServiceLocator.h"
 #include "InputManager.h"
+#include "PlayerControllerTag.h"
 #include "ECS/Components/Transform.h"
 #include "Logger.h"
 
@@ -56,7 +57,7 @@ void MoveSystem::Update(float delta) {
 		_rotationDirection != 0.0f ||
 		glm::length2(_scaleDirection) > 0.01f) {
 
-		auto view = _registry->view<Transform>();
+		auto view = _registry->view<Transform, PlayerControllerTag>();
 
 		for (auto [entity, transform] : view.each()) {
 			transform.position += _moveDirection * _moveSpeed * delta;

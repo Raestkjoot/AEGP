@@ -7,7 +7,9 @@
 
 #define GLM_ENABLE_EXPERIMENTAL
 #include <glm/gtx/matrix_transform_2d.hpp>
+#include <nlohmann/json.hpp>
 
+#include <fstream>
 #include <vector>
 
 #define NUM_OF_VERTS 6
@@ -49,13 +51,29 @@ void SpriteRenderer::Update(float delta) {
 }
 
 void SpriteRenderer::LoadSpriteAtlas(const std::string& imagePath, const std::string& jsonPath) {
+	_texture.Load(imagePath.c_str());
 
+	std::ifstream jsonFile(jsonPath);
+	nlohmann::json frames = nlohmann::json::parse(jsonFile).at("frames");
+
+	for (auto& frame : frames) {
+		std::string name = frame.at("filename").get<std::string>();
+		glm::vec2 baseCoord{ frame.at("frame").at("x"), frame.at("frame").at("y") };
+		glm::vec2 widthHeight{ frame.at("frame").at("w"), frame.at("frame").at("h") };
+
+		_spriteAtlasData.try_emplace(name, baseCoord, widthHeight);
+	}
+}
+
+SpriteRenderer::SpriteAtlasData SpriteRenderer::GetSprite(const std::string& name) {
+	return _spriteAtlasData.at(name);
 }
 
 void SpriteRenderer::Init(entt::registry* registry) {
 	System::Init(registry);
 
 	_shader.Load("Engine/Assets/Shaders/Sprite.vert", "Engine/Assets/Shaders/Sprite.frag");
+	_texture.Load("Engine/Assets/DefaultTextures.png");
 
 	#pragma region VertexArray
 	// Generate vertices for the max number of quads
@@ -103,8 +121,6 @@ void SpriteRenderer::Init(entt::registry* registry) {
 	glBindVertexArray(0);
 
 	#pragma endregion VertexArray
-
-	_texture.Load("Engine/Assets/DefaultTextures.png");
 
 	#pragma region QuadInfoBuffer
 

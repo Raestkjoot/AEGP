@@ -7,13 +7,25 @@
 
 #include <glm/glm.hpp>
 
+#include <map>
+
 class SpriteRenderer : public System {
 public:
+
 	SpriteRenderer(unsigned int maxNumSprites = 1000);
 
 	void Update(float delta) override;
 
+	struct SpriteAtlasData {
+		glm::vec2 texBaseCoords;
+		glm::vec2 texWidthHeight;
+
+		SpriteAtlasData(const glm::vec2& texBaseCoords, const glm::vec2& texWidthHeight) :
+			texBaseCoords(texBaseCoords),
+			texWidthHeight(texWidthHeight) { }
+	};
 	void LoadSpriteAtlas(const std::string& imagePath, const std::string& jsonPath);
+	SpriteAtlasData GetSprite(const std::string& name);
 
 private:
 	void Init(entt::registry* registry) override;
@@ -41,6 +53,7 @@ private:
 	glm::mat3x3 GetTransform(Transform transform);
 
 	std::vector<SpriteData> _sprites;
+	std::map<std::string, SpriteAtlasData> _spriteAtlasData;
 
 	unsigned int _maxNumSprites;
 	unsigned int _vao = 0;

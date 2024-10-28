@@ -6,8 +6,11 @@
 #define STB_IMAGE_IMPLEMENTATION
 #include <stb_image.h>
 
-void Texture::Load(const char* filepath) {
+Texture::Texture() {
 	glGenTextures(1, &_id);
+}
+
+void Texture::Load(const char* filepath) {
 	glBindTexture(GL_TEXTURE_2D, _id); // all upcoming GL_TEXTURE_2D operations now have effect on this texture object
 	// set the texture wrapping parameters
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);	// set texture wrapping to GL_REPEAT (default wrapping method)
