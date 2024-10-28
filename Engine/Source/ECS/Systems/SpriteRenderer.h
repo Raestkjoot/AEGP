@@ -2,6 +2,7 @@
 
 #include "ECS/System.h"
 #include "Renderer/Shader.h"
+#include "Renderer/Texture.h"
 #include "ECS/Components/Transform.h"
 
 #include <glm/glm.hpp>
@@ -11,6 +12,8 @@ public:
 	SpriteRenderer(unsigned int maxNumSprites = 1000);
 
 	void Update(float delta) override;
+
+	void LoadSpriteAtlas(const std::string& imagePath, const std::string& jsonPath);
 
 private:
 	void Init(entt::registry* registry) override;
@@ -41,7 +44,7 @@ private:
 
 	unsigned int _maxNumSprites;
 	unsigned int _vao = 0;
-	unsigned int _texture = 0;
 	unsigned int _quadInfoUbo = 0;
+	Texture _texture{};
 	Shader _shader{};
 };

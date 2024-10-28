@@ -5,8 +5,6 @@
 #include "Logger.h"
 #include "Renderer/Renderer.h"
 
-#define STB_IMAGE_IMPLEMENTATION
-#include <stb_image.h>
 #define GLM_ENABLE_EXPERIMENTAL
 #include <glm/gtx/matrix_transform_2d.hpp>
 
@@ -39,7 +37,7 @@ void SpriteRenderer::Update(float delta) {
 		return;
 	}
 
-	glBindTexture(GL_TEXTURE_2D, _texture);
+	_texture.Use();
 	_shader.Use();
 	glBindVertexArray(_vao);
 
@@ -48,6 +46,10 @@ void SpriteRenderer::Update(float delta) {
 
 	// Drawcall
 	glDrawArrays(GL_TRIANGLES, 0, curNumSprites * NUM_OF_VERTS);
+}
+
+void SpriteRenderer::LoadSpriteAtlas(const std::string& imagePath, const std::string& jsonPath) {
+
 }
 
 void SpriteRenderer::Init(entt::registry* registry) {
@@ -102,30 +104,7 @@ void SpriteRenderer::Init(entt::registry* registry) {
 
 	#pragma endregion VertexArray
 
-	#pragma region Texture
-
-	glGenTextures(1, &_texture);
-	glBindTexture(GL_TEXTURE_2D, _texture); // all upcoming GL_TEXTURE_2D operations now have effect on this texture object
-	// set the texture wrapping parameters
-	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);	// set texture wrapping to GL_REPEAT (default wrapping method)
-	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
-	// set texture filtering parameters
-	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR_MIPMAP_LINEAR);
-	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
-	// load image, create texture and generate mipmaps
-	int width, height, nrChannels;
-	stbi_set_flip_vertically_on_load(true);
-	unsigned char* data = stbi_load("Engine/Assets/DefaultTextures.png", &width, &height, &nrChannels, 0);
-	if (data) {
-		glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, width, height, 0, GL_RGBA, GL_UNSIGNED_BYTE, data);
-		glGenerateMipmap(GL_TEXTURE_2D);
-	}
-	else {
-		Logger::PrintError("Failed to load texture");
-	}
-	stbi_image_free(data);
-
-	#pragma endregion Texture
+	_texture.Load("Engine/Assets/DefaultTextures.png");
 
 	#pragma region QuadInfoBuffer
 

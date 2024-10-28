@@ -73,6 +73,6 @@ void Shader::Use() {
 	glUseProgram(_id);
 }
 
-unsigned int Shader::GetID() {
+unsigned int Shader::GetID() const {
 	return _id;
 }

@@ -1,8 +1,8 @@
 #pragma once
 
-class Shader {
+class Texture {
 public:
-	void Load(const char* vertexPath, const char* fragmentPath);
+	void Load(const char* filepath);
 	void Use();
 	unsigned int GetID() const;
 
