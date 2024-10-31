@@ -2,6 +2,7 @@
 
 #include "ECS/Components/Transform.h"
 #include "ECS/Components/Sprite.h"
+#include "ECS/Components/Camera2D.h"
 #include "Logger.h"
 #include "Renderer/Renderer.h"
 
@@ -15,8 +16,8 @@
 #define NUM_OF_VERTS 6
 #define UBO_INDEX 0
 
-SpriteRenderer::SpriteRenderer(unsigned int maxNumSprites) {
-	_maxNumSprites = maxNumSprites;
+SpriteRenderer::SpriteRenderer(unsigned int maxNumSprites) :
+	_maxNumSprites(maxNumSprites) {
 }
 
 void SpriteRenderer::Update(float delta) {
@@ -40,6 +41,11 @@ void SpriteRenderer::Update(float delta) {
 	
 	_texture.Use();
 	_shader.Use();
+
+	GLint uniformLoc = glGetUniformLocation(_shader.GetID(), "CameraMatrix");
+	glm::mat3x3 camMat = GetCameraMatrix();
+	glUniformMatrix3fv(uniformLoc, 1, GL_FALSE, &camMat[0][0]);
+
 	glBindVertexArray(_vao);
 
 	glBindBufferBase(GL_UNIFORM_BUFFER, UBO_INDEX, _quadInfoUbo);
@@ -47,6 +53,10 @@ void SpriteRenderer::Update(float delta) {
 
 	// Drawcall
 	glDrawArrays(GL_TRIANGLES, 0, curNumSprites * NUM_OF_VERTS);
+}
+
+void SpriteRenderer::SetCamera(Camera2D* camera) {
+	_camera = camera;
 }
 
 void SpriteRenderer::LoadSpriteAtlas(const std::string& imagePath, const std::string& jsonPath) {
@@ -102,7 +112,6 @@ void SpriteRenderer::Init(entt::registry* registry) {
 		}
 	}
 
-
 	// Bind buffers
 	glGenVertexArrays(1, &_vao);
 	glBindVertexArray(_vao);
@@ -135,6 +144,18 @@ void SpriteRenderer::Init(entt::registry* registry) {
 	_sprites.reserve(_maxNumSprites);
 
 	#pragma endregion QuadInfoBuffer
+}
+
+glm::mat3x3 SpriteRenderer::GetCameraMatrix() {
+	glm::mat3x3 retval = glm::translate(glm::rotate(glm::mat3x3(1.0f), -glm::radians(_camera->rotation)), -_camera->position);
+	glm::mat3x3 zoomMatrix{
+		_camera->zoom, 0.0f, 0.0f,
+		0.0f, _camera->zoom, 0.0f,
+		0.0f, 0.0f, 1.0f
+	};
+	retval = zoomMatrix * retval;
+
+	return retval;
 }
 
 glm::mat3x3 SpriteRenderer::GetTransform(Transform transform) {

@@ -16,6 +16,7 @@ layout (std140) uniform QuadInfo {
 	Quad quad[MAX_QUADS];
 };
 
+uniform mat3x3 CameraMatrix;
 //uniform ivec2 WindowSize;
 //#define WindowSize vec2(512, 512)
 
@@ -24,6 +25,6 @@ out vec2 TexCoords;
 void main() {
 	// TODO: Divide by screen size
    TexCoords = (quad[QuadID].TexBaseCoords + Pos * quad[QuadID].TexWidthHeight) / 512;
-   vec3 position = quad[QuadID].Transform * vec3(Pos.xy, 1.0f);
+   vec3 position = CameraMatrix * quad[QuadID].Transform * vec3(Pos.xy, 1.0f);
    gl_Position = vec4(position.xy, 0.5f, position.z);
 }

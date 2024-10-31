@@ -24,6 +24,11 @@ public:
 		_registry.emplace<T>(entity, std::forward<Args>(args)...);
 	}
 
+	template<typename T>
+	T* GetComponent(entt::entity entity) {
+		return &_registry.get<T>(entity);
+	}
+
 private:
 	entt::registry _registry;
 	std::vector< std::unique_ptr<System> > _systems;

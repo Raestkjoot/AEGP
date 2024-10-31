@@ -5,6 +5,7 @@
 #include "PlayerControllerTag.h"
 #include "ECS/Components/Transform.h"
 #include "ECS/Components/Sprite.h"
+#include "ECS/Components/Camera2D.h"
 #include "Logger.h"
 
 #include <glfw/glfw3.h>
@@ -22,12 +23,16 @@ void MoveSystem::Start() {
 
 	ServiceLocator::GetInputManager()->ListenToKey(GLFW_KEY_Z);
 	ServiceLocator::GetInputManager()->ListenToKey(GLFW_KEY_X);
+
+	ServiceLocator::GetInputManager()->ListenToKey(GLFW_KEY_I);
+	ServiceLocator::GetInputManager()->ListenToKey(GLFW_KEY_O);
 }
 
 void MoveSystem::Update(float delta) {
 	_moveDirection = { 0.0f, 0.0f };
 	_rotationDirection = 0.0f;
 	_scaleDirection = { 0.0f, 0.0f };
+	_zoomDirection = 0.0f;
 
 	if (ServiceLocator::GetInputManager()->GetKey(GLFW_KEY_W)) {
 		_moveDirection.y += 1.0f;
@@ -53,19 +58,38 @@ void MoveSystem::Update(float delta) {
 	if (ServiceLocator::GetInputManager()->GetKey(GLFW_KEY_X)) {
 		_scaleDirection += 1.0f;
 	}
+	if (ServiceLocator::GetInputManager()->GetKey(GLFW_KEY_I)) {
+		_zoomDirection += 1.0f;
+	}
+	if (ServiceLocator::GetInputManager()->GetKey(GLFW_KEY_O)) {
+		_zoomDirection -= 1.0f;
+	}
 
 	if (glm::length2(_moveDirection) > 0.01f || 
 		_rotationDirection != 0.0f ||
-		glm::length2(_scaleDirection) > 0.01f) {
+		glm::length2(_scaleDirection) > 0.01f ||
+		_zoomDirection != 0.0f) {
 
-		auto view = _registry->view<Transform, Sprite, PlayerControllerTag>();
+		auto playerView = _registry->view<Transform, Sprite, PlayerControllerTag>();
+		auto cameraView = _registry->view<Camera2D>();
 
-		for (auto [entity, transform, sprite] : view.each()) {
-			transform.position += _moveDirection * _moveSpeed * delta;
-			transform.rotation += _rotationDirection * _rotationSpeed * delta;
-			transform.scale += _scaleDirection * _scaleSpeed * delta;
+		auto player = playerView.front();
+		auto camera = cameraView.front();
 
-			sprite.flip.x = (_moveDirection.x < 0.1f);
+		auto& playerTransform = _registry->get<Transform>(player);
+
+		playerTransform.position += _moveDirection * _moveSpeed * delta;
+		playerTransform.rotation += _rotationDirection * _rotationSpeed * delta;
+		playerTransform.scale += _scaleDirection * _scaleSpeed * delta;
+
+		if (glm::abs(_moveDirection.x) > 0.00f) {
+			auto& playerSprite = _registry->get<Sprite>(player);
+			playerSprite.flip.x = (_moveDirection.x < 0.1f);
 		}
+
+		auto& cameraCamera = _registry->get<Camera2D>(camera);
+		cameraCamera.position = playerTransform.position;
+		cameraCamera.rotation = playerTransform.rotation;
+		cameraCamera.zoom += _zoomDirection * _zoomSpeed * delta;
 	}
 }

@@ -10,6 +10,7 @@
 #include <map>
 
 struct Sprite;
+struct Camera2D;
 
 class SpriteRenderer : public System {
 public:
@@ -17,6 +18,8 @@ public:
 	SpriteRenderer(unsigned int maxNumSprites = 1000);
 
 	void Update(float delta) override;
+
+	void SetCamera(Camera2D* camera);
 
 	struct SpriteAtlasData {
 		glm::vec2 texBaseCoords;
@@ -31,6 +34,8 @@ public:
 
 private:
 	void Init(entt::registry* registry) override;
+
+	glm::mat3x3 GetCameraMatrix();
 
 	struct Vertex {
 		glm::vec2 position;
@@ -56,6 +61,7 @@ private:
 	std::vector<SpriteData> _sprites;
 	std::map<std::string, SpriteAtlasData> _spriteAtlasData;
 
+	Camera2D* _camera = nullptr;
 	unsigned int _maxNumSprites;
 	unsigned int _vao = 0;
 	unsigned int _quadInfoUbo = 0;
