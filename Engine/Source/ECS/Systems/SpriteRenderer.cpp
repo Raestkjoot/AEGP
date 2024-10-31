@@ -59,7 +59,7 @@ void SpriteRenderer::LoadSpriteAtlas(const std::string& imagePath, const std::st
 	for (auto& frame : frames) {
 		_spriteAtlasData.try_emplace(
 			frame.at("filename").get<std::string>(),
-			glm::vec2(frame.at("frame").at("x"), frame.at("frame").at("y"))
+			glm::vec2(frame.at("frame").at("x"), frame.at("frame").at("y")),
 			glm::vec2(frame.at("frame").at("w"), frame.at("frame").at("h"))
 		);
 	}

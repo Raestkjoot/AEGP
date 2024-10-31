@@ -19,10 +19,10 @@
 "meta": {
 	"app": "https://www.codeandweb.com/texturepacker",
 	"version": "1.0",
-	"image": "DefaultTextures.png",
+	"image": "DefaultSprites_Padded.png",
 	"format": "RGBA8888",
-	"size": {"w":512,"h":512},
+	"size": {"w":518,"h":518},
 	"scale": "1",
-	"smartupdate": "$TexturePacker:SmartUpdate:885b4cbb5a177cb4cc341ac52fa5aadb:5e8ea7f77d29ceffd763f99d9e61d5ae:75bb0f2205f5e0a6ca7aee747b259b13$"
+	"smartupdate": "$TexturePacker:SmartUpdate:fbbdacb72a08b8d95a65d72e703911fd:5e8ea7f77d29ceffd763f99d9e61d5ae:fb7ef619ed44c5eefe68cebdce0726fe$"
 }
 }
