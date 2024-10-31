@@ -38,7 +38,7 @@ void SpriteRenderer::Update(float delta) {
 	if (curNumSprites == 0) {
 		return;
 	}
-
+	
 	_texture.Use();
 	_shader.Use();
 	glBindVertexArray(_vao);
@@ -57,11 +57,11 @@ void SpriteRenderer::LoadSpriteAtlas(const std::string& imagePath, const std::st
 	nlohmann::json frames = nlohmann::json::parse(jsonFile).at("frames");
 
 	for (auto& frame : frames) {
-		std::string name = frame.at("filename").get<std::string>();
-		glm::vec2 baseCoord{ frame.at("frame").at("x"), frame.at("frame").at("y") };
-		glm::vec2 widthHeight{ frame.at("frame").at("w"), frame.at("frame").at("h") };
-
-		_spriteAtlasData.try_emplace(name, baseCoord, widthHeight);
+		_spriteAtlasData.try_emplace(
+			frame.at("filename").get<std::string>(),
+			glm::vec2(frame.at("frame").at("x"), frame.at("frame").at("y"))
+			glm::vec2(frame.at("frame").at("w"), frame.at("frame").at("h"))
+		);
 	}
 }
 
@@ -71,6 +71,11 @@ SpriteRenderer::SpriteAtlasData SpriteRenderer::GetSprite(const std::string& nam
 
 void SpriteRenderer::Init(entt::registry* registry) {
 	System::Init(registry);
+
+	// If using another rendering system without alpha blending, this
+	// would have to be moved into the update function.
+	glEnable(GL_BLEND);
+	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 
 	_shader.Load("Engine/Assets/Shaders/Sprite.vert", "Engine/Assets/Shaders/Sprite.frag");
 	_texture.Load("Engine/Assets/DefaultTextures.png");

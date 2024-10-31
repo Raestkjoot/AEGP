@@ -17,7 +17,7 @@ void HelloScene::Initialize() {
 
 	auto entity = CreateEntity();
 	AddComponent<Transform>(entity, glm::vec2(-0.5f, -0.5f));
-	AddComponent<Sprite>(entity, spriteRenderer->GetSprite("DefaultSquare.png"));
+	AddComponent<Sprite>(entity, spriteRenderer->GetSprite("DefaultCircle.png"));
 	AddComponent<PlayerControllerTag>(entity);
 	entity = CreateEntity();
 	AddComponent<Transform>(entity, glm::vec2(-0.45f, -0.45f));
