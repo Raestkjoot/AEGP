@@ -9,6 +9,8 @@
 
 #include <map>
 
+struct Sprite;
+
 class SpriteRenderer : public System {
 public:
 
@@ -40,17 +42,16 @@ private:
 	};
 
 	struct SpriteData {
-		glm::vec2 texWidthHeight;
-		glm::vec2 texBaseCoords;
+		glm::vec4 texCoords;
 		glm::mat3x4 transform; // mat3x3, padded for std140
 
-		SpriteData(const glm::vec2& texWidthHeight, const glm::vec2& texBaseCoords, const glm::mat3x3& transform) :
-			texWidthHeight(texWidthHeight),
-			texBaseCoords(texBaseCoords),
+		SpriteData(const glm::vec4& texCoords, const glm::mat3x3& transform) :
+			texCoords(texCoords),
 			transform(transform) { }
 	};
 
 	glm::mat3x3 GetTransform(Transform transform);
+	glm::vec4 GetTexCoords(Sprite sprite);
 
 	std::vector<SpriteData> _sprites;
 	std::map<std::string, SpriteAtlasData> _spriteAtlasData;

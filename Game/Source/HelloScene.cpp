@@ -21,7 +21,10 @@ void HelloScene::Initialize() {
 	AddComponent<PlayerControllerTag>(entity);
 	entity = CreateEntity();
 	AddComponent<Transform>(entity, glm::vec2(-0.45f, -0.45f));
-	AddComponent<Sprite>(entity, spriteRenderer->GetSprite("DefaultOutlineSquare.png"));
+	Sprite testSprite{ spriteRenderer->GetSprite("DefaultOutlineSquare.png") };
+	testSprite.flip.x = true;
+	testSprite.flip.y = true;
+	AddComponent<Sprite>(entity, testSprite);
 
 	AddSystem(std::move(spriteRenderer));
 }

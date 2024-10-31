@@ -5,8 +5,8 @@ layout (location = 1) in uint QuadID;
 
 // Padding might be bad here https://registry.khronos.org/OpenGL/extensions/ARB/ARB_uniform_buffer_object.txt
 struct Quad {
-	vec2 TexWidthHeight;
 	vec2 TexBaseCoords;
+	vec2 TexWidthHeight;
 	mat3x3 Transform;
 	//vec2 Offset
 };

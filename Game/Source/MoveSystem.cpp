@@ -4,6 +4,7 @@
 #include "InputManager.h"
 #include "PlayerControllerTag.h"
 #include "ECS/Components/Transform.h"
+#include "ECS/Components/Sprite.h"
 #include "Logger.h"
 
 #include <glfw/glfw3.h>
@@ -57,12 +58,14 @@ void MoveSystem::Update(float delta) {
 		_rotationDirection != 0.0f ||
 		glm::length2(_scaleDirection) > 0.01f) {
 
-		auto view = _registry->view<Transform, PlayerControllerTag>();
+		auto view = _registry->view<Transform, Sprite, PlayerControllerTag>();
 
-		for (auto [entity, transform] : view.each()) {
+		for (auto [entity, transform, sprite] : view.each()) {
 			transform.position += _moveDirection * _moveSpeed * delta;
 			transform.rotation += _rotationDirection * _rotationSpeed * delta;
 			transform.scale += _scaleDirection * _scaleSpeed * delta;
+
+			sprite.flip.x = (_moveDirection.x < 0.1f);
 		}
 	}
 }

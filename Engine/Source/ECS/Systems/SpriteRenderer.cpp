@@ -27,8 +27,7 @@ void SpriteRenderer::Update(float delta) {
 
 	for (auto [entity, transform, sprite] : view.each()) {
 		_sprites.emplace_back(
-			sprite.texWidthHeight,
-			sprite.texBaseCoords,
+			GetTexCoords(sprite),
 			GetTransform(transform)
 		);
 
@@ -143,4 +142,19 @@ glm::mat3x3 SpriteRenderer::GetTransform(Transform transform) {
 		transform.scale), 
 		glm::radians(transform.rotation)), 
 		transform.position);
+}
+
+glm::vec4 SpriteRenderer::GetTexCoords(Sprite sprite) {
+	glm::vec4 texCoords{ sprite.texBaseCoords, sprite.texWidthHeight };
+
+	if (sprite.flip.x) {
+		texCoords.x += texCoords.z;
+		texCoords.z *= -1;
+	}
+	if (sprite.flip.y) {
+		texCoords.y += texCoords.w;
+		texCoords.w *= -1;
+	}
+
+	return texCoords;
 }
