@@ -17,14 +17,14 @@ layout (std140) uniform QuadInfo {
 };
 
 uniform mat3x3 CameraMatrix;
-//uniform ivec2 WindowSize;
-//#define WindowSize vec2(512, 512)
+uniform vec2 Offset = vec2(-0.5f, -0.5f);
 
 out vec2 TexCoords;
 
 void main() {
-	// TODO: Divide by screen size
+	// TODO: Divide by total texture size
    TexCoords = (quad[QuadID].TexBaseCoords + Pos * quad[QuadID].TexWidthHeight) / 512;
-   vec3 position = CameraMatrix * quad[QuadID].Transform * vec3(Pos.xy, 1.0f);
-   gl_Position = vec4(position.xy, 0.5f, position.z);
+   vec2 offsetPosition = Pos + Offset;
+   vec3 position = CameraMatrix * quad[QuadID].Transform * vec3(offsetPosition, 1.0f);
+   gl_Position = vec4(position.xy, 0.5f, 1.0f);
 }

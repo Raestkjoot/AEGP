@@ -147,22 +147,15 @@ void SpriteRenderer::Init(entt::registry* registry) {
 }
 
 glm::mat3x3 SpriteRenderer::GetCameraMatrix() {
-	glm::mat3x3 retval = glm::translate(glm::rotate(glm::mat3x3(1.0f), -glm::radians(_camera->rotation)), -_camera->position);
-	glm::mat3x3 zoomMatrix{
-		_camera->zoom, 0.0f, 0.0f,
-		0.0f, _camera->zoom, 0.0f,
-		0.0f, 0.0f, 1.0f
-	};
-	retval = zoomMatrix * retval;
-
-	return retval;
+	return glm::translate(glm::scale(glm::mat3x3(1.0f), glm::vec2(_camera->zoom, _camera->zoom)), -_camera->position);
 }
 
 glm::mat3x3 SpriteRenderer::GetTransform(Transform transform) {
-	return glm::translate(glm::rotate(glm::scale(glm::mat3x3(1.0f), 
-		transform.scale), 
-		glm::radians(transform.rotation)), 
-		transform.position);
+	glm::mat3x3 translationMatrix = glm::translate(glm::mat3x3(1.0f), transform.position);
+	glm::mat3x3 rotationMatrix = glm::rotate(glm::mat3x3(1.0f), transform.rotation);
+	glm::mat3x3 scaleMatrix = glm::scale(glm::mat3x3(1.0f), transform.scale);
+
+	return translationMatrix * rotationMatrix * scaleMatrix;
 }
 
 glm::vec4 SpriteRenderer::GetTexCoords(Sprite sprite) {

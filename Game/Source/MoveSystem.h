@@ -16,7 +16,7 @@ private:
 	float _zoomDirection;
 
 	float _moveSpeed = 1.5f;
-	float _rotationSpeed = 80.0f;
+	float _rotationSpeed = 4.0f;
 	float _scaleSpeed = 0.8f;
 	float _zoomSpeed = 0.4f;
 };

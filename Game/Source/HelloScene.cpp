@@ -18,13 +18,13 @@ void HelloScene::Initialize() {
 
 	// Player
 	auto entity = CreateEntity();
-	AddComponent<Transform>(entity, glm::vec2(-0.5f, -0.5f));
+	AddComponent<Transform>(entity, glm::vec2(0.0f, 0.0f));
 	AddComponent<Sprite>(entity, spriteRenderer->GetSprite("DefaultCircle.png"));
 	AddComponent<PlayerControllerTag>(entity);
 
 	// Prop
 	entity = CreateEntity();
-	AddComponent<Transform>(entity, glm::vec2(-0.45f, -0.45f));
+	AddComponent<Transform>(entity, glm::vec2(-0.05f, -0.05f));
 	Sprite testSprite{ spriteRenderer->GetSprite("DefaultOutlineSquare.png") };
 	testSprite.flip.x = true;
 	testSprite.flip.y = true;
