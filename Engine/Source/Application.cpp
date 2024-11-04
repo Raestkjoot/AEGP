@@ -7,6 +7,9 @@
 #include "ECS/Scene.h"
 #include "Timer.h"
 
+#include <imgui.h>
+#include <imgui_impl_glfw.h>
+#include <imgui_impl_opengl3.h>
 #include <GLFW/glfw3.h>
 
 static void KeyCallback(GLFWwindow* window, int key, int scancode, int action, int mods) {
@@ -22,6 +25,13 @@ Application::Application(int width, int height, const char* title) :
 	ServiceLocator::SetApplication(this);
 
 	glfwSetKeyCallback(_window->GetInternalWindow(), KeyCallback);
+
+	// Initialize ImGUI
+	ImGui::CreateContext();
+	ImGuiIO& io = ImGui::GetIO(); (void)io;
+	ImGui::StyleColorsDark();
+	ImGui_ImplGlfw_InitForOpenGL(_window->GetInternalWindow(), true);
+	ImGui_ImplOpenGL3_Init("#version 410");
 }
 
 void Application::Run() {
