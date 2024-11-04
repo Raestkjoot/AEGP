@@ -28,7 +28,9 @@ Application::Application(int width, int height, const char* title) :
 
 	// Initialize ImGUI
 	ImGui::CreateContext();
-	ImGuiIO& io = ImGui::GetIO(); (void)io;
+	ImGuiIO& io = ImGui::GetIO();
+	io.ConfigFlags |= ImGuiConfigFlags_NavEnableKeyboard;     // Enable Keyboard Controls
+	io.ConfigFlags |= ImGuiConfigFlags_DockingEnable;         // IF using Docking Branch
 	ImGui::StyleColorsDark();
 	ImGui_ImplGlfw_InitForOpenGL(_window->GetInternalWindow(), true);
 	ImGui_ImplOpenGL3_Init("#version 410");
