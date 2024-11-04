@@ -67,8 +67,14 @@ void Application::Cleanup() {
 
 	delete _curScene;
 	delete _inputManager;
+
+	ImGui_ImplOpenGL3_Shutdown();
+	ImGui_ImplGlfw_Shutdown();
+	ImGui::DestroyContext();
+
 	delete _renderer;
 	delete _window;
+
 }
 
 void Application::Quit() {

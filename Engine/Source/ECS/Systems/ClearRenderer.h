@@ -10,7 +10,6 @@ public:
 	void Update(float delta) override;
 
 private:
-	void Init(entt::registry* registry) override;
 	void ClearFrame();
 
 	glm::vec4 _clearColor{ 0.2f, 0.3f, 0.3f, 1.0f };
