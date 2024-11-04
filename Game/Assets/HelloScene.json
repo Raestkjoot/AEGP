@@ -1,0 +1,63 @@
+{
+  "Systems": [
+    "HelloSystem",
+    "MoveSystem",
+    "ClearRenderer",
+    "ClearUI",
+    "SpriteRenderer",
+    "UIRenderer"
+  ],
+  "Entities": [
+    {
+      "Name": "Player",
+      "Components": [
+        {
+          "Name": "Transform",
+          "Arguments": {
+            "Position": [ 0.0, 0.0 ]
+          }
+        },
+        {
+          "Name": "Sprite",
+          "Arguments": {
+            "Name": "DefaultCircle.png"
+          }
+        },
+        {
+          "Name": "PlayerControllerTag",
+          "Arguments": {
+          }
+        }
+      ]
+    },
+    {
+      "Name": "Prop",
+      "Components": [
+        {
+          "Name": "Transform",
+          "Arguments": {
+            "Position": [ -0.5, -0.5 ]
+          }
+        },
+        {
+          "Name": "Sprite",
+          "Arguments": {
+            "Name": "DefaultOutlineSquare.png",
+            "FlipY": true,
+            "FlipX": true
+          }
+        }
+      ]
+    },
+    {
+      "Name": "Camera",
+      "Componentes": [
+        {
+          "Name": "Camera2D",
+          "Arguments": {
+          }
+        }
+      ]
+    }
+  ]
+}
