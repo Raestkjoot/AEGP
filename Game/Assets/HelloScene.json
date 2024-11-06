@@ -51,7 +51,7 @@
     },
     {
       "Name": "Camera",
-      "Componentes": [
+      "Components": [
         {
           "Name": "Camera2D",
           "Arguments": {

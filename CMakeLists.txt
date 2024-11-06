@@ -12,6 +12,11 @@ file(GLOB_RECURSE GameSource "Game/Source/*.cpp" "Game/Source/*.h")
 add_executable(Game "Game/Source/Main.cpp" ${GameSource})
 target_link_libraries(Game Engine)
 
+# Copy game assets to output path
+file(COPY Game/Assets DESTINATION ${CMAKE_CURRENT_BINARY_DIR}/Debug)
+file(COPY Game/Assets DESTINATION ${CMAKE_CURRENT_BINARY_DIR}/Release)
+file(COPY Game/Assets DESTINATION ${CMAKE_CURRENT_BINARY_DIR})
+
 # Build Editor executable
 file(GLOB_RECURSE EditorSource "Editor/Source/*.cpp" "Editor/Source/*.h")
 add_executable(Editor "Editor/Source/Main.cpp" ${EditorSource})
