@@ -4,8 +4,12 @@
 #include "Renderer/Renderer.h"
 #include "ServiceLocator.h"
 #include "InputManager.h"
+#include "SceneLoader.h"
 #include "ECS/Scene.h"
+#include "SystemFactory.h"
+#include "ComponentFactory.h"
 #include "Timer.h"
+#include "Logger.h"
 
 #include <imgui.h>
 #include <imgui_impl_glfw.h>
@@ -19,7 +23,10 @@ static void KeyCallback(GLFWwindow* window, int key, int scancode, int action, i
 Application::Application(int width, int height, const char* title) : 
 	_window(new Window(width, height, title)), 
 	_renderer(new Renderer()), 
-	_inputManager(new InputManager()) {
+	_inputManager(new InputManager()),
+	_systemFactory(new SystemFactory()),
+	_componentFactory(new ComponentFactory()),
+	_sceneLoader(new SceneLoader(_systemFactory, _componentFactory)) {
 
 	ServiceLocator::SetInputManager(_inputManager);
 	ServiceLocator::SetApplication(this);
@@ -30,7 +37,7 @@ Application::Application(int width, int height, const char* title) :
 	ImGui::CreateContext();
 	ImGuiIO& io = ImGui::GetIO();
 	io.ConfigFlags |= ImGuiConfigFlags_NavEnableKeyboard;     // Enable Keyboard Controls
-	io.ConfigFlags |= ImGuiConfigFlags_DockingEnable;         // IF using Docking Branch
+	io.ConfigFlags |= ImGuiConfigFlags_DockingEnable;         // Enable docking imgui windows
 	ImGui::StyleColorsDark();
 	ImGui_ImplGlfw_InitForOpenGL(_window->GetInternalWindow(), true);
 	ImGui_ImplOpenGL3_Init("#version 410");
@@ -49,6 +56,12 @@ void Application::Run() {
 	}
 
 	Cleanup();
+}
+
+void Application::LoadScene(const std::string& sceneName) {
+	Logger::PrintError("APPLICATION::LOADSCENE Not implemented yet");
+
+	_sceneLoader->LoadScene(sceneName);
 }
 
 bool Application::IsRunning() const {

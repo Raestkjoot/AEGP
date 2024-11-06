@@ -1,5 +1,8 @@
 #include "Scene.h"
 
+// TODO: delete since we shouldn't need it. Or we call init on all systems here.
+void Scene::Initialize() {}
+
 void Scene::Start() {
 	for (auto& system : _systems) {
 		system->Start();
@@ -23,6 +26,10 @@ entt::entity Scene::CreateEntity() {
 }
 
 void Scene::AddSystem(std::unique_ptr<System> system) {
+	if (system.get() == nullptr) {
+		return;
+	}
+
 	system->Init(&_registry);
 	_systems.push_back(std::move(system));
 }

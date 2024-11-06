@@ -10,7 +10,7 @@
 
 class Scene {
 public:
-	virtual void Initialize() = 0;
+	virtual void Initialize();
 
 	void Start();
 	void Update(float delta);
