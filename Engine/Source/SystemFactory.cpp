@@ -4,8 +4,6 @@
 #include "ECS/System.h"
 
 std::unique_ptr<System> SystemFactory::GetSystem(const std::string& name) {
-	Logger::Print("Get System {}", name);
-
 	auto system = _systemMap.find(name);
 	if (system != _systemMap.end()) {
 		return system->second();

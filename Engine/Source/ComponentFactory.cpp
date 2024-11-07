@@ -3,9 +3,8 @@
 #include "Logger.h"
 
 void ComponentFactory::GetComponent(const std::string& name, Scene& scene, entt::entity e) {
-	Logger::Print("Get Component {}", name);
-
 	auto component = _componentMap.find(name);
+
 	if (component != _componentMap.end()) {
 		component->second(scene, e);
 	} else {

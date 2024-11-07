@@ -17,6 +17,7 @@ public:
 
 	SpriteRenderer(unsigned int maxNumSprites = 1000);
 
+	void Start() override;
 	void Update(float delta) override;
 
 	void SetCamera(Camera2D* camera);

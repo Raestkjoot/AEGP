@@ -59,8 +59,6 @@ void Application::Run() {
 }
 
 void Application::LoadScene(const std::string& sceneName) {
-	Logger::PrintError("APPLICATION::LOADSCENE Not implemented yet");
-
 	_curScene = _sceneLoader->LoadScene(sceneName);
 }
 

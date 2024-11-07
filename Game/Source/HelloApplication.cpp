@@ -40,12 +40,6 @@ void HelloApplication::Initialize() {
 	_componentFactory->RegisterComponent("Camera2D", [](Scene& scene, entt::entity e) { scene.AddComponent<Camera2D>(e); });
 	_componentFactory->RegisterComponent("PlayerControllerTag", [](Scene& scene, entt::entity e) { scene.AddComponent<PlayerControllerTag>(e); });
 
-
-	//_componentFactory->RegisterComponent("Transform", [](entt::registry& reg, entt::entity e) { reg.emplace<Transform>(e); });
-	//_componentFactory->RegisterComponent("Sprite", [](entt::registry& reg, entt::entity e) { reg.emplace<Sprite>(e); });
-	//_componentFactory->RegisterComponent("Camera2D", [](entt::registry& reg, entt::entity e) { reg.emplace<Camera2D>(e); });
-	//_componentFactory->RegisterComponent("PlayerControllerTag", [](entt::registry& reg, entt::entity e) { reg.emplace<PlayerControllerTag>(e); });
-
 	LoadScene("Assets/HelloScene.json");
 
 	Application::Initialize();

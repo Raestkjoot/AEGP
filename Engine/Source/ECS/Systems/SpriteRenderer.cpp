@@ -20,6 +20,14 @@ SpriteRenderer::SpriteRenderer(unsigned int maxNumSprites) :
 	_maxNumSprites(maxNumSprites) {
 }
 
+void SpriteRenderer::Start() {
+	auto camera = _registry->view<Camera2D>().front();
+	_camera = &_registry->get<Camera2D>(camera);
+
+	// TODO: fix temporary hardcoded solution
+	LoadSpriteAtlas("Engine/Assets/DefaultTextures.png", "Engine/Assets/DefaultTextures.json");
+}
+
 void SpriteRenderer::Update(float delta) {
 	auto view = _registry->view<Transform, Sprite>();
 
