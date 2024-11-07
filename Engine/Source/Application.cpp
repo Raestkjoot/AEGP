@@ -15,6 +15,8 @@
 #include <imgui_impl_glfw.h>
 #include <imgui_impl_opengl3.h>
 #include <GLFW/glfw3.h>
+#define MINIAUDIO_IMPLEMENTATION
+#include <miniaudio.h>
 
 static void KeyCallback(GLFWwindow* window, int key, int scancode, int action, int mods) {
 	ServiceLocator::GetInputManager()->KeyCallback(key, action, mods);
@@ -85,7 +87,6 @@ void Application::Cleanup() {
 
 	delete _renderer;
 	delete _window;
-
 }
 
 void Application::Quit() {

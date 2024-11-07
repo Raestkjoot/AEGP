@@ -6,6 +6,7 @@ add_subdirectory(glfw)
 add_subdirectory(glm)
 add_subdirectory(imgui)
 add_subdirectory(json)
+add_subdirectory(miniaudio)
 add_subdirectory(spdlog)
 add_subdirectory(stb)
 
@@ -17,6 +18,7 @@ target_link_libraries(${PROJECT_NAME} INTERFACE
 	glm
 	imgui
 	nlohmann_json::nlohmann_json
+	miniaudio
 	spdlog
 	stb
 	EnTT::EnTT
