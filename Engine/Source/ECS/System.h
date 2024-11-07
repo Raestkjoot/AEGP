@@ -4,6 +4,7 @@
 
 class System {
 	friend class Scene;
+	friend class SceneLoader;
 
 public:
 	virtual void Start();

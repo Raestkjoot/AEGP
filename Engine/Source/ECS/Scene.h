@@ -1,6 +1,7 @@
 #pragma once
 
 #include "System.h"
+#include "Logger.h"
 
 #include <entt/entt.hpp>
 
@@ -10,8 +11,6 @@
 
 class Scene {
 public:
-	virtual void Initialize();
-
 	void Start();
 	void Update(float delta);
 	void End();
@@ -30,6 +29,8 @@ public:
 	}
 
 private:
+	friend class SceneLoader;
+
 	entt::registry _registry;
 	std::vector< std::unique_ptr<System> > _systems;
 };

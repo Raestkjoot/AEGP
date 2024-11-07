@@ -1,11 +1,5 @@
 #include "Scene.h"
 
-void Scene::Initialize() {
-	for (auto& system : _systems) {
-		system->Init(&_registry);
-	}
-}
-
 void Scene::Start() {
 	for (auto& system : _systems) {
 		system->Start();
@@ -33,5 +27,6 @@ void Scene::AddSystem(std::unique_ptr<System> system) {
 		return;
 	}
 
+	system->Init(&_registry);
 	_systems.push_back(std::move(system));
 }

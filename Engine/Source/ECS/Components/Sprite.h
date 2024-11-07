@@ -1,8 +1,10 @@
 #pragma once
 
 #include "ECS/Systems/SpriteRenderer.h"
+#include "ServiceLocator.h"
 
 #include <glm/glm.hpp>
+#include <nlohmann/json.hpp>
 
 struct Sprite {
 	glm::vec2 texWidthHeight{256.0f, 256.0f};
@@ -17,5 +19,12 @@ struct Sprite {
 	Sprite(SpriteRenderer::SpriteAtlasData spriteData) :
 		texWidthHeight(spriteData.texWidthHeight),
 		texBaseCoords(spriteData.texBaseCoords) {
+	}
+	Sprite(nlohmann::json args) {
+		SpriteRenderer::SpriteAtlasData spriteData =
+			ServiceLocator::GetSpriteRenderer()->GetSprite(args.at("Name"));
+
+		texWidthHeight = spriteData.texWidthHeight;
+		texBaseCoords = spriteData.texBaseCoords;
 	}
 };

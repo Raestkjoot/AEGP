@@ -67,16 +67,15 @@ bool Application::IsRunning() const {
 }
 
 void Application::Initialize() {
-	_curScene.Initialize();
-	_curScene.Start();
+	_curScene->Start();
 }
 
 void Application::Update(float delta) {
-	_curScene.Update(delta);
+	_curScene->Update(delta);
 }
 
 void Application::Cleanup() {
-	_curScene.End();
+	_curScene->End();
 
 	delete _inputManager;
 

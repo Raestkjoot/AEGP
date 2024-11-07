@@ -27,8 +27,7 @@ protected:
 	void Cleanup();
 
 protected:
-	Scene _curScene{};
-
+	Scene* _curScene = nullptr;
 	Window* _window = nullptr;
 	Renderer* _renderer = nullptr;
 	InputManager* _inputManager = nullptr;

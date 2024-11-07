@@ -5,6 +5,7 @@
 #include "ECS/Components/Camera2D.h"
 #include "Logger.h"
 #include "Renderer/Renderer.h"
+#include "ServiceLocator.h"
 
 #define GLM_ENABLE_EXPERIMENTAL
 #include <glm/gtx/matrix_transform_2d.hpp>
@@ -18,14 +19,12 @@
 
 SpriteRenderer::SpriteRenderer(unsigned int maxNumSprites) :
 	_maxNumSprites(maxNumSprites) {
+	ServiceLocator::SetSpriteRenderer(this);
 }
 
 void SpriteRenderer::Start() {
 	auto camera = _registry->view<Camera2D>().front();
 	_camera = &_registry->get<Camera2D>(camera);
-
-	// TODO: fix temporary hardcoded solution
-	LoadSpriteAtlas("Engine/Assets/DefaultTextures.png", "Engine/Assets/DefaultTextures.json");
 }
 
 void SpriteRenderer::Update(float delta) {
@@ -152,6 +151,9 @@ void SpriteRenderer::Init(entt::registry* registry) {
 	_sprites.reserve(_maxNumSprites);
 
 	#pragma endregion QuadInfoBuffer
+
+	// TODO: This is a temporary hardcoded solution
+	LoadSpriteAtlas("Engine/Assets/DefaultTextures.png", "Engine/Assets/DefaultTextures.json");
 }
 
 glm::mat3x3 SpriteRenderer::GetCameraMatrix() {

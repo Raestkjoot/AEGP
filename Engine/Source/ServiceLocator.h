@@ -4,6 +4,7 @@
 
 class InputManager;
 class Application;
+class SpriteRenderer;
 
 class ServiceLocator {
 public:
@@ -19,7 +20,14 @@ public:
 	}
 	static void SetApplication(Application* application);
 
+	static SpriteRenderer* GetSpriteRenderer() {
+		assert(_spriteRenderer != nullptr);
+		return _spriteRenderer;
+	}
+	static void SetSpriteRenderer(SpriteRenderer* spriteRenderer);
+
 private:
 	static InputManager* _inputManager;
 	static Application* _application;
+	static SpriteRenderer* _spriteRenderer;
 };

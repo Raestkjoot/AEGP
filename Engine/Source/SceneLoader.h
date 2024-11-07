@@ -10,7 +10,7 @@ class SceneLoader {
 public:
 	SceneLoader(SystemFactory* systemFactory, ComponentFactory* componentFactory);
 
-	Scene LoadScene(std::string filename);
+	Scene* LoadScene(std::string filename);
 
 private:
 	SystemFactory* _systemFactory;
