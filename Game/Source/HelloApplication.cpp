@@ -35,14 +35,14 @@ void HelloApplication::Initialize() {
 	_systemFactory->RegisterSystem("SpriteRenderer", []() {return std::make_unique<SpriteRenderer>(); });
 	_systemFactory->RegisterSystem("UIRenderer", []() {return std::make_unique<UIRenderer>(); });
 
-	_componentFactory->RegisterComponent("Transform", [](Scene* scene, entt::entity e, nlohmann::json& args) {
-		scene->AddComponent<Transform>(e, args);
-	});
-	_componentFactory->RegisterComponent("Sprite", [](Scene* scene, entt::entity e, nlohmann::json& args) {
-		scene->AddComponent<Sprite>(e, args);
-	});
-	_componentFactory->RegisterComponent("Camera2D", [](Scene* scene, entt::entity e, nlohmann::json& args) { scene->AddComponent<Camera2D>(e); });
-	_componentFactory->RegisterComponent("PlayerControllerTag", [](Scene* scene, entt::entity e, nlohmann::json& args) { scene->AddComponent<PlayerControllerTag>(e); });
+	_componentFactory->RegisterComponent("Transform", [](Scene* scene, entt::entity e, nlohmann::json& args) 
+		{ scene->AddComponent<Transform>(e, args);});
+	_componentFactory->RegisterComponent("Sprite", [](Scene* scene, entt::entity e, nlohmann::json& args) 
+		{ scene->AddComponent<Sprite>(e, args); });
+	_componentFactory->RegisterComponent("Camera2D", [](Scene* scene, entt::entity e, nlohmann::json& args) 
+		{ scene->AddComponent<Camera2D>(e); });
+	_componentFactory->RegisterComponent("PlayerControllerTag", [](Scene* scene, entt::entity e, nlohmann::json& args) 
+		{ scene->AddComponent<PlayerControllerTag>(e); });
 
 	LoadScene("Assets/HelloScene.json");
 
