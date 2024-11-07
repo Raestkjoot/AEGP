@@ -17,11 +17,14 @@ void HelloScene::Initialize() {
 	AddSystem(std::make_unique<ClearRenderer>());
 	AddSystem(std::make_unique<ClearUI>());
 	std::unique_ptr spriteRenderer = std::make_unique<SpriteRenderer>();
+	// TODO: Load atlas through SceneLoader
 	spriteRenderer->LoadSpriteAtlas("Engine/Assets/DefaultTextures.png", "Engine/Assets/DefaultTextures.json");
 
 	// Player
 	auto entity = CreateEntity();
+	// TODO: Set transform position through SceneLoader
 	AddComponent<Transform>(entity, glm::vec2(0.0f, 0.0f));
+	// TODO: Set sprite through SceneLoader
 	AddComponent<Sprite>(entity, spriteRenderer->GetSprite("DefaultCircle.png"));
 	AddComponent<PlayerControllerTag>(entity);
 
@@ -36,6 +39,7 @@ void HelloScene::Initialize() {
 	// Camera
 	entity = CreateEntity();
 	AddComponent<Camera2D>(entity);
+	// TODO: Set camera through SceneLoader
 	spriteRenderer->SetCamera(GetComponent<Camera2D>(entity));
 
 	AddSystem(std::move(spriteRenderer));

@@ -1,8 +1,9 @@
 #pragma once
 
+#include "ECS/Scene.h"
+
 #include <string>
 
-class Scene;
 class Window;
 class Renderer;
 class InputManager;
@@ -26,7 +27,8 @@ protected:
 	void Cleanup();
 
 protected:
-	Scene* _curScene = nullptr;
+	Scene _curScene{};
+
 	Window* _window = nullptr;
 	Renderer* _renderer = nullptr;
 	InputManager* _inputManager = nullptr;

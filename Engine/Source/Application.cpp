@@ -61,7 +61,7 @@ void Application::Run() {
 void Application::LoadScene(const std::string& sceneName) {
 	Logger::PrintError("APPLICATION::LOADSCENE Not implemented yet");
 
-	_sceneLoader->LoadScene(sceneName);
+	_curScene = _sceneLoader->LoadScene(sceneName);
 }
 
 bool Application::IsRunning() const {
@@ -69,18 +69,17 @@ bool Application::IsRunning() const {
 }
 
 void Application::Initialize() {
-	_curScene->Initialize();
-	_curScene->Start();
+	_curScene.Initialize();
+	_curScene.Start();
 }
 
 void Application::Update(float delta) {
-	_curScene->Update(delta);
+	_curScene.Update(delta);
 }
 
 void Application::Cleanup() {
-	_curScene->End();
+	_curScene.End();
 
-	delete _curScene;
 	delete _inputManager;
 
 	ImGui_ImplOpenGL3_Shutdown();

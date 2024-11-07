@@ -26,13 +26,13 @@ Scene SceneLoader::LoadScene(std::string filename) {
 		);
 	}
 
-	for (auto& entity : entities) {
-		Logger::Print("TODO: Add entity {}", entity.at("Name").get<std::string>());
+	for (auto& entityData : entities) {
+		auto entity = scene.CreateEntity();
 
-		nlohmann::json components = entity.at("Components");
+		nlohmann::json components = entityData.at("Components");
 
 		for (auto& component : components) {
-			_componentFactory->GetComponent(component.at("Name").get<std::string>());
+			_componentFactory->GetComponent(component.at("Name").get<std::string>(), scene, entity);
 		}
 	}
 

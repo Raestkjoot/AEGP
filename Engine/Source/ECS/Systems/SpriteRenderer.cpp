@@ -147,9 +147,16 @@ void SpriteRenderer::Init(entt::registry* registry) {
 }
 
 glm::mat3x3 SpriteRenderer::GetCameraMatrix() {
-	return glm::translate(glm::scale(glm::mat3x3(1.0f), 
-		glm::vec2(_camera->zoom, _camera->zoom)), 
-		-_camera->position);
+	glm::mat3x3 identityMat = glm::mat3x3(1.0f);
+
+	if (_camera) {
+		return glm::translate(glm::scale(identityMat,
+			glm::vec2(_camera->zoom, _camera->zoom)),
+			-_camera->position);
+	} else {
+		return identityMat;
+	}
+
 }
 
 glm::mat3x3 SpriteRenderer::GetTransform(Transform transform) {
