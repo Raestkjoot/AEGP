@@ -25,11 +25,15 @@ void HelloSystem::Start() {
 	)"_json;
 	std::ofstream o("output.json");
 	o << j.dump(4);
+
+	_audio.Load("Assets/Track03.wav");
+	_audio.Loop(true);
 }
 
 void HelloSystem::Update(float delta) {
 	if (ServiceLocator::GetInputManager()->GetKeyDown(GLFW_KEY_F)) {
 		Logger::Print("Hello, Update(delta = {})", delta);
+		_audio.PlayPause();
 	}
 
 	if (ServiceLocator::GetInputManager()->GetKeyDown(GLFW_KEY_ESCAPE)) {

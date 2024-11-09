@@ -2,6 +2,7 @@
 
 #include "Window.h"
 #include "Renderer/Renderer.h"
+#include "AudioEngine.h"
 #include "ServiceLocator.h"
 #include "InputManager.h"
 #include "SceneLoader.h"
@@ -15,8 +16,6 @@
 #include <imgui_impl_glfw.h>
 #include <imgui_impl_opengl3.h>
 #include <GLFW/glfw3.h>
-#define MINIAUDIO_IMPLEMENTATION
-#include <miniaudio.h>
 
 static void KeyCallback(GLFWwindow* window, int key, int scancode, int action, int mods) {
 	ServiceLocator::GetInputManager()->KeyCallback(key, action, mods);
@@ -24,12 +23,14 @@ static void KeyCallback(GLFWwindow* window, int key, int scancode, int action, i
 
 Application::Application(int width, int height, const char* title) : 
 	_window(new Window(width, height, title)), 
-	_renderer(new Renderer()), 
+	_renderer(new Renderer()),
+	_audioEngine(new AudioEngine()),
 	_inputManager(new InputManager()),
 	_systemFactory(new SystemFactory()),
 	_componentFactory(new ComponentFactory()),
 	_sceneLoader(new SceneLoader(_systemFactory, _componentFactory)) {
 
+	ServiceLocator::SetAudioEngine(_audioEngine);
 	ServiceLocator::SetInputManager(_inputManager);
 	ServiceLocator::SetApplication(this);
 
@@ -85,6 +86,7 @@ void Application::Cleanup() {
 	ImGui_ImplGlfw_Shutdown();
 	ImGui::DestroyContext();
 
+	delete _audioEngine;
 	delete _renderer;
 	delete _window;
 }

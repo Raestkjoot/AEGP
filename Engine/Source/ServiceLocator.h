@@ -4,6 +4,7 @@
 
 class InputManager;
 class Application;
+class AudioEngine;
 class SpriteRenderer;
 
 class ServiceLocator {
@@ -20,6 +21,12 @@ public:
 	}
 	static void SetApplication(Application* application);
 
+	static AudioEngine* GetAudioEngine() {
+		assert(_audioEngine != nullptr);
+		return _audioEngine;
+	}
+	static void SetAudioEngine(AudioEngine* audioEngine);
+
 	static SpriteRenderer* GetSpriteRenderer() {
 		assert(_spriteRenderer != nullptr);
 		return _spriteRenderer;
@@ -29,5 +36,6 @@ public:
 private:
 	static InputManager* _inputManager;
 	static Application* _application;
+	static AudioEngine* _audioEngine;
 	static SpriteRenderer* _spriteRenderer;
 };

@@ -6,6 +6,7 @@
 
 class Window;
 class Renderer;
+class AudioEngine;
 class InputManager;
 class SceneLoader;
 class SystemFactory;
@@ -30,6 +31,7 @@ protected:
 	Scene* _curScene = nullptr;
 	Window* _window = nullptr;
 	Renderer* _renderer = nullptr;
+	AudioEngine* _audioEngine = nullptr;
 	InputManager* _inputManager = nullptr;
 	SystemFactory* _systemFactory = nullptr;
 	ComponentFactory* _componentFactory = nullptr;
