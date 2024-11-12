@@ -88,8 +88,6 @@ void MoveSystem::Update(float delta) {
 		}
 
 		auto& cameraCamera = _registry->get<Camera2D>(camera);
-		cameraCamera.position = playerTransform.position;
-		//cameraCamera.rotation = playerTransform.rotation;
 		cameraCamera.zoom += _zoomDirection * _zoomSpeed * delta;
 	}
 }

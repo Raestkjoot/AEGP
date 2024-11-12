@@ -3,6 +3,7 @@
     "HelloSystem",
     "MoveSystem",
     "CollisionSystem",
+    "CameraFollowSystem",
     "ClearRenderer",
     "ClearUI",
     "SpriteRenderer",

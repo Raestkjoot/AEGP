@@ -7,6 +7,7 @@
 #include "SystemFactory.h"
 #include "HelloSystem.h"
 #include "MoveSystem.h"
+#include "CameraFollowSystem.h"
 #include "ECS/Systems/ClearRenderer.h"
 #include "ECS/Systems/ClearUI.h"
 #include "ECS/Systems/SpriteRenderer.h"
@@ -34,6 +35,7 @@ void HelloApplication::Initialize() {
 	
 	_systemFactory->RegisterSystem("HelloSystem", []() {return std::make_unique<HelloSystem>(); });
 	_systemFactory->RegisterSystem("MoveSystem", []() {return std::make_unique<MoveSystem>(); });
+	_systemFactory->RegisterSystem("CameraFollowSystem", []() {return std::make_unique<CameraFollowSystem>(); });
 	_systemFactory->RegisterSystem("ClearRenderer", []() {return std::make_unique<ClearRenderer>(); });
 	_systemFactory->RegisterSystem("ClearUI", []() {return std::make_unique<ClearUI>(); });
 	_systemFactory->RegisterSystem("SpriteRenderer", []() {return std::make_unique<SpriteRenderer>(); });
