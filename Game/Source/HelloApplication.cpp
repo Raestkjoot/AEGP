@@ -11,6 +11,7 @@
 #include "ECS/Systems/ClearUI.h"
 #include "ECS/Systems/SpriteRenderer.h"
 #include "ECS/Systems/UIRenderer.h"
+#include "ECS/Systems/CollisionSystem.h"
 
 // Components
 #include "ComponentFactory.h"
@@ -18,6 +19,9 @@
 #include "ECS/Components/Transform.h"
 #include "ECS/Components/Sprite.h"
 #include "ECS/Components/Camera2D.h"
+#include "ECS/Components/AABB.h"
+#include "ECS/Components/Collider_Dynamic.h"
+#include "ECS/Components/Collider_Static.h"
 
 #include <GLFW/glfw3.h>
 #include <entt/entt.hpp>
@@ -34,6 +38,7 @@ void HelloApplication::Initialize() {
 	_systemFactory->RegisterSystem("ClearUI", []() {return std::make_unique<ClearUI>(); });
 	_systemFactory->RegisterSystem("SpriteRenderer", []() {return std::make_unique<SpriteRenderer>(); });
 	_systemFactory->RegisterSystem("UIRenderer", []() {return std::make_unique<UIRenderer>(); });
+	_systemFactory->RegisterSystem("CollisionSystem", []() {return std::make_unique<CollisionSystem>(); });
 
 	_componentFactory->RegisterComponent("Transform", [](Scene* scene, entt::entity e, nlohmann::json& args) 
 		{ scene->AddComponent<Transform>(e, args);});
@@ -43,6 +48,12 @@ void HelloApplication::Initialize() {
 		{ scene->AddComponent<Camera2D>(e); });
 	_componentFactory->RegisterComponent("PlayerControllerTag", [](Scene* scene, entt::entity e, nlohmann::json& args) 
 		{ scene->AddComponent<PlayerControllerTag>(e); });
+	_componentFactory->RegisterComponent("AABB", [](Scene* scene, entt::entity e, nlohmann::json& args) 
+		{ scene->AddComponent<AABB>(e, args); });
+	_componentFactory->RegisterComponent("Collider_Dynamic", [](Scene* scene, entt::entity e, nlohmann::json& args)
+		{ scene->AddComponent<Collider_Dynamic>(e); });
+	_componentFactory->RegisterComponent("Collider_Static", [](Scene* scene, entt::entity e, nlohmann::json& args) 
+		{ scene->AddComponent<Collider_Static>(e); });
 
 	LoadScene("Assets/HelloScene.json");
 
