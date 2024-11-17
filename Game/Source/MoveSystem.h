@@ -10,13 +10,18 @@ public:
 	void Update(float delta) override;
 
 private:
-	glm::vec2 _moveDirection;
-	float _rotationDirection;
-	glm::vec2 _scaleDirection;
-	float _zoomDirection;
+	void HandleInput(bool isGrounded);
 
-	float _moveSpeed = 1.5f;
-	float _rotationSpeed = 4.0f;
-	float _scaleSpeed = 0.8f;
-	float _zoomSpeed = 0.4f;
+	glm::vec2 _velocity;
+	float _moveDirection;
+	bool _jump;
+	bool _jumpReleased = true;
+
+	float _maxVelocity = 2.0f;
+	float _groundMoveAcceleration = 28.0f;
+	float _groundStopAcceleration = 20.0f;
+	float _airMoveAcceleration = 16.0f;
+	float _jumpPower = 6.0f;
+	float _jumpHeldGravity = 10.0f;
+	float _jumpReleasedGravity = 25.0f;
 };

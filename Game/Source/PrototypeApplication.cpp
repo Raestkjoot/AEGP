@@ -8,15 +8,15 @@
 #include "AudioManagerSystem.h"
 #include "MoveSystem.h"
 #include "CameraFollowSystem.h"
+#include "PlayerCollisionSystem.h"
 #include "ECS/Systems/ClearRenderer.h"
 #include "ECS/Systems/ClearUI.h"
 #include "ECS/Systems/SpriteRenderer.h"
 #include "ECS/Systems/UIRenderer.h"
-#include "ECS/Systems/CollisionSystem.h"
 
 // Components
 #include "ComponentFactory.h"
-#include "PlayerControllerTag.h"
+#include "PlayerController.h"
 #include "ECS/Components/Transform.h"
 #include "ECS/Components/Sprite.h"
 #include "ECS/Components/Camera2D.h"
@@ -38,7 +38,7 @@ void PrototypeApplication::Initialize() {
 	_systemFactory->RegisterSystem("ClearUI", []() {return std::make_unique<ClearUI>(); });
 	_systemFactory->RegisterSystem("SpriteRenderer", []() {return std::make_unique<SpriteRenderer>(); });
 	_systemFactory->RegisterSystem("UIRenderer", []() {return std::make_unique<UIRenderer>(); });
-	_systemFactory->RegisterSystem("CollisionSystem", []() {return std::make_unique<CollisionSystem>(); });
+	_systemFactory->RegisterSystem("PlayerCollisionSystem", []() {return std::make_unique<PlayerCollisionSystem>(); });
 
 	_componentFactory->RegisterComponent("Transform", [](Scene* scene, entt::entity e, nlohmann::json& args) 
 		{ scene->AddComponent<Transform>(e, args);});
@@ -46,8 +46,8 @@ void PrototypeApplication::Initialize() {
 		{ scene->AddComponent<Sprite>(e, args); });
 	_componentFactory->RegisterComponent("Camera2D", [](Scene* scene, entt::entity e, nlohmann::json& args) 
 		{ scene->AddComponent<Camera2D>(e); });
-	_componentFactory->RegisterComponent("PlayerControllerTag", [](Scene* scene, entt::entity e, nlohmann::json& args) 
-		{ scene->AddComponent<PlayerControllerTag>(e); });
+	_componentFactory->RegisterComponent("PlayerController", [](Scene* scene, entt::entity e, nlohmann::json& args) 
+		{ scene->AddComponent<PlayerController>(e); });
 	_componentFactory->RegisterComponent("AABB", [](Scene* scene, entt::entity e, nlohmann::json& args) 
 		{ scene->AddComponent<AABB>(e, args); });
 	_componentFactory->RegisterComponent("Collider_Dynamic", [](Scene* scene, entt::entity e, nlohmann::json& args)

@@ -1,11 +1,11 @@
 #include "CameraFollowSystem.h"
 
 #include "ECS/Components/Camera2D.h"
-#include "PlayerControllerTag.h"
+#include "PlayerController.h"
 #include "ECS/Components/Transform.h"
 
 void CameraFollowSystem::Update(float delta) {
-	auto playerView = _registry->view<Transform, PlayerControllerTag>();
+	auto playerView = _registry->view<Transform, PlayerController>();
 	auto cameraView = _registry->view<Camera2D>();
 
 	auto player = playerView.front();
