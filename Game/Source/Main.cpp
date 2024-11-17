@@ -1,6 +1,6 @@
-#include "HelloApplication.h"
+#include "PrototypeApplication.h"
 
 int main() {
-	HelloApplication hello;
-	hello.Run();
+	PrototypeApplication prototype;
+	prototype.Run();
 }

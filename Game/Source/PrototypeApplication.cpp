@@ -1,11 +1,11 @@
-#include "HelloApplication.h"
+#include "PrototypeApplication.h"
 
 #include "Logger.h"
 #include "SceneLoader.h"
 
 // Systems
 #include "SystemFactory.h"
-#include "HelloSystem.h"
+#include "AudioManagerSystem.h"
 #include "MoveSystem.h"
 #include "CameraFollowSystem.h"
 #include "ECS/Systems/ClearRenderer.h"
@@ -28,12 +28,10 @@
 #include <entt/entt.hpp>
 #include "nlohmann/json.hpp"
 
-HelloApplication::HelloApplication() : Application(512, 512, "Hello") { }
+PrototypeApplication::PrototypeApplication() : Application(512, 512, "Hello") { }
 
-void HelloApplication::Initialize() {
-	Logger::Print("App: Hello, world!");
-	
-	_systemFactory->RegisterSystem("HelloSystem", []() {return std::make_unique<HelloSystem>(); });
+void PrototypeApplication::Initialize() {
+	_systemFactory->RegisterSystem("AudioManagerSystem", []() {return std::make_unique<AudioManagerSystem>(); });
 	_systemFactory->RegisterSystem("MoveSystem", []() {return std::make_unique<MoveSystem>(); });
 	_systemFactory->RegisterSystem("CameraFollowSystem", []() {return std::make_unique<CameraFollowSystem>(); });
 	_systemFactory->RegisterSystem("ClearRenderer", []() {return std::make_unique<ClearRenderer>(); });
@@ -57,7 +55,7 @@ void HelloApplication::Initialize() {
 	_componentFactory->RegisterComponent("Collider_Static", [](Scene* scene, entt::entity e, nlohmann::json& args) 
 		{ scene->AddComponent<Collider_Static>(e); });
 
-	LoadScene("Assets/HelloScene.json");
+	LoadScene("Assets/PrototypeScene.json");
 
 	Application::Initialize();
 }

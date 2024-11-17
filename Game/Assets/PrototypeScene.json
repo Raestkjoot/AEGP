@@ -1,13 +1,11 @@
 {
   "Systems": [
-    "HelloSystem",
+    "AudioManagerSystem",
     "MoveSystem",
     "CollisionSystem",
     "CameraFollowSystem",
     "ClearRenderer",
-    "ClearUI",
-    "SpriteRenderer",
-    "UIRenderer"
+    "SpriteRenderer"
   ],
   "Entities": [
     {
@@ -16,13 +14,14 @@
         {
           "Name": "Transform",
           "Arguments": {
-            "Position": [ 0.0, 0.0 ]
+            "Position": [ 0.0, 0.0 ],
+            "Scale": [0.5, 1.0]
           }
         },
         {
           "Name": "Sprite",
           "Arguments": {
-            "Name": "DefaultCircle.png"
+            "Name": "DefaultSquare.png"
           }
         },
         {
@@ -33,11 +32,42 @@
         {
           "Name": "AABB",
           "Arguments": {
-            "Size": [ 0.5, 0.5 ]
+            "Size": [ 0.25, 0.5 ]
           }
         },
         {
           "Name": "Collider_Dynamic",
+          "Arguments": {
+          }
+        }
+      ]
+    },
+    {
+      "Name": "Floor",
+      "Components": [
+        {
+          "Name": "Transform",
+          "Arguments": {
+            "Position": [ 0.0, -1.5 ],
+            "Scale":  [4.0, 1.0]
+          }
+        },
+        {
+          "Name": "Sprite",
+          "Arguments": {
+            "Name": "DefaultSquare.png",
+            "FlipY": true,
+            "FlipX": true
+          }
+        },
+        {
+          "Name": "AABB",
+          "Arguments": {
+            "Size": [ 2.0, 0.5 ]
+          }
+        },
+        {
+          "Name": "Collider_Static",
           "Arguments": {
           }
         }
@@ -55,7 +85,7 @@
         {
           "Name": "Sprite",
           "Arguments": {
-            "Name": "DefaultOutlineSquare.png",
+            "Name": "DefaultSquare.png",
             "FlipY": true,
             "FlipX": true
           }

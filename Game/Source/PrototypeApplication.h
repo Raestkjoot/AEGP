@@ -3,9 +3,9 @@
 #include "Application.h"
 #include "ECS/Scene.h"
 
-class HelloApplication : public Application {
+class PrototypeApplication : public Application {
 public:
-	HelloApplication();
+	PrototypeApplication();
 
 protected:
 	void Initialize() override;
