@@ -1,6 +1,7 @@
 #pragma once
 
 #include "ECS/System.h"
+#include "AudioArray.h"
 
 #include "glm/glm.hpp"
 
@@ -42,4 +43,6 @@ private:
 	// Let player still jump for this time, after running off an edge
 	float _coyoteTime = 0.1f;
 #pragma endregion tweak values
+
+	AudioArray _jumpSounds;
 };

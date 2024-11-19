@@ -65,7 +65,7 @@ void PlayerCollisionSystem::Update(float delta) {
 			}
 		}
 
-		for (auto [tEntity, tTrans, tAabb, trigger] : triggerAABBs.each()) {
+		for (auto [tEntity, tTrans, tAabb] : triggerAABBs.each()) {
 
 			// COLLISION DETECTION
 			// Measure overlaps and early return if there is an edge with no overlap

@@ -22,9 +22,13 @@ void MoveSystem::Start() {
 	ServiceLocator::GetInputManager()->ListenToKey(GLFW_KEY_W);
 
 	ServiceLocator::GetInputManager()->ListenToKey(GLFW_KEY_ESCAPE);
+
+	_jumpSounds.AddAudioFile("Assets/Voice.wav");
+	_jumpSounds.AddAudioFile("Assets/Voice2.wav");
 }
 
 void MoveSystem::Update(float delta) {
+	
 	auto playerView = _registry->view<Transform, Sprite, PlayerController>();
 	auto player = playerView.front();
 	auto& playerTransform = _registry->get<Transform>(player);
@@ -46,6 +50,7 @@ void MoveSystem::Update(float delta) {
 
 	if (_jumpReleased == false && CanJump(playerController.isGrounded)) {
 		_velocity.y = _jumpPower;
+		_jumpSounds.PlayShuffle();
 	}
 
 	if (playerController.isGrounded) {

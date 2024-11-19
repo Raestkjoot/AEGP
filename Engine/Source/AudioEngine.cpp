@@ -17,7 +17,7 @@ AudioEngine::~AudioEngine() {
 }
 
 void AudioEngine::InitAudioFile(ma_sound* audio, const std::string& filename) {
-	if (ma_sound_init_from_file(_engine, filename.c_str(), 0, NULL, NULL, audio) != MA_SUCCESS) {
+	if (ma_sound_init_from_file(_engine, filename.c_str(), MA_SOUND_FLAG_NO_SPATIALIZATION, NULL, NULL, audio) != MA_SUCCESS) {
 		Logger::PrintError("AUDIO_ENGINE: Failed to initialize audio from file '{}'.", filename);
 	}
 }

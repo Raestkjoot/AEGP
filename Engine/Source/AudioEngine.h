@@ -1,6 +1,7 @@
 #pragma once
 
 #include <string>
+#include <map>
 
 class ma_engine;
 class ma_sound;
