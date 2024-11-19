@@ -4,6 +4,7 @@
 #include "ECS/Components/AABB.h"
 #include "PlayerController.h"
 #include "ECS/Components/Collider_Static.h"
+#include "ECS/Components/Collider_Trigger.h"
 #include "Logger.h"
 
 #include <glm/glm.hpp>
@@ -13,15 +14,16 @@
 void PlayerCollisionSystem::Update(float delta) {
 	auto playerAABB = _registry->view<Transform, AABB, PlayerController>();
 	auto staticAABBs = _registry->view<Transform, AABB, Collider_Static>();
+	auto triggerAABBs = _registry->view<Transform, AABB, Collider_Trigger>();
 
 	float minDist;
 	float overlaps[4];
 	int projVecIndex;
 
 	for (auto [pEntity, pTrans, pAabb, pContr] : playerAABB.each()) {
-			pContr.isTouchingRight = false;
-			pContr.isGrounded = false;
-			pContr.isTouchingLeft = false;
+		pContr.isTouchingRight = false;
+		pContr.isGrounded = false;
+		pContr.isTouchingLeft = false;
 
 		for (auto [sEntity, sTrans, sAabb] : staticAABBs.each()) {
 
@@ -61,6 +63,27 @@ void PlayerCollisionSystem::Update(float delta) {
 				pTrans.position.y += minDist;
 				pContr.isGrounded = true;
 			}
+		}
+
+		for (auto [tEntity, tTrans, tAabb, trigger] : triggerAABBs.each()) {
+
+			// COLLISION DETECTION
+			// Measure overlaps and early return if there is an edge with no overlap
+			if ((pTrans.position.x + pAabb.extents.x - (tTrans.position.x - tAabb.extents.x)) < 0) {
+				continue;
+			}
+			if ((tTrans.position.x + tAabb.extents.x - (pTrans.position.x - pAabb.extents.x)) < 0) {
+				continue;
+			}
+			if ((pTrans.position.y + pAabb.extents.y - (tTrans.position.y - tAabb.extents.y)) < 0) {
+				continue;
+			}
+			if ((tTrans.position.y + tAabb.extents.y - (pTrans.position.y - pAabb.extents.y)) < 0) {
+				continue;
+			}
+
+			// Collision Detected
+			_registry->destroy(tEntity);
 		}
 	}
 }

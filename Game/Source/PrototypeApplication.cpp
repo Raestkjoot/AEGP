@@ -23,6 +23,7 @@
 #include "ECS/Components/AABB.h"
 #include "ECS/Components/Collider_Dynamic.h"
 #include "ECS/Components/Collider_Static.h"
+#include "ECS/Components/Collider_Trigger.h"
 
 #include <GLFW/glfw3.h>
 #include <entt/entt.hpp>
@@ -52,8 +53,10 @@ void PrototypeApplication::Initialize() {
 		{ scene->AddComponent<AABB>(e, args); });
 	_componentFactory->RegisterComponent("Collider_Dynamic", [](Scene* scene, entt::entity e, nlohmann::json& args)
 		{ scene->AddComponent<Collider_Dynamic>(e); });
-	_componentFactory->RegisterComponent("Collider_Static", [](Scene* scene, entt::entity e, nlohmann::json& args) 
+	_componentFactory->RegisterComponent("Collider_Static", [](Scene* scene, entt::entity e, nlohmann::json& args)
 		{ scene->AddComponent<Collider_Static>(e); });
+	_componentFactory->RegisterComponent("Collider_Trigger", [](Scene* scene, entt::entity e, nlohmann::json& args)
+		{ scene->AddComponent<Collider_Trigger>(e); });
 
 	LoadScene("Assets/PrototypeScene.json");
 
