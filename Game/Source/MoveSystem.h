@@ -12,14 +12,14 @@ public:
 
 private:
 	void HandleInput();
-	bool CanJump(bool isGrounded);
+	bool ShouldJump();
 
 	glm::vec2 _velocity;
 	float _moveDirection;
+	bool _isGrounded = false;
 	bool _jump;
 	bool _jumpReleased = true;
-	float _jumpPressedTime;
-	float _jumpReleasedTime;
+	float _jumpPressedTime = -100.0f;
 	float _passedTime = 0.0f;
 	float _lastGroundedTime = 0.0f;
 	bool _wasGroundedLastFrame;
@@ -37,7 +37,7 @@ private:
 	float _gravity = 25.0f;
 	float _jumpHeldGravity = 10.0f;
 	// Store jump input for this long, after player releases jump button
-	float _jumpCache1 = 0.05f;
+	float _jumpCache1 = 0.08f;
 	// Store jump input for this long, while player is holding jump button
 	float _jumpCache2 = 0.4f;
 	// Let player still jump for this time, after running off an edge

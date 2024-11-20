@@ -28,13 +28,14 @@ void MoveSystem::Start() {
 }
 
 void MoveSystem::Update(float delta) {
-	
 	auto playerView = _registry->view<Transform, Sprite, PlayerController>();
 	auto player = playerView.front();
 	auto& playerTransform = _registry->get<Transform>(player);
 	auto& playerController = _registry->get<PlayerController>(player);
 
 	_passedTime += delta;
+	_isGrounded = playerController.isGrounded;
+
 	HandleInput();
 
 	if (playerController.isTouchingRight) {
@@ -48,12 +49,12 @@ void MoveSystem::Update(float delta) {
 		}
 	}
 
-	if (_jumpReleased == false && CanJump(playerController.isGrounded)) {
+	if (ShouldJump()) {
 		_velocity.y = _jumpPower;
-		_jumpSounds.PlayShuffle();
+		_jumpSounds.PlayRandom();
 	}
 
-	if (playerController.isGrounded) {
+	if (_isGrounded) {
 		if (_moveDirection != 0.0f) {
 			_velocity.x = glm::clamp(_velocity.x + _moveDirection * _groundAcceleration * delta, -_maxHorizontalSpeed, _maxHorizontalSpeed);
 		} else {
@@ -111,14 +112,15 @@ void MoveSystem::HandleInput() {
 	if (ServiceLocator::GetInputManager()->GetKeyUp(GLFW_KEY_W) ||
 		ServiceLocator::GetInputManager()->GetKeyUp(GLFW_KEY_UP)) {
 		_jumpReleased = true;
-		_jumpReleasedTime = _passedTime;
 	}
 }
 
-bool MoveSystem::CanJump(bool isGrounded) {
-	bool coyote = _passedTime - _lastGroundedTime < _coyoteTime;
-	bool keyPressedInTime = _passedTime - _jumpPressedTime < _jumpCache2 ||
-		_passedTime - _jumpReleasedTime < _jumpCache1;
+bool MoveSystem::ShouldJump() {
+	bool keyPressedInTime = _jumpReleased ?
+		_passedTime - _jumpPressedTime < _jumpCache1 :
+		_passedTime - _jumpPressedTime < _jumpCache2;
 
-	return (isGrounded || coyote) && keyPressedInTime;
+	bool coyote = _passedTime - _lastGroundedTime < _coyoteTime;
+
+	return (_isGrounded || coyote) && keyPressedInTime;
 }

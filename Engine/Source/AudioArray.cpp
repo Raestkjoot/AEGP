@@ -1,8 +1,8 @@
 #include "AudioArray.h"
 
 #include "Audio.h"
-
-#include <cstdlib>
+#include "Random.h"
+#include "Logger.h"
 
 void AudioArray::AddAudioFile(const std::string& fileName) {
 	_audioClips.emplace_back();
@@ -10,12 +10,12 @@ void AudioArray::AddAudioFile(const std::string& fileName) {
 }
 
 void AudioArray::PlayRandom() {
-	int rnd = std::rand() % _audioClips.size();
+	int rnd = Random::Range(0, _audioClips.size() - 1);
 	Play(rnd);
 }
 
 void AudioArray::PlayShuffle() {
-	int rnd = std::rand() % _audioClips.size();
+	int rnd = Random::Range(0, _audioClips.size() - 1);
 
 	if (rnd != _lastPlayedIndex) {
 		Play(rnd);
@@ -28,8 +28,8 @@ void AudioArray::PlayShuffle() {
 }
 
 void AudioArray::Play(int index) {
-	float volume = _volumeRange.x + (static_cast<float>(std::rand()) / (static_cast<float>(RAND_MAX / _volumeRange.y)));
-	float pitch = _pitchRange.x + (static_cast<float>(std::rand()) / (static_cast<float>(RAND_MAX / _pitchRange.y)));
+	float volume = Random::Range(_volumeRange.x, _volumeRange.y);
+	float pitch = Random::Range(_pitchRange.x, _pitchRange.y);
 
 	_audioClips[index].SetVolume(volume);
 	_audioClips[index].SetPitch(pitch);

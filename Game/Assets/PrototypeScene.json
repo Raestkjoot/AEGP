@@ -14,7 +14,7 @@
         {
           "Name": "Transform",
           "Arguments": {
-            "Position": [ 0.0, 0.5 ],
+            "Position": [ 0.4, 8.0 ],
             "Scale": [ 0.5, 1.0 ]
           }
         },
