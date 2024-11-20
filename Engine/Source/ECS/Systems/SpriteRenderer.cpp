@@ -3,6 +3,7 @@
 #include "ECS/Components/Transform.h"
 #include "ECS/Components/Sprite.h"
 #include "ECS/Components/Camera2D.h"
+#include "ECS/Components/SpriteAnimator.h"
 #include "Logger.h"
 #include "Renderer/Renderer.h"
 #include "ServiceLocator.h"
@@ -33,6 +34,7 @@ void SpriteRenderer::Update(float delta) {
 	_sprites.clear();
 	unsigned int curNumSprites = 0;
 
+
 	for (auto [entity, transform, sprite] : view.each()) {
 		_sprites.emplace_back(
 			GetTexCoords(sprite),
@@ -40,6 +42,26 @@ void SpriteRenderer::Update(float delta) {
 		);
 
 		curNumSprites++;
+
+		if (auto animator = _registry->try_get<SpriteAnimator>(entity)) {
+			if (!animator->isPlaying || animator->animations.empty()) {
+				Logger::Print("No animator");
+				continue;
+			}
+
+			animator->frameTimer += delta * animator->speed;
+			if (animator->frameTimer > 1.0f) {
+				animator->frameTimer = 0.0f;
+				if (++animator->curFrame == animator->curAnimation->size()) {
+					if (animator->isLooping == true) {
+						animator->curFrame = 0;
+					} else {
+						animator->isPlaying = false;
+					}
+				}
+				sprite = Sprite((*animator->curAnimation)[animator->curFrame]);
+			}
+		}
 	}
 
 	if (curNumSprites == 0) {

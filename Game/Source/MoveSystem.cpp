@@ -6,6 +6,7 @@
 #include "PlayerController.h"
 #include "ECS/Components/Transform.h"
 #include "ECS/Components/Sprite.h"
+#include "ECS/Components/SpriteAnimator.h"
 #include "ECS/Components/Camera2D.h"
 #include "Logger.h"
 
@@ -25,6 +26,19 @@ void MoveSystem::Start() {
 
 	_jumpSounds.AddAudioFile("Assets/Voice.wav");
 	_jumpSounds.AddAudioFile("Assets/Voice2.wav");
+
+
+	auto playerView = _registry->view<Transform, Sprite, PlayerController>();
+	auto player = playerView.front();
+	auto& animator = _registry->emplace<SpriteAnimator>(player);
+
+	std::vector<SpriteRenderer::SpriteAtlasData> animFrames;
+	animFrames.emplace_back(ServiceLocator::GetSpriteRenderer()->GetSprite("DefaultSquare.png"));
+	animFrames.emplace_back(ServiceLocator::GetSpriteRenderer()->GetSprite("DefaultCircle.png"));
+	animFrames.emplace_back(ServiceLocator::GetSpriteRenderer()->GetSprite("DefaultOutlineSquare.png"));
+	animFrames.emplace_back(ServiceLocator::GetSpriteRenderer()->GetSprite("DefaultOutlineCircle.png"));
+	animator.animations["DefaultAnimation"] = animFrames;
+	animator.curAnimation = &animator.animations.at("DefaultAnimation");
 }
 
 void MoveSystem::Update(float delta) {

@@ -19,6 +19,7 @@
 #include "PlayerController.h"
 #include "ECS/Components/Transform.h"
 #include "ECS/Components/Sprite.h"
+#include "ECS/Components/SpriteAnimator.h"
 #include "ECS/Components/Camera2D.h"
 #include "ECS/Components/AABB.h"
 #include "ECS/Components/Collider_Dynamic.h"
@@ -57,6 +58,8 @@ void PrototypeApplication::Initialize() {
 		{ scene->AddComponent<Collider_Static>(e); });
 	_componentFactory->RegisterComponent("Collider_Trigger", [](Scene* scene, entt::entity e, nlohmann::json& args)
 		{ scene->AddComponent<Collider_Trigger>(e); });
+	_componentFactory->RegisterComponent("SpriteAnimator", [](Scene* scene, entt::entity e, nlohmann::json& args)
+		{ scene->AddComponent<SpriteAnimator>(e); });
 
 	LoadScene("Assets/PrototypeScene.json");
 
