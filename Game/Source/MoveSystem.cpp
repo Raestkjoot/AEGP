@@ -8,6 +8,7 @@
 #include "ECS/Components/Sprite.h"
 #include "ECS/Components/SpriteAnimator.h"
 #include "ECS/Components/Camera2D.h"
+#include "ECS/Components/Collider_Dynamic.h"
 #include "Logger.h"
 
 #include <glfw/glfw3.h>
@@ -31,33 +32,33 @@ void MoveSystem::Start() {
 
 	auto playerView = _registry->view<Transform, Sprite, PlayerController>();
 	auto player = playerView.front();
+
 	auto& animator = _registry->emplace<SpriteAnimator>(player);
-
-	//std::vector<SpriteRenderer::SpriteAtlasData> animFrames;
-	//animFrames.emplace_back(ServiceLocator::GetSpriteRenderer()->GetSprite("DefaultSquare.png"));
-	//animFrames.emplace_back(ServiceLocator::GetSpriteRenderer()->GetSprite("DefaultCircle.png"));
-	//animFrames.emplace_back(ServiceLocator::GetSpriteRenderer()->GetSprite("DefaultOutlineSquare.png"));
-	//animFrames.emplace_back(ServiceLocator::GetSpriteRenderer()->GetSprite("DefaultOutlineCircle.png"));
-	//animator.animations["DefaultAnimation"] = animFrames;
-	//animator.curAnimation = &animator.animations.at("DefaultAnimation");
-
 	std::vector<SpriteRenderer::SpriteAtlasData> animFrames = 
 		ServiceLocator::GetSpriteRenderer()->GetSpriteAnim("Idle");
 	animator.animations["DefaultAnimation"] = animFrames;
 	animator.curAnimation = &animator.animations.at("DefaultAnimation");
 	animator.speed = 16.f;
+
+	auto& pContrl = _registry->get<PlayerController>(player);
+	pContrl.offset = glm::vec2(0.0f, 0.0f);
 }
 
 void MoveSystem::Update(float delta) {
-	auto playerView = _registry->view<Transform, Sprite, PlayerController>();
+	auto playerView = _registry->view<Transform, SpriteAnimator, PlayerController>();
 	auto player = playerView.front();
 	auto& playerTransform = _registry->get<Transform>(player);
 	auto& playerController = _registry->get<PlayerController>(player);
+	auto& playerAnimator = _registry->get<SpriteAnimator>(player);
 
 	_passedTime += delta;
 	_isGrounded = playerController.isGrounded;
 
 	HandleInput();
+
+	if (abs(_moveDirection) > 0.1f) {
+		playerAnimator.flip.x = (_moveDirection < 0.1f);
+	}
 
 	if (playerController.isTouchingRight) {
 		if (_velocity.x > 0.0f) {

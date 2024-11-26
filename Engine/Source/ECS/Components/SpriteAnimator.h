@@ -17,4 +17,5 @@ struct SpriteAnimator {
 	std::map<std::string, std::vector<SpriteRenderer::SpriteAtlasData>> animations;
 	std::vector<SpriteRenderer::SpriteAtlasData>* curAnimation;
 	int curFrame;
+	glm::bvec2 flip { false, false };
 };

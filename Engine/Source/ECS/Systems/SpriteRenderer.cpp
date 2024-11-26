@@ -60,6 +60,7 @@ void SpriteRenderer::Update(float delta) {
 					}
 				}
 				sprite = Sprite((*animator->curAnimation)[animator->curFrame]);
+				sprite.flip = animator->flip;
 			}
 		}
 	}

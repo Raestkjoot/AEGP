@@ -32,7 +32,7 @@
         {
           "Name": "AABB",
           "Arguments": {
-            "Size": [ 0.25, 0.5 ]
+            "Size": [ 0.15, 0.35 ]
           }
         },
         {
@@ -48,8 +48,8 @@
         {
           "Name": "Transform",
           "Arguments": {
-            "Position": [ 0.0, -1.5 ],
-            "Scale": [ 4.0, 1.0 ]
+            "Position": [ 0.0, -4.5 ],
+            "Scale": [ 6.0, 6.0 ]
           }
         },
         {
@@ -63,7 +63,7 @@
         {
           "Name": "AABB",
           "Arguments": {
-            "Size": [ 2.0, 0.5 ]
+            "Size": [ 3.0, 3.0 ]
           }
         },
         {
@@ -74,7 +74,7 @@
       ]
     },
     {
-      "Name": "Prop",
+      "Name": "Platform",
       "Components": [
         {
           "Name": "Transform",
@@ -104,12 +104,70 @@
       ]
     },
     {
-      "Name": "Point",
+      "Name": "Platform",
       "Components": [
         {
           "Name": "Transform",
           "Arguments": {
             "Position": [ -0.5, 1.5 ],
+            "Scale": [ 0.5, 0.5 ]
+          }
+        },
+        {
+          "Name": "Sprite",
+          "Arguments": {
+            "Name": "DefaultSquare"
+          }
+        },
+        {
+          "Name": "AABB",
+          "Arguments": {
+            "Size": [ 0.25, 0.25 ]
+          }
+        },
+        {
+          "Name": "Collider_Static",
+          "Arguments": {
+          }
+        }
+      ]
+    },
+    {
+      "Name": "Platform",
+      "Components": [
+        {
+          "Name": "Transform",
+          "Arguments": {
+            "Position": [ 2.0, 1.5 ],
+            "Scale": [ 0.5, 0.5 ]
+          }
+        },
+        {
+          "Name": "Sprite",
+          "Arguments": {
+            "Name": "DefaultSquare"
+          }
+        },
+        {
+          "Name": "AABB",
+          "Arguments": {
+            "Size": [ 0.25, 0.25 ]
+          }
+        },
+        {
+          "Name": "Collider_Static",
+          "Arguments": {
+          }
+        }
+      ]
+    },
+    {
+      "Name": "Point",
+      "Components": [
+        {
+          "Name": "Transform",
+          "Arguments": {
+            "Position": [ 2, 3.5 ],
             "Scale": [ 0.5, 0.5 ]
           }
         },
