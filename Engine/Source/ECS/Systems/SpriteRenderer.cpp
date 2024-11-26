@@ -59,9 +59,9 @@ void SpriteRenderer::Update(float delta) {
 						animator->isPlaying = false;
 					}
 				}
-				sprite = Sprite((*animator->curAnimation)[animator->curFrame]);
-				sprite.flip = animator->flip;
 			}
+			sprite = Sprite((*animator->curAnimation)[animator->curFrame]);
+			sprite.flip = animator->flip;
 		}
 	}
 

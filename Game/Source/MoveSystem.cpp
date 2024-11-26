@@ -34,10 +34,10 @@ void MoveSystem::Start() {
 	auto player = playerView.front();
 
 	auto& animator = _registry->emplace<SpriteAnimator>(player);
-	std::vector<SpriteRenderer::SpriteAtlasData> animFrames = 
-		ServiceLocator::GetSpriteRenderer()->GetSpriteAnim("Idle");
-	animator.animations["DefaultAnimation"] = animFrames;
-	animator.curAnimation = &animator.animations.at("DefaultAnimation");
+	animator.animations["Idle"] = ServiceLocator::GetSpriteRenderer()->GetSpriteAnim("Idle");
+	animator.animations["Run"] = ServiceLocator::GetSpriteRenderer()->GetSpriteAnim("Run");
+	animator.animations["Jump"] = ServiceLocator::GetSpriteRenderer()->GetSpriteAnim("Jump");
+	animator.curAnimation = &animator.animations.at("Idle");
 	animator.speed = 16.f;
 
 	auto& pContrl = _registry->get<PlayerController>(player);
@@ -49,7 +49,7 @@ void MoveSystem::Update(float delta) {
 	auto player = playerView.front();
 	auto& playerTransform = _registry->get<Transform>(player);
 	auto& playerController = _registry->get<PlayerController>(player);
-	auto& playerAnimator = _registry->get<SpriteAnimator>(player);
+	auto& animator = _registry->get<SpriteAnimator>(player);
 
 	_passedTime += delta;
 	_isGrounded = playerController.isGrounded;
@@ -57,7 +57,7 @@ void MoveSystem::Update(float delta) {
 	HandleInput();
 
 	if (abs(_moveDirection) > 0.1f) {
-		playerAnimator.flip.x = (_moveDirection < 0.1f);
+		animator.flip.x = (_moveDirection < 0.1f);
 	}
 
 	if (playerController.isTouchingRight) {
@@ -79,8 +79,18 @@ void MoveSystem::Update(float delta) {
 	if (_isGrounded) {
 		if (_moveDirection != 0.0f) {
 			_velocity.x = glm::clamp(_velocity.x + _moveDirection * _groundAcceleration * delta, -_maxHorizontalSpeed, _maxHorizontalSpeed);
+			if (animator.curAnimation != &animator.animations.at("Run")) {
+				animator.curAnimation = &animator.animations.at("Run");
+				animator.curFrame = 0;
+				animator.speed = 16.0f;
+			}
 		} else {
 			_velocity.x -= _velocity.x * _groundDeceleration * delta;
+			if (animator.curAnimation != &animator.animations.at("Idle")) {
+				animator.curAnimation = &animator.animations.at("Idle");
+				animator.curFrame = 0;
+				animator.speed = 16.0f;
+			}
 		}
 		
 		if (_velocity.y < 0.0f) {
@@ -94,10 +104,22 @@ void MoveSystem::Update(float delta) {
 			if (_velocity.y < 1.0f)
 				_lastGroundedTime = _passedTime;
 		}
+		if (animator.curAnimation != &animator.animations.at("Jump")) {
+			animator.curAnimation = &animator.animations.at("Jump");
+			animator.speed = 0.0f;
+		}
 
 		_velocity.x = glm::clamp(_velocity.x + _moveDirection * _airHorizontalAcceleration * delta, -_maxHorizontalSpeed, _maxHorizontalSpeed);
 		if (_velocity.y < 0.0f && _moveDirection * _velocity.x < 0.0f) {
 			_velocity.y += _moveDirection * _airHorizontalAcceleration * delta;
+		}
+
+		if (_velocity.y > 2.0f) {
+			animator.curFrame = 0;
+		} else if (_velocity.y < -4.5f) {
+			animator.curFrame = 2;
+		} else {
+			animator.curFrame = 1;
 		}
 
 		if (_jumpReleased || _velocity.y < 0.0f) {

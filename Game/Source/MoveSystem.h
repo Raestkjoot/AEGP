@@ -25,7 +25,7 @@ private:
 	bool _wasGroundedLastFrame;
 
 #pragma region tweak values
-	float _maxHorizontalSpeed = 2.0f;
+	float _maxHorizontalSpeed = 3.0f;
 	float _groundAcceleration = 28.0f;
 	float _groundDeceleration = 20.0f;
 	float _airHorizontalAcceleration = 16.0f;
