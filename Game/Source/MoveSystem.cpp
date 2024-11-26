@@ -41,11 +41,11 @@ void MoveSystem::Start() {
 	//animator.animations["DefaultAnimation"] = animFrames;
 	//animator.curAnimation = &animator.animations.at("DefaultAnimation");
 
-	std::vector<SpriteRenderer::SpriteAtlasData> animFrames;
-	animFrames.emplace_back(ServiceLocator::GetSpriteRenderer()->GetSprite("DefaultSquare"));
-	animFrames.emplace_back(ServiceLocator::GetSpriteRenderer()->GetSprite("DefaultSquare"));
+	std::vector<SpriteRenderer::SpriteAtlasData> animFrames = 
+		ServiceLocator::GetSpriteRenderer()->GetSpriteAnim("Idle");
 	animator.animations["DefaultAnimation"] = animFrames;
 	animator.curAnimation = &animator.animations.at("DefaultAnimation");
+	animator.speed = 16.f;
 }
 
 void MoveSystem::Update(float delta) {

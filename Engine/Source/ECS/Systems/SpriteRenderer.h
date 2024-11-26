@@ -32,6 +32,7 @@ public:
 	};
 	void LoadSpriteAtlas(const std::string& imagePath, const std::string& jsonPath);
 	SpriteAtlasData GetSprite(const std::string& name);
+	std::vector<SpriteAtlasData> GetSpriteAnim(const std::string& name);
 
 private:
 	void Init(entt::registry* registry) override;
@@ -60,7 +61,8 @@ private:
 	glm::vec4 GetTexCoords(Sprite sprite);
 
 	std::vector<SpriteData> _sprites;
-	std::map<std::string, SpriteAtlasData> _spriteAtlasData;
+	std::map<std::string, SpriteAtlasData> _spriteAtlasFrames;
+	std::map<std::string, std::vector<SpriteAtlasData>> _spriteAtlasAnims;
 
 	Camera2D* _camera = nullptr;
 	unsigned int _maxNumSprites;

@@ -95,10 +95,31 @@ void SpriteRenderer::LoadSpriteAtlas(const std::string& imagePath, const std::st
 
 	nlohmann::json frames = jsonData.at("frames");
 	for (auto& frame : frames) {
-		_spriteAtlasData.try_emplace(
+		_spriteAtlasFrames.try_emplace(
 			frame.at("name").get<std::string>(),
 			glm::vec2(frame.at("frame").at("x"), frame.at("frame").at("y")),
 			glm::vec2(frame.at("frame").at("w"), frame.at("frame").at("h"))
+		);
+	}
+
+	nlohmann::json anims = jsonData.at("animations");
+	for (auto& anim : anims) {
+		Logger::Print("Anim: {}", anim.at("name").get<std::string>());
+
+		glm::vec2 animWidthHeight = glm::vec2(anim.at("size").at("w"), anim.at("size").at("h"));
+		auto animFrames = anim.at("frames");
+		std::vector<SpriteAtlasData> animFramesData;
+
+		for (auto& animFrame : animFrames) {
+			animFramesData.emplace_back(SpriteAtlasData(
+				glm::vec2(animFrame.at("x"), animFrame.at("y")),
+				animWidthHeight
+			));
+		}
+		
+		_spriteAtlasAnims.try_emplace(
+			anim.at("name").get<std::string>(),
+			animFramesData
 		);
 	}
 
@@ -109,7 +130,11 @@ void SpriteRenderer::LoadSpriteAtlas(const std::string& imagePath, const std::st
 }
 
 SpriteRenderer::SpriteAtlasData SpriteRenderer::GetSprite(const std::string& name) {
-	return _spriteAtlasData.at(name);
+	return _spriteAtlasFrames.at(name);
+}
+
+std::vector<SpriteRenderer::SpriteAtlasData> SpriteRenderer::GetSpriteAnim(const std::string& name) {
+	return _spriteAtlasAnims.at(name);
 }
 
 void SpriteRenderer::Init(entt::registry* registry) {
