@@ -21,7 +21,7 @@
 	"version": "1.0",
 	"image": "DefaultSprites_Padded.png",
 	"format": "RGBA8888",
-	"size": {"w":518,"h":518},
+	"size": 518,
 	"scale": "1",
 	"smartupdate": "$TexturePacker:SmartUpdate:fbbdacb72a08b8d95a65d72e703911fd:5e8ea7f77d29ceffd763f99d9e61d5ae:fb7ef619ed44c5eefe68cebdce0726fe$"
 }

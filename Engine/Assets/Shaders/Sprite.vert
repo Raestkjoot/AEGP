@@ -18,12 +18,13 @@ layout (std140) uniform QuadInfo {
 
 uniform mat3x3 CameraMatrix;
 uniform vec2 Offset = vec2(-0.5f, -0.5f);
+uniform float TexSize = 512.0f;
 
 out vec2 TexCoords;
 
 void main() {
 	// TODO: Divide by total texture size
-   TexCoords = (quad[QuadID].TexBaseCoords + Pos * quad[QuadID].TexWidthHeight) / 512;
+   TexCoords = (quad[QuadID].TexBaseCoords + Pos * quad[QuadID].TexWidthHeight) / TexSize;
    vec2 offsetPosition = Pos + Offset;
    vec3 position = CameraMatrix * quad[QuadID].Transform * vec3(offsetPosition, 1.0f);
    gl_Position = vec4(position.xy, 0.5f, 1.0f);

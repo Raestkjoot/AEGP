@@ -90,17 +90,22 @@ void SpriteRenderer::SetCamera(Camera2D* camera) {
 
 void SpriteRenderer::LoadSpriteAtlas(const std::string& imagePath, const std::string& jsonPath) {
 	_texture.Load(imagePath.c_str());
-
 	std::ifstream jsonFile(jsonPath);
-	nlohmann::json frames = nlohmann::json::parse(jsonFile).at("frames");
+	nlohmann::json jsonData = nlohmann::json::parse(jsonFile);
 
+	nlohmann::json frames = jsonData.at("frames");
 	for (auto& frame : frames) {
 		_spriteAtlasData.try_emplace(
-			frame.at("filename").get<std::string>(),
+			frame.at("name").get<std::string>(),
 			glm::vec2(frame.at("frame").at("x"), frame.at("frame").at("y")),
 			glm::vec2(frame.at("frame").at("w"), frame.at("frame").at("h"))
 		);
 	}
+
+	float texSize = jsonData.at("meta").at("size");
+	_shader.Use();
+	GLint uniformLoc = glGetUniformLocation(_shader.GetID(), "TexSize");
+	glUniform1f(uniformLoc, texSize);
 }
 
 SpriteRenderer::SpriteAtlasData SpriteRenderer::GetSprite(const std::string& name) {
@@ -116,7 +121,7 @@ void SpriteRenderer::Init(entt::registry* registry) {
 	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 
 	_shader.Load("Engine/Assets/Shaders/Sprite.vert", "Engine/Assets/Shaders/Sprite.frag");
-	_texture.Load("Engine/Assets/DefaultTextures.png");
+	_texture.Load("Assets/atlas.png");
 
 	#pragma region VertexArray
 	// Generate vertices for the max number of quads
@@ -175,7 +180,11 @@ void SpriteRenderer::Init(entt::registry* registry) {
 	#pragma endregion QuadInfoBuffer
 
 	// TODO: This is a temporary hardcoded solution
-	LoadSpriteAtlas("Engine/Assets/DefaultTextures.png", "Engine/Assets/DefaultTextures.json");
+	LoadSpriteAtlas("Assets/atlas.png", "Assets/atlas.json");
+
+	_shader.Use();
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
 }
 
 glm::mat3x3 SpriteRenderer::GetCameraMatrix() {

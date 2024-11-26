@@ -26,17 +26,24 @@ void MoveSystem::Start() {
 
 	_jumpSounds.AddAudioFile("Assets/Voice.wav");
 	_jumpSounds.AddAudioFile("Assets/Voice2.wav");
+	_jumpSounds.SetPitchRange({ 1.0f, 1.2f });
 
 
 	auto playerView = _registry->view<Transform, Sprite, PlayerController>();
 	auto player = playerView.front();
 	auto& animator = _registry->emplace<SpriteAnimator>(player);
 
+	//std::vector<SpriteRenderer::SpriteAtlasData> animFrames;
+	//animFrames.emplace_back(ServiceLocator::GetSpriteRenderer()->GetSprite("DefaultSquare.png"));
+	//animFrames.emplace_back(ServiceLocator::GetSpriteRenderer()->GetSprite("DefaultCircle.png"));
+	//animFrames.emplace_back(ServiceLocator::GetSpriteRenderer()->GetSprite("DefaultOutlineSquare.png"));
+	//animFrames.emplace_back(ServiceLocator::GetSpriteRenderer()->GetSprite("DefaultOutlineCircle.png"));
+	//animator.animations["DefaultAnimation"] = animFrames;
+	//animator.curAnimation = &animator.animations.at("DefaultAnimation");
+
 	std::vector<SpriteRenderer::SpriteAtlasData> animFrames;
-	animFrames.emplace_back(ServiceLocator::GetSpriteRenderer()->GetSprite("DefaultSquare.png"));
-	animFrames.emplace_back(ServiceLocator::GetSpriteRenderer()->GetSprite("DefaultCircle.png"));
-	animFrames.emplace_back(ServiceLocator::GetSpriteRenderer()->GetSprite("DefaultOutlineSquare.png"));
-	animFrames.emplace_back(ServiceLocator::GetSpriteRenderer()->GetSprite("DefaultOutlineCircle.png"));
+	animFrames.emplace_back(ServiceLocator::GetSpriteRenderer()->GetSprite("DefaultSquare"));
+	animFrames.emplace_back(ServiceLocator::GetSpriteRenderer()->GetSprite("DefaultSquare"));
 	animator.animations["DefaultAnimation"] = animFrames;
 	animator.curAnimation = &animator.animations.at("DefaultAnimation");
 }

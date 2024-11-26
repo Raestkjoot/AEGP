@@ -21,7 +21,7 @@
         {
           "Name": "Sprite",
           "Arguments": {
-            "Name": "DefaultSquare.png"
+            "Name": "DefaultSquare"
           }
         },
         {
@@ -55,7 +55,7 @@
         {
           "Name": "Sprite",
           "Arguments": {
-            "Name": "DefaultSquare.png",
+            "Name": "DefaultSquare",
             "FlipY": true,
             "FlipX": true
           }
@@ -85,7 +85,7 @@
         {
           "Name": "Sprite",
           "Arguments": {
-            "Name": "DefaultSquare.png",
+            "Name": "DefaultSquare",
             "FlipY": true,
             "FlipX": true
           }
@@ -116,7 +116,7 @@
         {
           "Name": "Sprite",
           "Arguments": {
-            "Name": "DefaultOutlineSquare.png"
+            "Name": "DefaultSquare"
           }
         },
         {
