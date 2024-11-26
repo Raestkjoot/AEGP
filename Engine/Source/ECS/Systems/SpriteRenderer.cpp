@@ -105,8 +105,6 @@ void SpriteRenderer::LoadSpriteAtlas(const std::string& imagePath, const std::st
 
 	nlohmann::json anims = jsonData.at("animations");
 	for (auto& anim : anims) {
-		Logger::Print("Anim: {}", anim.at("name").get<std::string>());
-
 		glm::vec2 animWidthHeight = glm::vec2(anim.at("size").at("w"), anim.at("size").at("h"));
 		auto animFrames = anim.at("frames");
 		std::vector<SpriteAtlasData> animFramesData;
