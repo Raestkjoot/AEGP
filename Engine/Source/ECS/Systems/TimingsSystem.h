@@ -15,6 +15,7 @@ public:
 	static TimingsSystem& GetInstance();
 
 	void AddRenderTime(unsigned long renderTime);
+	void AddSpritePreperationTime(float prepTime);
 
 protected:
 	void Start() override;
@@ -24,7 +25,9 @@ private:
 	int _maxSamples = 120;
 	std::vector<float> _deltaTimeSamples;
 	std::vector<unsigned long> _renderTimeSamples;
+	std::vector<float> _spritePrepTimeSamples;
 	int _sampleIndex = 0;
 	float _avgDeltaTime;
 	float _avgRenderTime;
+	float _avgSpritePrepTime;
 };

@@ -8,6 +8,7 @@
 #include "Renderer/Renderer.h"
 #include "ServiceLocator.h"
 #include "ECS/Systems/TimingsSystem.h"
+#include "Timer.h"
 
 #define GLM_ENABLE_EXPERIMENTAL
 #include <glm/gtx/matrix_transform_2d.hpp>
@@ -30,6 +31,7 @@ void SpriteRenderer::Start() {
 }
 
 void SpriteRenderer::Update(float delta) {
+	Timer spritePreperationTimer;
 	auto view = _registry->view<Transform, Sprite>();
 
 	_sprites.clear();
@@ -66,6 +68,8 @@ void SpriteRenderer::Update(float delta) {
 		}
 	}
 
+	TimingsSystem::GetInstance().AddSpritePreperationTime(spritePreperationTimer.Tick());
+
 	if (curNumSprites == 0) {
 		return;
 	}
@@ -95,6 +99,7 @@ void SpriteRenderer::Update(float delta) {
 	GLuint64 timer;
 	glGetQueryObjectui64v(_queryID[_queryFrontBuffer][0], GL_QUERY_RESULT, &timer);
 	SwapQueryBuffers();
+	
 	TimingsSystem::GetInstance().AddRenderTime(timer);
 }
 
