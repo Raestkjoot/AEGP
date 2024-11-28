@@ -70,4 +70,12 @@ private:
 	unsigned int _quadInfoUbo = 0;
 	Texture _texture{};
 	Shader _shader{};
+
+	// Timings: Querying OpenGL render Times
+private:
+	unsigned int _queryID[2][1];
+	unsigned int _queryBackBuffer = 0, _queryFrontBuffer = 1;
+
+	void GenQueries();
+	void SwapQueryBuffers();
 };

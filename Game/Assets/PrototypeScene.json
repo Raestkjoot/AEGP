@@ -5,7 +5,9 @@
     "PlayerCollisionSystem",
     "CameraFollowSystem",
     "ClearRenderer",
-    "SpriteRenderer"
+    "ClearUI",
+    "SpriteRenderer",
+    "TimingsSystem"
   ],
   "Entities": [
     {

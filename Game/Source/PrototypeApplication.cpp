@@ -13,6 +13,7 @@
 #include "ECS/Systems/ClearUI.h"
 #include "ECS/Systems/SpriteRenderer.h"
 #include "ECS/Systems/UIRenderer.h"
+#include "ECS/Systems/TimingsSystem.h"
 
 // Components
 #include "ComponentFactory.h"
@@ -41,6 +42,7 @@ void PrototypeApplication::Initialize() {
 	_systemFactory->RegisterSystem("SpriteRenderer", []() {return std::make_unique<SpriteRenderer>(); });
 	_systemFactory->RegisterSystem("UIRenderer", []() {return std::make_unique<UIRenderer>(); });
 	_systemFactory->RegisterSystem("PlayerCollisionSystem", []() {return std::make_unique<PlayerCollisionSystem>(); });
+	_systemFactory->RegisterSystem("TimingsSystem", []() {return std::make_unique<TimingsSystem>(); });
 
 	_componentFactory->RegisterComponent("Transform", [](Scene* scene, entt::entity e, nlohmann::json& args) 
 		{ scene->AddComponent<Transform>(e, args);});

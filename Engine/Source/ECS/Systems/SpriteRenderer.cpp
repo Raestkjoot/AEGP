@@ -7,6 +7,7 @@
 #include "Logger.h"
 #include "Renderer/Renderer.h"
 #include "ServiceLocator.h"
+#include "ECS/Systems/TimingsSystem.h"
 
 #define GLM_ENABLE_EXPERIMENTAL
 #include <glm/gtx/matrix_transform_2d.hpp>
@@ -72,17 +73,29 @@ void SpriteRenderer::Update(float delta) {
 	_texture.Use();
 	_shader.Use();
 
+
+	// Send gl commands to GPU
 	GLint uniformLoc = glGetUniformLocation(_shader.GetID(), "CameraMatrix");
 	glm::mat3x3 camMat = GetCameraMatrix();
 	glUniformMatrix3fv(uniformLoc, 1, GL_FALSE, &camMat[0][0]);
 
 	glBindVertexArray(_vao);
-
 	glBindBufferBase(GL_UNIFORM_BUFFER, UBO_INDEX, _quadInfoUbo);
+
+	// Begin gl query
+	glBeginQuery(GL_TIME_ELAPSED, _queryID[_queryBackBuffer][0]);
+
 	glBufferSubData(GL_UNIFORM_BUFFER, UBO_INDEX, _sprites.size() * sizeof(SpriteData), &_sprites[0]);
 
 	// Drawcall
 	glDrawArrays(GL_TRIANGLES, 0, curNumSprites * NUM_OF_VERTS);
+
+	// End gl query and send prev frame's result to timings system
+	glEndQuery(GL_TIME_ELAPSED);
+	GLuint64 timer;
+	glGetQueryObjectui64v(_queryID[_queryFrontBuffer][0], GL_QUERY_RESULT, &timer);
+	SwapQueryBuffers();
+	TimingsSystem::GetInstance().AddRenderTime(timer);
 }
 
 void SpriteRenderer::SetCamera(Camera2D* camera) {
@@ -170,6 +183,8 @@ void SpriteRenderer::Init(entt::registry* registry) {
 		}
 	}
 
+	GenQueries();
+
 	// Bind buffers
 	glGenVertexArrays(1, &_vao);
 	glBindVertexArray(_vao);
@@ -245,4 +260,22 @@ glm::vec4 SpriteRenderer::GetTexCoords(Sprite sprite) {
 	}
 
 	return texCoords;
+}
+
+void SpriteRenderer::GenQueries() {
+	glGenQueries(1, _queryID[_queryBackBuffer]);
+	glGenQueries(1, _queryID[_queryFrontBuffer]);
+
+	// dummy query to prevent OpenGL errors in first frame
+	glQueryCounter(_queryID[_queryFrontBuffer][0], GL_TIMESTAMP);
+}
+
+void SpriteRenderer::SwapQueryBuffers() {
+	if (_queryBackBuffer) {
+		_queryBackBuffer = 0;
+		_queryFrontBuffer = 1;
+	} else {
+		_queryBackBuffer = 1;
+		_queryFrontBuffer = 0;
+	}
 }

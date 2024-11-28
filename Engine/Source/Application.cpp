@@ -55,7 +55,7 @@ void Application::Run() {
 		ServiceLocator::GetInputManager()->Update();
 		_window->Update();
 
-		Update(updateTimer.GetDeltaTime());
+		_curScene->Update(updateTimer.Tick());
 	}
 
 	Cleanup();
@@ -71,10 +71,6 @@ bool Application::IsRunning() const {
 
 void Application::Initialize() {
 	_curScene->Start();
-}
-
-void Application::Update(float delta) {
-	_curScene->Update(delta);
 }
 
 void Application::Cleanup() {

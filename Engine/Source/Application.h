@@ -21,21 +21,19 @@ public:
 	void Quit();
 
 protected:
-	bool IsRunning() const;
-
 	virtual void Initialize();
-	void Update(float delta);
+
+	SystemFactory* _systemFactory = nullptr;
+	ComponentFactory* _componentFactory = nullptr;
+
+private:
+	bool IsRunning() const;
 	void Cleanup();
 
-protected:
 	Scene* _curScene = nullptr;
 	Window* _window = nullptr;
 	Renderer* _renderer = nullptr;
 	AudioEngine* _audioEngine = nullptr;
 	InputManager* _inputManager = nullptr;
-	SystemFactory* _systemFactory = nullptr;
-	ComponentFactory* _componentFactory = nullptr;
-
-private:
 	SceneLoader* _sceneLoader = nullptr;
 };
