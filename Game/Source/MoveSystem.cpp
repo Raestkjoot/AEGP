@@ -25,10 +25,11 @@ void MoveSystem::Start() {
 
 	ServiceLocator::GetInputManager()->ListenToKey(GLFW_KEY_ESCAPE);
 
+	//_jumpSounds.AddAudioFile("Assets/sfx_jump_purr.wav");
 	_jumpSounds.AddAudioFile("Assets/Voice.wav");
 	_jumpSounds.AddAudioFile("Assets/Voice2.wav");
-	_jumpSounds.SetPitchRange({ 1.0f, 1.2f });
-	_jumpSounds.SetVolumeRange({ 0.75f, 0.8f });
+	_jumpSounds.SetPitchRange({ 0.95f, 1.2f });
+	_jumpSounds.SetVolumeRange({ 0.7f, 0.8f });
 
 
 	auto playerView = _registry->view<Transform, Sprite, PlayerController>();
@@ -73,7 +74,6 @@ void MoveSystem::Update(float delta) {
 	}
 	if (playerController.isTouchingTop) {
 		if (_velocity.y > 0.0f) {
-			//_velocity.y = 0.0f;
 			_jumpReleased = true;
 		}
 	}
