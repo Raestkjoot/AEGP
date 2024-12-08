@@ -24,6 +24,7 @@ void PlayerCollisionSystem::Update(float delta) {
 		pContr.isTouchingRight = false;
 		pContr.isGrounded = false;
 		pContr.isTouchingLeft = false;
+		pContr.isTouchingTop = false;
 		// TODO: Add is touching top and use to set vel.y = 0
 		glm::vec2 pPos = pTrans.position + pContr.offset;
 
@@ -60,6 +61,7 @@ void PlayerCollisionSystem::Update(float delta) {
 				break;
 			case 2:
 				pTrans.position.y -= minDist;
+				pContr.isTouchingTop = true;
 				break;
 			case 3:
 				pTrans.position.y += minDist;

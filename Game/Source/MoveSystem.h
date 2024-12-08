@@ -17,22 +17,23 @@ private:
 	glm::vec2 _velocity;
 	float _moveDirection;
 	bool _isGrounded = false;
-	bool _jump;
+	bool _readyToJumpAgain = true;
 	bool _jumpReleased = true;
 	float _jumpPressedTime = -100.0f;
 	float _passedTime = 0.0f;
 	float _lastGroundedTime = 0.0f;
 	bool _wasGroundedLastFrame;
+	float _initialAirHorizontalVelocity;
 
 #pragma region tweak values
-	float _maxHorizontalSpeed = 3.0f;
-	float _groundAcceleration = 28.0f;
-	float _groundDeceleration = 20.0f;
-	float _airHorizontalAcceleration = 16.0f;
+	float _maxHorizontalSpeed = 3.2f;
+	float _groundAcceleration = 20.0f;
+	float _groundDeceleration = 25.0f;
+	float _airHorizontalAcceleration = 17.0f;
 	// Air vert acc is applied when the player moves against the initial horizontal input,
 	// giving a feel of converting hori velocity to vert velocity.
-	float _airVerticalAcceleration = 8.0f;
-	float _jumpPower = 6.0f;
+	float _airVerticalAcceleration = 1.8f;
+	float _jumpPower = 6.5f;
 	// gravity after a jump depends on whether jump is being held down or not.
 	float _gravity = 25.0f;
 	float _jumpHeldGravity = 10.0f;

@@ -37,7 +37,7 @@ void TestLevelGeneration::GenerateLevel() {
         << "}},";
     ss << "{ \"Name\": \"AABB\", "
         << "\"Arguments\": {"
-        << " \"Size\": [ 0.15, 0.35 ] "
+        << " \"Size\": [ 0.15, 0.305 ] "
         << "}},";
     ss << "{ \"Name\": \"PlayerController\", "
         << "\"Arguments\": {"
@@ -97,8 +97,6 @@ void TestLevelGeneration::GenerateLevel() {
             << "\"Arguments\": {"
             << "}}";
         ss << "]}";
-
-
 
         if (i < _numOfBoxesToSpawn) {
             ss << ",";

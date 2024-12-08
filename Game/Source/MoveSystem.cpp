@@ -28,6 +28,7 @@ void MoveSystem::Start() {
 	_jumpSounds.AddAudioFile("Assets/Voice.wav");
 	_jumpSounds.AddAudioFile("Assets/Voice2.wav");
 	_jumpSounds.SetPitchRange({ 1.0f, 1.2f });
+	_jumpSounds.SetVolumeRange({ 0.75f, 0.8f });
 
 
 	auto playerView = _registry->view<Transform, Sprite, PlayerController>();
@@ -41,7 +42,7 @@ void MoveSystem::Start() {
 	animator.speed = 16.f;
 
 	auto& pContrl = _registry->get<PlayerController>(player);
-	pContrl.offset = glm::vec2(0.0f, 0.0f);
+	pContrl.offset = glm::vec2(0.0f, -0.032f);
 }
 
 void MoveSystem::Update(float delta) {
@@ -70,14 +71,25 @@ void MoveSystem::Update(float delta) {
 			_velocity.x = 0.0f;
 		}
 	}
+	if (playerController.isTouchingTop) {
+		if (_velocity.y > 0.0f) {
+			//_velocity.y = 0.0f;
+			_jumpReleased = true;
+		}
+	}
 
 	if (ShouldJump()) {
 		_velocity.y = _jumpPower;
 		_jumpSounds.PlayRandom();
+		_initialAirHorizontalVelocity = _velocity.x;
+		_readyToJumpAgain = false;
 	}
 
 	if (_isGrounded) {
 		if (_moveDirection != 0.0f) {
+			if (_moveDirection * _velocity.x < 0.0f) {
+				_velocity.x = 0.0f;
+			}
 			_velocity.x = glm::clamp(_velocity.x + _moveDirection * _groundAcceleration * delta, -_maxHorizontalSpeed, _maxHorizontalSpeed);
 			if (animator.curAnimation != &animator.animations.at("Run")) {
 				animator.curAnimation = &animator.animations.at("Run");
@@ -110,8 +122,9 @@ void MoveSystem::Update(float delta) {
 		}
 
 		_velocity.x = glm::clamp(_velocity.x + _moveDirection * _airHorizontalAcceleration * delta, -_maxHorizontalSpeed, _maxHorizontalSpeed);
-		if (_velocity.y < 0.0f && _moveDirection * _velocity.x < 0.0f) {
-			_velocity.y += _moveDirection * _airHorizontalAcceleration * delta;
+		// Convert horizontal velocity to vertical velocity when going up
+		if (_velocity.y > 0.0f && _moveDirection * _initialAirHorizontalVelocity < 0.0f && _moveDirection * _velocity.x < 0.0f) {
+			_velocity.y += _airVerticalAcceleration * delta;
 		}
 
 		if (_velocity.y > 2.0f) {
@@ -122,7 +135,7 @@ void MoveSystem::Update(float delta) {
 			animator.curFrame = 1;
 		}
 
-		if (_jumpReleased || _velocity.y < 0.0f) {
+		if (_jumpReleased || _velocity.y < -0.2f) {
 			_velocity.y -= _gravity * delta;
 		} else {
 			_velocity.y -= _jumpHeldGravity * delta;
@@ -138,7 +151,6 @@ void MoveSystem::HandleInput() {
 	}
 
 	_moveDirection = 0.0f;
-	_jump = false;
 
 	if (ServiceLocator::GetInputManager()->GetKey(GLFW_KEY_A) ||
 		ServiceLocator::GetInputManager()->GetKey(GLFW_KEY_LEFT)) {
@@ -156,6 +168,7 @@ void MoveSystem::HandleInput() {
 	if (ServiceLocator::GetInputManager()->GetKeyUp(GLFW_KEY_W) ||
 		ServiceLocator::GetInputManager()->GetKeyUp(GLFW_KEY_UP)) {
 		_jumpReleased = true;
+		_readyToJumpAgain = true;
 	}
 }
 
@@ -166,5 +179,5 @@ bool MoveSystem::ShouldJump() {
 
 	bool coyote = _passedTime - _lastGroundedTime < _coyoteTime;
 
-	return (_isGrounded || coyote) && keyPressedInTime;
+	return (_isGrounded || coyote) && keyPressedInTime && _readyToJumpAgain;
 }
