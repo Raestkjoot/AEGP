@@ -3,7 +3,7 @@ project(Engine)
 add_subdirectory(Dependencies)
 
 file(GLOB_RECURSE EngineSource "Source/*.cpp" "Source/*.h")
-add_library(${PROJECT_NAME} ${EngineSource})
+add_library(${PROJECT_NAME} STATIC ${EngineSource})
 target_include_directories(${PROJECT_NAME} PUBLIC ${CMAKE_CURRENT_SOURCE_DIR}/Source)
 target_link_libraries(${PROJECT_NAME} PUBLIC EngineDependencies)
 
