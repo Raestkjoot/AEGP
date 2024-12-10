@@ -1,31 +1,31 @@
 #include "PrototypeApplication.h"
 
-#include "Logger.h"
-#include "SceneLoader.h"
+#include "Utils/Logger.h"
+#include "Scene/SceneLoader.h"
+#include "Scene/SystemFactory.h"
+#include "Scene/ComponentFactory.h"
 
 // Systems
-#include "SystemFactory.h"
 #include "AudioManagerSystem.h"
 #include "MoveSystem.h"
 #include "CameraFollowSystem.h"
 #include "PlayerCollisionSystem.h"
-#include "ECS/Systems/ClearRenderer.h"
-#include "ECS/Systems/ClearUI.h"
-#include "ECS/Systems/SpriteRenderer.h"
-#include "ECS/Systems/UIRenderer.h"
-#include "ECS/Systems/TimingsSystem.h"
+#include "Systems/ClearRenderer.h"
+#include "Systems/ClearUI.h"
+#include "Systems/SpriteRenderer.h"
+#include "Systems/UIRenderer.h"
+#include "Systems/TimingsSystem.h"
 
 // Components
-#include "ComponentFactory.h"
 #include "PlayerController.h"
-#include "ECS/Components/Transform.h"
-#include "ECS/Components/Sprite.h"
-#include "ECS/Components/SpriteAnimator.h"
-#include "ECS/Components/Camera2D.h"
-#include "ECS/Components/AABB.h"
-#include "ECS/Components/Collider_Dynamic.h"
-#include "ECS/Components/Collider_Static.h"
-#include "ECS/Components/Collider_Trigger.h"
+#include "Components/Transform.h"
+#include "Components/Sprite.h"
+#include "Components/SpriteAnimator.h"
+#include "Components/Camera2D.h"
+#include "Components/AABB.h"
+#include "Components/Collider_Dynamic.h"
+#include "Components/Collider_Static.h"
+#include "Components/Collider_Trigger.h"
 
 #include <GLFW/glfw3.h>
 #include <entt/entt.hpp>

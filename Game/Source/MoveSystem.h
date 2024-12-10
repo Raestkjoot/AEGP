@@ -1,7 +1,7 @@
 #pragma once
 
-#include "ECS/System.h"
-#include "AudioArray.h"
+#include "Systems/System.h"
+#include "Audio/AudioArray.h"
 
 #include "glm/glm.hpp"
 

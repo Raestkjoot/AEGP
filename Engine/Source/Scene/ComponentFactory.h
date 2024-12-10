@@ -1,7 +1,7 @@
 #pragma once
 
-#include "Logger.h"
-#include "ECS/Scene.h"
+#include "Utils/Logger.h"
+#include "Scene.h"
 
 #include <entt/entt.hpp>
 #include "nlohmann/json.hpp"

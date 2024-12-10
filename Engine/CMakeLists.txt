@@ -1,8 +1,11 @@
 project(Engine)
 
 add_subdirectory(Dependencies)
-add_subdirectory(Source)
 
+file(GLOB_RECURSE EngineSource "Source/*.cpp" "Source/*.h")
+add_library(${PROJECT_NAME} ${EngineSource})
+target_include_directories(${PROJECT_NAME} PUBLIC ${CMAKE_CURRENT_SOURCE_DIR}/Source)
+target_link_libraries(${PROJECT_NAME} PUBLIC EngineDependencies)
 
 # Copy project data to output path
 file(COPY Assets DESTINATION ${CMAKE_CURRENT_BINARY_DIR}/Debug)

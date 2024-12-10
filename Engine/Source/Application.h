@@ -1,6 +1,6 @@
 #pragma once
 
-#include "ECS/Scene.h"
+#include "Scene/Scene.h"
 
 #include <string>
 

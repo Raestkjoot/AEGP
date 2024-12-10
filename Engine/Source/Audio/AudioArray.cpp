@@ -1,8 +1,8 @@
 #include "AudioArray.h"
 
 #include "Audio.h"
-#include "Random.h"
-#include "Logger.h"
+#include "Utils/Random.h"
+#include "Utils/Logger.h"
 
 void AudioArray::AddAudioFile(const std::string& fileName) {
 	_audioClips.emplace_back();

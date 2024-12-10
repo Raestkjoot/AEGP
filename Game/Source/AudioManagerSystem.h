@@ -1,7 +1,7 @@
 #pragma once
 
-#include "ECS/System.h"
-#include "Audio.h"
+#include "Systems/System.h"
+#include "Audio/Audio.h"
 
 class AudioManagerSystem : public System {
 public:

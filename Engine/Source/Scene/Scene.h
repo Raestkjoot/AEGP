@@ -1,7 +1,7 @@
 #pragma once
 
-#include "System.h"
-#include "Logger.h"
+#include "Systems/System.h"
+#include "Utils/Logger.h"
 
 #include <entt/entt.hpp>
 

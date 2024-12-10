@@ -1,11 +1,11 @@
 #include "PlayerCollisionSystem.h"
 
-#include "ECS/Components/Transform.h"
-#include "ECS/Components/AABB.h"
 #include "PlayerController.h"
-#include "ECS/Components/Collider_Static.h"
-#include "ECS/Components/Collider_Trigger.h"
-#include "Logger.h"
+#include "Components/Transform.h"
+#include "Components/AABB.h"
+#include "Components/Collider_Static.h"
+#include "Components/Collider_Trigger.h"
+#include "Utils/Logger.h"
 
 #include <glm/glm.hpp>
 

@@ -1,6 +1,6 @@
 #pragma once
 
-#include "ECS/System.h"
+#include "System.h"
 
 class ClearUI : public System {
 public:

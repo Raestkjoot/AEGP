@@ -1,6 +1,6 @@
 #include "ComponentFactory.h"
 
-#include "Logger.h"
+#include "Utils/Logger.h"
 
 void ComponentFactory::GetComponent(const std::string& name, nlohmann::json& args, Scene* scene, entt::entity e) {
 	auto component = _componentMap.find(name);

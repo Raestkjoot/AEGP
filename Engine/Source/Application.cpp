@@ -1,16 +1,16 @@
 #include "Application.h"
 
-#include "Window.h"
+#include "Renderer/Window.h"
 #include "Renderer/Renderer.h"
-#include "AudioEngine.h"
-#include "ServiceLocator.h"
-#include "InputManager.h"
-#include "SceneLoader.h"
-#include "ECS/Scene.h"
-#include "SystemFactory.h"
-#include "ComponentFactory.h"
-#include "Timer.h"
-#include "Logger.h"
+#include "Audio/AudioEngine.h"
+#include "Input/InputManager.h"
+#include "Scene/SceneLoader.h"
+#include "Scene/Scene.h"
+#include "Scene/SystemFactory.h"
+#include "Scene/ComponentFactory.h"
+#include "Utils/ServiceLocator.h"
+#include "Utils/Timer.h"
+#include "Utils/Logger.h"
 
 #include <imgui.h>
 #include <imgui_impl_glfw.h>

@@ -1,8 +1,8 @@
 #include "Audio.h"
 
 #include "AudioEngine.h"
-#include "ServiceLocator.h"
-#include "Logger.h"
+#include "Utils/ServiceLocator.h"
+#include "Utils/Logger.h"
 
 #include <miniaudio.h>
 

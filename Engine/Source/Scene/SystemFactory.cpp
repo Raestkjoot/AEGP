@@ -1,7 +1,7 @@
 #include "SystemFactory.h"
 
-#include "Logger.h"
-#include "ECS/System.h"
+#include "Utils/Logger.h"
+#include "Systems/System.h"
 
 std::unique_ptr<System> SystemFactory::GetSystem(const std::string& name) {
 	auto system = _systemMap.find(name);

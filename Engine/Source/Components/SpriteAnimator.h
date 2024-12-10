@@ -1,7 +1,7 @@
 #pragma once
 
-#include "ECS/Systems/SpriteRenderer.h"
-#include "ServiceLocator.h"
+#include "Systems/SpriteRenderer.h"
+#include "Utils/ServiceLocator.h"
 
 #include <glm/glm.hpp>
 #include <nlohmann/json.hpp>

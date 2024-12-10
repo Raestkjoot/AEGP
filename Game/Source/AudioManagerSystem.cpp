@@ -1,8 +1,8 @@
 #include "AudioManagerSystem.h"
 
-#include "Logger.h"
-#include "ServiceLocator.h"
-#include "InputManager.h"
+#include "Utils/Logger.h"
+#include "Utils/ServiceLocator.h"
+#include "Input/InputManager.h"
 #include "Application.h"
 
 #include <GLFW/glfw3.h>

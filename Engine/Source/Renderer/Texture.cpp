@@ -1,7 +1,7 @@
 #include "Texture.h"
 
-#include "Renderer/Renderer.h"
-#include "Logger.h"
+#include "Renderer.h"
+#include "Utils/Logger.h"
 
 #define STB_IMAGE_IMPLEMENTATION
 #include <stb_image.h>

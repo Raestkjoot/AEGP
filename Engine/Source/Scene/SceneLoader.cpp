@@ -1,9 +1,9 @@
 #include "SceneLoader.h"
 
-#include "Logger.h"
+#include "Utils/Logger.h"
 #include "SystemFactory.h"
 #include "ComponentFactory.h"
-#include "ECS/Scene.h"
+#include "Scene.h"
 
 #include <nlohmann/json.hpp>
 

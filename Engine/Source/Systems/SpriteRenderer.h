@@ -1,9 +1,9 @@
 #pragma once
 
-#include "ECS/System.h"
+#include "System.h"
 #include "Renderer/Shader.h"
 #include "Renderer/Texture.h"
-#include "ECS/Components/Transform.h"
+#include "Components/Transform.h"
 
 #include <glm/glm.hpp>
 

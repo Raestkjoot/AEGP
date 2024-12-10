@@ -1,15 +1,15 @@
 #include "MoveSystem.h"
 
-#include "ServiceLocator.h"
-#include "InputManager.h"
-#include "Application.h"
 #include "PlayerController.h"
-#include "ECS/Components/Transform.h"
-#include "ECS/Components/Sprite.h"
-#include "ECS/Components/SpriteAnimator.h"
-#include "ECS/Components/Camera2D.h"
-#include "ECS/Components/Collider_Dynamic.h"
-#include "Logger.h"
+#include "Application.h"
+#include "Input/InputManager.h"
+#include "Components/Transform.h"
+#include "Components/Sprite.h"
+#include "Components/SpriteAnimator.h"
+#include "Components/Camera2D.h"
+#include "Components/Collider_Dynamic.h"
+#include "Utils/Logger.h"
+#include "Utils/ServiceLocator.h"
 
 #include <glfw/glfw3.h>
 #define GLM_ENABLE_EXPERIMENTAL

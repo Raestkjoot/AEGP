@@ -16,8 +16,3 @@ target_link_libraries(Game Engine)
 file(COPY Game/Assets DESTINATION ${CMAKE_CURRENT_BINARY_DIR}/Debug)
 file(COPY Game/Assets DESTINATION ${CMAKE_CURRENT_BINARY_DIR}/Release)
 file(COPY Game/Assets DESTINATION ${CMAKE_CURRENT_BINARY_DIR})
-
-# Build Editor executable
-file(GLOB_RECURSE EditorSource "Editor/Source/*.cpp" "Editor/Source/*.h")
-add_executable(Editor "Editor/Source/Main.cpp" ${EditorSource})
-target_link_libraries(Editor Engine)

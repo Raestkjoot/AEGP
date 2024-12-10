@@ -1,7 +1,7 @@
 #pragma once
 
 #include "Application.h"
-#include "ECS/Scene.h"
+#include "Scene/Scene.h"
 
 class PrototypeApplication : public Application {
 public:

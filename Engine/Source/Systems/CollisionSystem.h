@@ -1,6 +1,6 @@
 #pragma once
 
-#include "ECS/System.h"
+#include "System.h"
 
 class CollisionSystem : public System {
 	void Update(float delta) override;

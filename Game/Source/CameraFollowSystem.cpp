@@ -1,8 +1,8 @@
 #include "CameraFollowSystem.h"
 
-#include "ECS/Components/Camera2D.h"
+#include "Components/Camera2D.h"
+#include "Components/Transform.h"
 #include "PlayerController.h"
-#include "ECS/Components/Transform.h"
 
 void CameraFollowSystem::Update(float delta) {
 	auto playerView = _registry->view<Transform, PlayerController>();

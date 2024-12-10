@@ -1,10 +1,10 @@
 #include "CollisionSystem.h"
 
-#include "ECS/Components/Transform.h"
-#include "ECS/Components/AABB.h"
-#include "ECS/Components/Collider_Dynamic.h"
-#include "ECS/Components/Collider_Static.h"
-#include "Logger.h"
+#include "Components/Transform.h"
+#include "Components/AABB.h"
+#include "Components/Collider_Dynamic.h"
+#include "Components/Collider_Static.h"
+#include "Utils/Logger.h"
 
 #include <glm/glm.hpp>
 

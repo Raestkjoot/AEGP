@@ -1,14 +1,14 @@
 #include "SpriteRenderer.h"
 
-#include "ECS/Components/Transform.h"
-#include "ECS/Components/Sprite.h"
-#include "ECS/Components/Camera2D.h"
-#include "ECS/Components/SpriteAnimator.h"
-#include "Logger.h"
 #include "Renderer/Renderer.h"
-#include "ServiceLocator.h"
-#include "ECS/Systems/TimingsSystem.h"
-#include "Timer.h"
+#include "TimingsSystem.h"
+#include "Components/Transform.h"
+#include "Components/Sprite.h"
+#include "Components/Camera2D.h"
+#include "Components/SpriteAnimator.h"
+#include "Utils/Logger.h"
+#include "Utils/Timer.h"
+#include "Utils/ServiceLocator.h"
 
 #define GLM_ENABLE_EXPERIMENTAL
 #include <glm/gtx/matrix_transform_2d.hpp>

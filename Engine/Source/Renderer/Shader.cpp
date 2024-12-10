@@ -1,7 +1,7 @@
 #include "Shader.h"
 
-#include "Logger.h"
-#include "Renderer/Renderer.h"
+#include "Utils/Logger.h"
+#include "Renderer.h"
 
 #include <string>
 #include <fstream>
