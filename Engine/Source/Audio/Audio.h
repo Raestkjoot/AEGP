@@ -6,6 +6,8 @@ class ma_sound;
 
 class Audio {
 public:
+	Audio() = default;
+	Audio(Audio&& other) noexcept;
 	~Audio();
 
 	void Load(const std::string& filename);

@@ -1,9 +1,13 @@
 #pragma once
 
 #include "Systems/System.h"
+#include "Audio/Audio.h"
 #include "Audio/AudioArray.h"
 
 #include "glm/glm.hpp"
+
+class AudioArray;
+class Audio;
 
 class MoveSystem : public System {
 public:
@@ -12,7 +16,7 @@ public:
 
 private:
 	void HandleInput();
-	bool ShouldJump();
+	bool ShouldJump() const;
 
 	glm::vec2 _velocity;
 	float _moveDirection;
@@ -45,5 +49,6 @@ private:
 	float _coyoteTime = 0.1f;
 #pragma endregion tweak values
 
-	AudioArray _jumpSounds;
+	Audio _jumpSound;
+	AudioArray _footStepSounds;
 };

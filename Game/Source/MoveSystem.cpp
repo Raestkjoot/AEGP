@@ -3,6 +3,8 @@
 #include "PlayerController.h"
 #include "Application.h"
 #include "Input/InputManager.h"
+#include "Audio/Audio.h"
+#include "Audio/AudioArray.h"
 #include "Components/Transform.h"
 #include "Components/Sprite.h"
 #include "Components/SpriteAnimator.h"
@@ -26,10 +28,18 @@ void MoveSystem::Start() {
 	ServiceLocator::GetInputManager()->ListenToKey(GLFW_KEY_ESCAPE);
 
 	//_jumpSounds.AddAudioFile("Assets/sfx_jump_purr.wav");
-	_jumpSounds.AddAudioFile("Assets/Voice.wav");
-	_jumpSounds.AddAudioFile("Assets/Voice2.wav");
-	_jumpSounds.SetPitchRange({ 0.95f, 1.2f });
-	_jumpSounds.SetVolumeRange({ 0.7f, 0.8f });
+	//_jumpSounds.AddAudioFile("Assets/Voice.wav");
+	//_jumpSounds.AddAudioFile("Assets/Voice2.wav");
+	//_jumpSounds.SetPitchRange({ 0.95f, 1.2f });
+	//_jumpSounds.SetVolumeRange({ 0.7f, 0.8f });
+
+	_jumpSound.Load("Assets/sfx_jump_purr.wav");
+	_jumpSound.SetVolume(2.0f);
+	_footStepSounds.AddAudioFile("Assets/sfx_footstep01.wav"); 
+	_footStepSounds.AddAudioFile("Assets/sfx_footstep02.wav");
+	_footStepSounds.AddAudioFile("Assets/sfx_footstep03.wav");
+	_footStepSounds.SetPitchRange({ 0.95f, 1.2f });
+	_footStepSounds.SetVolumeRange({ 0.7f, 0.8f });
 
 
 	auto playerView = _registry->view<Transform, Sprite, PlayerController>();
@@ -80,7 +90,7 @@ void MoveSystem::Update(float delta) {
 
 	if (ShouldJump()) {
 		_velocity.y = _jumpPower;
-		_jumpSounds.PlayRandom();
+		_jumpSound.Play();
 		_initialAirHorizontalVelocity = _velocity.x;
 		_readyToJumpAgain = false;
 	}
@@ -172,7 +182,7 @@ void MoveSystem::HandleInput() {
 	}
 }
 
-bool MoveSystem::ShouldJump() {
+bool MoveSystem::ShouldJump() const {
 	bool keyPressedInTime = _jumpReleased ?
 		_passedTime - _jumpPressedTime < _jumpCache1 :
 		_passedTime - _jumpPressedTime < _jumpCache2;

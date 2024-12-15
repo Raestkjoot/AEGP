@@ -6,6 +6,14 @@
 
 #include <miniaudio.h>
 
+
+Audio::Audio(Audio&& other) noexcept {
+	_audio = other._audio;
+	_volume = other._volume;
+	_pitch = other._pitch;
+	other._audio = nullptr;
+}
+
 Audio::~Audio() {
 	ma_sound_uninit(_audio);
 	delete _audio;
