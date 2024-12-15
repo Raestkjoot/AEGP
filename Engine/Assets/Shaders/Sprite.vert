@@ -1,4 +1,4 @@
-#version 330 core
+#version 410 core
 
 layout (location = 0) in vec2 Pos;
 layout (location = 1) in uint QuadID;
@@ -23,8 +23,8 @@ uniform float TexSize = 512.0f;
 out vec2 TexCoords;
 
 void main() {
-	// TODO: Divide by total texture size
    TexCoords = (quad[QuadID].TexBaseCoords + Pos * quad[QuadID].TexWidthHeight) / TexSize;
+
    vec2 offsetPosition = Pos + Offset;
    vec3 position = CameraMatrix * quad[QuadID].Transform * vec3(offsetPosition, 1.0f);
    gl_Position = vec4(position.xy, 0.5f, 1.0f);

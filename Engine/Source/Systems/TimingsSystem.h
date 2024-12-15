@@ -4,8 +4,6 @@
 
 #include <vector>
 
-#define SAMPLE_COUNT 20
-
 class TimingsSystem : public System {
 public:
 	// fps (from delta time avg)

@@ -54,11 +54,12 @@ void TimingsSystem::Update(float deltaTime) {
 	avgSpritePrepTime /= _maxSamples;
 
 	if (_sampleIndex == 0) {
-		// Save the average and convert seconds -> milliseconds
+		// Save the average delta time and convert seconds -> milliseconds
 		_avgDeltaTime = avgDeltaTime * 1000.0f;
 		// render time is in nanoseconds
 		_avgRenderTime = static_cast<float>(avgRenderTime); // ns =  / 1000000
 		_avgRenderTime /= 1000000.0f;
+		// Save the average sprite prep time and convert seconds -> milliseconds
 		_avgSpritePrepTime = avgSpritePrepTime * 1000.0f;
 	}
 
