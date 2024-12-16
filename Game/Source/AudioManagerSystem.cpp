@@ -16,6 +16,7 @@ void AudioManagerSystem::Start() {
 	_audio.Load("Assets/Xeph-Loop.mp3");
 	_audio.SetVolume(0.4f);
 	_audio.Loop(true);
+	_audio.Play();
 }
 
 void AudioManagerSystem::Update(float delta) {
