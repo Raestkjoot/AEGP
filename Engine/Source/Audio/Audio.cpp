@@ -14,6 +14,16 @@ Audio::Audio(Audio&& other) noexcept {
 	other._audio = nullptr;
 }
 
+Audio& Audio::operator=(const Audio& other) noexcept {
+	_volume = other._volume;
+	_pitch = other._pitch;
+	// Currently assuming we will use std::move() on other, 
+	// but maybe we want to create a new ma_sound on the engine and copy from other in the future
+	_audio = other._audio;
+
+	return *this;
+}
+
 Audio::~Audio() {
 	ma_sound_uninit(_audio);
 	delete _audio;

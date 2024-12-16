@@ -9,6 +9,7 @@ public:
 	Audio() = default;
 	Audio(Audio&& other) noexcept;
 	~Audio();
+	Audio& operator=(const Audio& other) noexcept;
 
 	void Load(const std::string& filename);
 	void Play();
