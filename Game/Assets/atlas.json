@@ -3,6 +3,10 @@
 {
 	"name": "DefaultSquare",
 	"frame": {"x":2,"y":2,"w":256,"h":256}
+},
+{
+	"name": "StarSquare",
+	"frame": {"x":260,"y":2,"w":256,"h":256}
 }],
 "animations": [
 	{

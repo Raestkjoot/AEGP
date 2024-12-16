@@ -81,7 +81,7 @@
         {
           "Name": "Transform",
           "Arguments": {
-            "Position": [ -0.5, -0.5 ]
+            "Position": [ -0.5, -1.0 ]
           }
         },
         {
@@ -111,7 +111,7 @@
         {
           "Name": "Transform",
           "Arguments": {
-            "Position": [ -0.5, 1.5 ],
+            "Position": [ 2.0, 1.0 ],
             "Scale": [ 0.5, 0.5 ]
           }
         },
@@ -125,6 +125,66 @@
           "Name": "AABB",
           "Arguments": {
             "Size": [ 0.25, 0.25 ]
+          }
+        },
+        {
+          "Name": "Collider_Static",
+          "Arguments": {
+          }
+        }
+      ]
+    },
+    {
+      "Name": "Star",
+      "Components": [
+        {
+          "Name": "Transform",
+          "Arguments": {
+            "Position": [ 2, 3.5 ],
+            "Scale": [ 0.5, 0.5 ]
+          }
+        },
+        {
+          "Name": "Sprite",
+          "Arguments": {
+            "Name": "StarSquare"
+          }
+        },
+        {
+          "Name": "AABB",
+          "Arguments": {
+            "Size": [ 0.25, 0.25 ]
+          }
+        },
+        {
+          "Name": "Collider_Trigger",
+          "Arguments": {
+          }
+        }
+      ]
+    },
+    {
+      "Name": "Platform",
+      "Components": [
+        {
+          "Name": "Transform",
+          "Arguments": {
+            "Position": [ -5.5, -0.5 ],
+            "Scale": [ 0.75, 0.75 ]
+          }
+        },
+        {
+          "Name": "Sprite",
+          "Arguments": {
+            "Name": "DefaultSquare",
+            "FlipY": true,
+            "FlipX": true
+          }
+        },
+        {
+          "Name": "AABB",
+          "Arguments": {
+            "Size": [ 0.375, 0.375 ]
           }
         },
         {
@@ -140,20 +200,22 @@
         {
           "Name": "Transform",
           "Arguments": {
-            "Position": [ 2.0, 1.5 ],
-            "Scale": [ 0.5, 0.5 ]
+            "Position": [ -5.5, 1.5 ],
+            "Scale": [ 1.0, 0.5 ]
           }
         },
         {
           "Name": "Sprite",
           "Arguments": {
-            "Name": "DefaultSquare"
+            "Name": "DefaultSquare",
+            "FlipY": true,
+            "FlipX": true
           }
         },
         {
           "Name": "AABB",
           "Arguments": {
-            "Size": [ 0.25, 0.25 ]
+            "Size": [ 0.5, 0.25 ]
           }
         },
         {
@@ -164,19 +226,50 @@
       ]
     },
     {
-      "Name": "Point",
+      "Name": "Platform",
       "Components": [
         {
           "Name": "Transform",
           "Arguments": {
-            "Position": [ 2, 3.5 ],
+            "Position": [ -5.5, 3.5 ],
+            "Scale": [ 1.0, 0.5 ]
+          }
+        },
+        {
+          "Name": "Sprite",
+          "Arguments": {
+            "Name": "DefaultSquare",
+            "FlipY": true,
+            "FlipX": true
+          }
+        },
+        {
+          "Name": "AABB",
+          "Arguments": {
+            "Size": [ 0.5, 0.25 ]
+          }
+        },
+        {
+          "Name": "Collider_Static",
+          "Arguments": {
+          }
+        }
+      ]
+    },
+    {
+      "Name": "Star",
+      "Components": [
+        {
+          "Name": "Transform",
+          "Arguments": {
+            "Position": [ -4.0, 5.0 ],
             "Scale": [ 0.5, 0.5 ]
           }
         },
         {
           "Name": "Sprite",
           "Arguments": {
-            "Name": "DefaultSquare"
+            "Name": "StarSquare"
           }
         },
         {
