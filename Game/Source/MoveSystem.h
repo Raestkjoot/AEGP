@@ -49,6 +49,6 @@ private:
 	float _coyoteTime = 0.1f;
 #pragma endregion tweak values
 
-	Audio _jumpSound;
+	AudioArray _jumpSound;
 	AudioArray _footStepSounds;
 };

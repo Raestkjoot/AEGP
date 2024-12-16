@@ -24,22 +24,19 @@ void MoveSystem::Start() {
 	ServiceLocator::GetInputManager()->ListenToKey(GLFW_KEY_D);
 	ServiceLocator::GetInputManager()->ListenToKey(GLFW_KEY_UP);
 	ServiceLocator::GetInputManager()->ListenToKey(GLFW_KEY_W);
+	ServiceLocator::GetInputManager()->ListenToKey(GLFW_KEY_SPACE);
 
 	ServiceLocator::GetInputManager()->ListenToKey(GLFW_KEY_ESCAPE);
 
-	//_jumpSounds.AddAudioFile("Assets/sfx_jump_purr.wav");
-	//_jumpSounds.AddAudioFile("Assets/Voice.wav");
-	//_jumpSounds.AddAudioFile("Assets/Voice2.wav");
-	//_jumpSounds.SetPitchRange({ 0.95f, 1.2f });
-	//_jumpSounds.SetVolumeRange({ 0.7f, 0.8f });
-
-	_jumpSound.Load("Assets/sfx_jump_purr.wav");
+	_jumpSound.AddAudioFile("Assets/sfx_jump_purr.wav");
+	_jumpSound.AddAudioFile("Assets/sfx_land_purr.wav");
 	_jumpSound.SetVolume(2.0f);
+	_jumpSound.SetPitchRange({ 0.9f, 1.1f });
 	_footStepSounds.AddAudioFile("Assets/sfx_footstep01.wav"); 
 	_footStepSounds.AddAudioFile("Assets/sfx_footstep02.wav");
 	_footStepSounds.AddAudioFile("Assets/sfx_footstep03.wav");
 	_footStepSounds.SetPitchRange({ 0.95f, 1.2f });
-	_footStepSounds.SetVolumeRange({ 0.7f, 0.8f });
+	_footStepSounds.SetVolume(0.45f);
 
 
 	auto playerView = _registry->view<Transform, Sprite, PlayerController>();
@@ -90,7 +87,8 @@ void MoveSystem::Update(float delta) {
 
 	if (ShouldJump()) {
 		_velocity.y = _jumpPower;
-		_jumpSound.Play();
+		_jumpSound.Play(0);
+		_footStepSounds.PlayShuffle();
 		_initialAirHorizontalVelocity = _velocity.x;
 		_readyToJumpAgain = false;
 	}
@@ -105,6 +103,10 @@ void MoveSystem::Update(float delta) {
 				animator.curAnimation = &animator.animations.at("Run");
 				animator.curFrame = 0;
 				animator.speed = 16.0f;
+
+				// play footstep sound on frames 2 and 6 when the feet hit the ground in the run animation
+			} else if (animator.curFrame == 2 || animator.curFrame == 6) {
+				_footStepSounds.PlayShuffle();
 			}
 		} else {
 			_velocity.x -= _velocity.x * _groundDeceleration * delta;
@@ -117,6 +119,11 @@ void MoveSystem::Update(float delta) {
 		
 		if (_velocity.y < 0.0f) {
 			_velocity.y = 0.0f;
+		}
+
+		if (!_wasGroundedLastFrame) {
+			_jumpSound.Play(1);
+			_footStepSounds.PlayShuffle();
 		}
 
 		_wasGroundedLastFrame = true;
@@ -171,12 +178,14 @@ void MoveSystem::HandleInput() {
 		_moveDirection += 1.0f;
 	}
 	if (ServiceLocator::GetInputManager()->GetKeyDown(GLFW_KEY_W) ||
-		ServiceLocator::GetInputManager()->GetKeyDown(GLFW_KEY_UP)) {
+		ServiceLocator::GetInputManager()->GetKeyDown(GLFW_KEY_UP) ||
+		ServiceLocator::GetInputManager()->GetKeyDown(GLFW_KEY_SPACE)) {
 		_jumpReleased = false;
 		_jumpPressedTime = _passedTime;
 	}
 	if (ServiceLocator::GetInputManager()->GetKeyUp(GLFW_KEY_W) ||
-		ServiceLocator::GetInputManager()->GetKeyUp(GLFW_KEY_UP)) {
+		ServiceLocator::GetInputManager()->GetKeyUp(GLFW_KEY_UP) ||
+		ServiceLocator::GetInputManager()->GetKeyUp(GLFW_KEY_SPACE)) {
 		_jumpReleased = true;
 		_readyToJumpAgain = true;
 	}

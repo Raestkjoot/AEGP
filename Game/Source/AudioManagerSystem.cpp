@@ -14,7 +14,7 @@ void AudioManagerSystem::Start() {
 	ServiceLocator::GetInputManager()->ListenToKey(GLFW_KEY_M);
 
 	_audio.Load("Assets/Xeph-Loop.mp3");
-	_audio.SetVolume(0.6f);
+	_audio.SetVolume(0.4f);
 	_audio.Loop(true);
 }
 

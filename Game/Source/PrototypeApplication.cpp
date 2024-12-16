@@ -63,8 +63,8 @@ void PrototypeApplication::Initialize() {
 	_componentFactory->RegisterComponent("SpriteAnimator", [](Scene* scene, entt::entity e, nlohmann::json& args)
 		{ scene->AddComponent<SpriteAnimator>(e); });
 
-	//LoadScene("Assets/PrototypeScene.json");
-	LoadScene("output.json");
+	LoadScene("Assets/PrototypeScene.json");
+	//LoadScene("output.json");
 
 	Application::Initialize();
 }

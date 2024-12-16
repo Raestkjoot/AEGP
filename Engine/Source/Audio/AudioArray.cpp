@@ -28,7 +28,7 @@ void AudioArray::PlayShuffle() {
 }
 
 void AudioArray::Play(int index) {
-	float volume = Random::Range(_volumeRange.x, _volumeRange.y);
+	float volume = _volume;
 	float pitch = Random::Range(_pitchRange.x, _pitchRange.y);
 
 	_audioClips[index].SetVolume(volume);
@@ -36,8 +36,8 @@ void AudioArray::Play(int index) {
 	_audioClips[index].Play();
 }
 
-void AudioArray::SetVolumeRange(glm::vec2 volumeRange) {
-	_volumeRange = volumeRange;
+void AudioArray::SetVolume(float volume) {
+	_volume = volume;
 }
 
 void AudioArray::SetPitchRange(glm::vec2 pitchRange) {
