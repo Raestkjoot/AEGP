@@ -30,8 +30,8 @@ struct PlayerController {
 	// giving a feel of converting hori velocity to vert velocity.
 	float airVerticalAcceleration = 1.8f;
 	float jumpPower = 6.5f;
-	// gravity after a jump depends on whether jump is being held down or not.
 	float gravity = 25.0f;
+	// gravity after a jump depends on whether jump is being held down or not.
 	float jumpHeldGravity = 10.0f;
 	// Store jump input for this long, after player releases jump button
 	float jumpCache1 = 0.08f;

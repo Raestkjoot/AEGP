@@ -12,5 +12,5 @@ public:
 private:
 	void ClearFrame();
 
-	glm::vec4 _clearColor{ 0.31f, 0.3f, 0.305f, 1.0f };
+	glm::vec4 _clearColor{ 0.196f, 0.2f, 0.18f, 1.0f };
 };

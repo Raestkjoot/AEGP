@@ -31,7 +31,7 @@
 #include <entt/entt.hpp>
 #include "nlohmann/json.hpp"
 
-PrototypeApplication::PrototypeApplication() : Application(512, 512, "Hello") { }
+PrototypeApplication::PrototypeApplication() : Application(1080, 1080, "Hello") { }
 
 void PrototypeApplication::Initialize() {
 	_systemFactory->RegisterSystem("AudioManagerSystem", []() {return std::make_unique<AudioManagerSystem>(); });

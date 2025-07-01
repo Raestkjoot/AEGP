@@ -5,9 +5,7 @@
     "PlayerCollisionSystem",
     "CameraFollowSystem",
     "ClearRenderer",
-    "ClearUI",
-    "SpriteRenderer",
-    "TimingsSystem"
+    "SpriteRenderer"
   ],
   "Entities": [
     {
@@ -51,7 +49,7 @@
           "Name": "Transform",
           "Arguments": {
             "Position": [ 0.0, -4.5 ],
-            "Scale": [ 20.0, 6.0 ]
+            "Scale": [ 50.0, 6.0 ]
           }
         },
         {
@@ -65,7 +63,7 @@
         {
           "Name": "AABB",
           "Arguments": {
-            "Size": [ 10.0, 3.0 ]
+            "Size": [ 25.0, 3.0 ]
           }
         },
         {
@@ -257,12 +255,418 @@
       ]
     },
     {
+      "Name": "Platform",
+      "Components": [
+        {
+          "Name": "Transform",
+          "Arguments": {
+            "Position": [ -6.0, 2.0 ],
+            "Scale": [ 0.5, 8.0 ]
+          }
+        },
+        {
+          "Name": "Sprite",
+          "Arguments": {
+            "Name": "DefaultSquare"
+          }
+        },
+        {
+          "Name": "AABB",
+          "Arguments": {
+            "Size": [ 0.25, 4.0 ]
+          }
+        },
+        {
+          "Name": "Collider_Static",
+          "Arguments": {
+          }
+        }
+      ]
+    },
+    {
+      "Name": "Platform",
+      "Components": [
+        {
+          "Name": "Transform",
+          "Arguments": {
+            "Position": [ -8.0, 0.0 ],
+            "Scale": [ 4.0, 0.5 ]
+          }
+        },
+        {
+          "Name": "Sprite",
+          "Arguments": {
+            "Name": "DefaultSquare"
+          }
+        },
+        {
+          "Name": "AABB",
+          "Arguments": {
+            "Size": [ 2.0, 0.25 ]
+          }
+        },
+        {
+          "Name": "Collider_Static",
+          "Arguments": {
+          }
+        }
+      ]
+    },
+    {
       "Name": "Star",
       "Components": [
         {
           "Name": "Transform",
           "Arguments": {
             "Position": [ -4.0, 5.0 ],
+            "Scale": [ 0.5, 0.5 ]
+          }
+        },
+        {
+          "Name": "Sprite",
+          "Arguments": {
+            "Name": "StarSquare"
+          }
+        },
+        {
+          "Name": "AABB",
+          "Arguments": {
+            "Size": [ 0.25, 0.25 ]
+          }
+        },
+        {
+          "Name": "Collider_Trigger",
+          "Arguments": {
+          }
+        }
+      ]
+    },
+    {
+      "Name": "Platform",
+      "Components": [
+        {
+          "Name": "Transform",
+          "Arguments": {
+            "Position": [ -12.0, 0.0 ],
+            "Scale": [ 2.0, 0.5 ]
+          }
+        },
+        {
+          "Name": "Sprite",
+          "Arguments": {
+            "Name": "DefaultSquare"
+          }
+        },
+        {
+          "Name": "AABB",
+          "Arguments": {
+            "Size": [ 1.0, 0.25 ]
+          }
+        },
+        {
+          "Name": "Collider_Static",
+          "Arguments": {
+          }
+        }
+      ]
+    },
+    {
+      "Name": "Platform",
+      "Components": [
+        {
+          "Name": "Transform",
+          "Arguments": {
+            "Position": [ -13.0, 1.0 ],
+            "Scale": [ 2.0, 0.5 ]
+          }
+        },
+        {
+          "Name": "Sprite",
+          "Arguments": {
+            "Name": "DefaultSquare"
+          }
+        },
+        {
+          "Name": "AABB",
+          "Arguments": {
+            "Size": [ 1.0, 0.25 ]
+          }
+        },
+        {
+          "Name": "Collider_Static",
+          "Arguments": {
+          }
+        }
+      ]
+    },
+    {
+      "Name": "Platform",
+      "Components": [
+        {
+          "Name": "Transform",
+          "Arguments": {
+            "Position": [ -14.0, 2.0 ],
+            "Scale": [ 2.0, 0.5 ]
+          }
+        },
+        {
+          "Name": "Sprite",
+          "Arguments": {
+            "Name": "DefaultSquare"
+          }
+        },
+        {
+          "Name": "AABB",
+          "Arguments": {
+            "Size": [ 1.0, 0.25 ]
+          }
+        },
+        {
+          "Name": "Collider_Static",
+          "Arguments": {
+          }
+        }
+      ]
+    },
+    {
+      "Name": "Platform",
+      "Components": [
+        {
+          "Name": "Transform",
+          "Arguments": {
+            "Position": [ -15.0, 4.0 ],
+            "Scale": [ 2.0, 0.5 ]
+          }
+        },
+        {
+          "Name": "Sprite",
+          "Arguments": {
+            "Name": "DefaultSquare"
+          }
+        },
+        {
+          "Name": "AABB",
+          "Arguments": {
+            "Size": [ 1.0, 0.25 ]
+          }
+        },
+        {
+          "Name": "Collider_Static",
+          "Arguments": {
+          }
+        }
+      ]
+    },
+    {
+      "Name": "Platform",
+      "Components": [
+        {
+          "Name": "Transform",
+          "Arguments": {
+            "Position": [ -18.5, 6.0 ],
+            "Scale": [ 1.0, 0.5 ]
+          }
+        },
+        {
+          "Name": "Sprite",
+          "Arguments": {
+            "Name": "DefaultSquare"
+          }
+        },
+        {
+          "Name": "AABB",
+          "Arguments": {
+            "Size": [ 0.5, 0.25 ]
+          }
+        },
+        {
+          "Name": "Collider_Static",
+          "Arguments": {
+          }
+        }
+      ]
+    },
+    {
+      "Name": "Platform",
+      "Components": [
+        {
+          "Name": "Transform",
+          "Arguments": {
+            "Position": [ -16, 8.0 ],
+            "Scale": [ 3.0, 0.5 ]
+          }
+        },
+        {
+          "Name": "Sprite",
+          "Arguments": {
+            "Name": "DefaultSquare"
+          }
+        },
+        {
+          "Name": "AABB",
+          "Arguments": {
+            "Size": [ 1.5, 0.25 ]
+          }
+        },
+        {
+          "Name": "Collider_Static",
+          "Arguments": {
+          }
+        }
+      ]
+    },
+    {
+      "Name": "Platform",
+      "Components": [
+        {
+          "Name": "Transform",
+          "Arguments": {
+            "Position": [ -12, 10.0 ],
+            "Scale": [ 4.0, 0.5 ]
+          }
+        },
+        {
+          "Name": "Sprite",
+          "Arguments": {
+            "Name": "DefaultSquare"
+          }
+        },
+        {
+          "Name": "AABB",
+          "Arguments": {
+            "Size": [ 2.0, 0.25 ]
+          }
+        },
+        {
+          "Name": "Collider_Static",
+          "Arguments": {
+          }
+        }
+      ]
+    },
+    {
+      "Name": "Star",
+      "Components": [
+        {
+          "Name": "Transform",
+          "Arguments": {
+            "Position": [ -8.0, 13.0 ],
+            "Scale": [ 0.5, 0.5 ]
+          }
+        },
+        {
+          "Name": "Sprite",
+          "Arguments": {
+            "Name": "StarSquare"
+          }
+        },
+        {
+          "Name": "AABB",
+          "Arguments": {
+            "Size": [ 0.25, 0.25 ]
+          }
+        },
+        {
+          "Name": "Collider_Trigger",
+          "Arguments": {
+          }
+        }
+      ]
+    },
+    {
+      "Name": "Star",
+      "Components": [
+        {
+          "Name": "Transform",
+          "Arguments": {
+            "Position": [ -7.0, -1.0 ],
+            "Scale": [ 0.5, 0.5 ]
+          }
+        },
+        {
+          "Name": "Sprite",
+          "Arguments": {
+            "Name": "StarSquare"
+          }
+        },
+        {
+          "Name": "AABB",
+          "Arguments": {
+            "Size": [ 0.25, 0.25 ]
+          }
+        },
+        {
+          "Name": "Collider_Trigger",
+          "Arguments": {
+          }
+        }
+      ]
+    },
+    {
+      "Name": "Platform",
+      "Components": [
+        {
+          "Name": "Transform",
+          "Arguments": {
+            "Position": [ 2.0, 6.0 ],
+            "Scale": [ 4.0, 0.5 ]
+          }
+        },
+        {
+          "Name": "Sprite",
+          "Arguments": {
+            "Name": "DefaultSquare"
+          }
+        },
+        {
+          "Name": "AABB",
+          "Arguments": {
+            "Size": [ 2.0, 0.25 ]
+          }
+        },
+        {
+          "Name": "Collider_Static",
+          "Arguments": {
+          }
+        }
+      ]
+    },
+    {
+      "Name": "Platform",
+      "Components": [
+        {
+          "Name": "Transform",
+          "Arguments": {
+            "Position": [ -2.0, 7.0 ],
+            "Scale": [ 4.0, 0.5 ]
+          }
+        },
+        {
+          "Name": "Sprite",
+          "Arguments": {
+            "Name": "DefaultSquare"
+          }
+        },
+        {
+          "Name": "AABB",
+          "Arguments": {
+            "Size": [ 2.0, 0.25 ]
+          }
+        },
+        {
+          "Name": "Collider_Static",
+          "Arguments": {
+          }
+        }
+      ]
+    },
+    {
+      "Name": "Star",
+      "Components": [
+        {
+          "Name": "Transform",
+          "Arguments": {
+            "Position": [ 3.0, 6.5 ],
             "Scale": [ 0.5, 0.5 ]
           }
         },

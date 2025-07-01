@@ -22,10 +22,10 @@ void CollisionSystem::Update(float delta) {
 		for (auto [sEntity, sTrans, sAabb] : staticAABBs.each()) {
 			// COLLISION DETECTION
 			// Measure overlaps and early return if there is an edge with no overlap
-			if ((overlaps[0] = dTrans.position.x + dAabb.extents.x - (sTrans.position.x - sAabb.extents.x)) < 0) { continue; }
-			if ((overlaps[1] = sTrans.position.x + sAabb.extents.x - (dTrans.position.x - dAabb.extents.x)) < 0) { continue; }
-			if ((overlaps[2] = dTrans.position.y + dAabb.extents.y - (sTrans.position.y - sAabb.extents.y)) < 0) { continue; }
-			if ((overlaps[3] = sTrans.position.y + sAabb.extents.y - (dTrans.position.y - dAabb.extents.y)) < 0) { continue; }
+			if ((overlaps[0] = dTrans.position.x + dAabb.extents.x - (sTrans.position.x - sAabb.extents.x)) < 0.0f) { continue; }
+			if ((overlaps[1] = sTrans.position.x + sAabb.extents.x - (dTrans.position.x - dAabb.extents.x)) < 0.0f) { continue; }
+			if ((overlaps[2] = dTrans.position.y + dAabb.extents.y - (sTrans.position.y - sAabb.extents.y)) < 0.0f) { continue; }
+			if ((overlaps[3] = sTrans.position.y + sAabb.extents.y - (dTrans.position.y - dAabb.extents.y)) < 0.0f) { continue; }
 
 			// COLLISION RESPONSE
 			// If we get to this point, all edges have overlap and we know the AABBs overlap.

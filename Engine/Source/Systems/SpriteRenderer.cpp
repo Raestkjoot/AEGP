@@ -68,7 +68,7 @@ void SpriteRenderer::Update(float delta) {
 		}
 	}
 
-	TimingsSystem::GetInstance().AddSpritePreperationTime(spritePreperationTimer.Tick());
+	//TimingsSystem::GetInstance().AddSpritePreperationTime(spritePreperationTimer.Tick());
 
 	if (curNumSprites == 0) {
 		return;
@@ -100,7 +100,7 @@ void SpriteRenderer::Update(float delta) {
 	glGetQueryObjectui64v(_queryID[_queryFrontBuffer][0], GL_QUERY_RESULT, &timer);
 	SwapQueryBuffers();
 	
-	TimingsSystem::GetInstance().AddRenderTime(timer);
+	//TimingsSystem::GetInstance().AddRenderTime(timer);
 }
 
 void SpriteRenderer::SetCamera(Camera2D* camera) {
@@ -163,7 +163,7 @@ void SpriteRenderer::Init(entt::registry* registry) {
 	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 
 	_shader.Load("Engine/Assets/Shaders/Sprite.vert", "Engine/Assets/Shaders/Sprite.frag");
-	_texture.Load("Assets/atlas.png");
+	_texture.Load("Assets/atlas_V2.png");
 
 	#pragma region VertexArray
 	// Generate vertices for the max number of quads
@@ -224,7 +224,7 @@ void SpriteRenderer::Init(entt::registry* registry) {
 	#pragma endregion QuadInfoBuffer
 
 	// TODO: This is a temporary hardcoded solution
-	LoadSpriteAtlas("Assets/atlas.png", "Assets/atlas.json");
+	LoadSpriteAtlas("Assets/atlas_V2.png", "Assets/atlas.json");
 
 	_shader.Use();
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
